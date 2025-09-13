@@ -1,4 +1,41 @@
-    /* Sidebar expansível (checkbox hack) */
+.arrow-icon-wrap {
+    display: inline-block;
+    position: relative;
+}
+.arrow-down { display: inline; }
+.arrow-up { display: none; }
+
+
+#visao:not(:checked) + label[for="visao"] .arrow-down,
+#visao-produto:not(:checked) + label[for="visao-produto"] .arrow-down {
+    display: inline;
+}
+#visao:not(:checked) + label[for="visao"] .arrow-up,
+#visao-produto:not(:checked) + label[for="visao-produto"] .arrow-up {
+    display: none;
+}
+#visao:checked + label[for="visao"] .arrow-down,
+#visao-produto:checked + label[for="visao-produto"] .arrow-down {
+    display: none;
+}
+#visao:checked + label[for="visao"] .arrow-up,
+#visao-produto:checked + label[for="visao-produto"] .arrow-up {
+    display: inline;
+}
+
+#entregas:not(:checked) + label[for="entregas"] .arrow-down {
+    display: inline;
+}
+#entregas:not(:checked) + label[for="entregas"] .arrow-up {
+    display: none;
+}
+#entregas:checked + label[for="entregas"] .arrow-down {
+    display: none;
+}
+#entregas:checked + label[for="entregas"] .arrow-up {
+    display: inline;
+}
+
 .nav-label {
     font-size: 1.1em;
     font-weight: 600;
@@ -25,7 +62,7 @@ input[type="checkbox"]:checked ~ .nav-menu {
     opacity: 1;
     pointer-events: auto;
 }
-/* Reset and Base Styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -62,7 +99,6 @@ input[type="checkbox"]:checked ~ .nav-menu {
     
     --radius: 0.75rem;
     
-    /* Sidebar com verde-água */
     --sidebar-background: hsl(180, 80%, 35%);
     --sidebar-foreground: hsl(0, 0%, 100%);
     --sidebar-primary: hsl(180, 85%, 40%);
@@ -72,7 +108,6 @@ input[type="checkbox"]:checked ~ .nav-menu {
     --sidebar-border: hsl(180, 85%, 30%);
     --sidebar-ring: hsl(180, 100%, 50%);
     
-    /* Design tokens específicos */
     --success: hsl(142, 76%, 36%);
     --success-foreground: hsl(0, 0%, 100%);
     --warning: hsl(38, 92%, 50%);
@@ -80,38 +115,15 @@ input[type="checkbox"]:checked ~ .nav-menu {
     --info: hsl(199, 89%, 48%);
     --info-foreground: hsl(0, 0%, 100%);
     
-    /* Gradientes e sombras */
     --gradient-primary: linear-gradient(135deg, hsl(180, 80%, 35%), hsl(180, 70%, 45%));
     --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 100%), hsl(210, 15%, 98%));
     --shadow-soft: 0 4px 20px -2px hsla(210, 15%, 15%, 0.08);
     --shadow-medium: 0 8px 30px -4px hsla(210, 15%, 15%, 0.12);
     --shadow-card: 0 2px 12px -2px hsla(210, 15%, 15%, 0.06);
     
-    /* Transitions */
     --transition-all: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Dark mode */
-.dark {
-    --background: hsl(210, 20%, 8%);
-    --foreground: hsl(210, 15%, 95%);
-    --card: hsl(210, 20%, 10%);
-    --card-foreground: hsl(210, 15%, 95%);
-    --popover: hsl(210, 20%, 10%);
-    --popover-foreground: hsl(210, 15%, 95%);
-    --secondary: hsl(210, 20%, 15%);
-    --secondary-foreground: hsl(210, 15%, 85%);
-    --muted: hsl(210, 20%, 12%);
-    --muted-foreground: hsl(210, 15%, 65%);
-    --border: hsl(210, 20%, 18%);
-    --input: hsl(210, 20%, 15%);
-    --gradient-subtle: linear-gradient(180deg, hsl(210, 20%, 10%), hsl(210, 20%, 8%));
-    --shadow-soft: 0 4px 20px -2px hsla(0, 0%, 0%, 0.25);
-    --shadow-medium: 0 8px 30px -4px hsla(0, 0%, 0%, 0.35);
-    --shadow-card: 0 2px 12px -2px hsla(0, 0%, 0%, 0.20);
-}
-
-/* Base */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background-color: var(--background);
@@ -119,14 +131,12 @@ body {
     line-height: 1.6;
 }
 
-/* App Container */
 .app-container {
     min-height: 100vh;
     display: flex;
     width: 100%;
 }
 
-/* Sidebar */
 .sidebar {
     width: 16rem;
     background-color: var(--sidebar-background);
@@ -185,7 +195,6 @@ body {
     display: none;
 }
 
-/* Navigation */
 .sidebar-nav {
     flex: 1;
     overflow-y: auto;
@@ -252,7 +261,6 @@ body {
     display: none;
 }
 
-/* Main Layout */
 .main-layout {
     flex: 1;
     display: flex;
@@ -265,7 +273,6 @@ body {
     margin-left: 4rem;
 }
 
-/* Header */
 .header {
     height: 4rem;
     display: flex;
@@ -300,7 +307,6 @@ body {
     color: var(--foreground);
 }
 
-/* Content */
 .content {
     flex: 1;
     padding: 1.5rem;
@@ -365,78 +371,7 @@ body {
     color: var(--muted-foreground);
 }
 
-/* Toast */
-.toast-container {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 100;
-    max-width: 420px;
-    width: 100%;
-}
 
-.toast {
-    background-color: var(--card);
-    color: var(--card-foreground);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1rem 1.5rem;
-    margin-bottom: 0.5rem;
-    box-shadow: var(--shadow-medium);
-    animation: slideInFromTop 0.3s ease-out;
-    position: relative;
-}
-
-.toast.success {
-    border-color: var(--success);
-    background-color: var(--success);
-    color: var(--success-foreground);
-}
-
-.toast.error {
-    border-color: var(--destructive);
-    background-color: var(--destructive);
-    color: var(--destructive-foreground);
-}
-
-.toast-close {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.25rem;
-    border-radius: 0.25rem;
-    opacity: 0.5;
-    transition: var(--transition-all);
-}
-
-.toast-close:hover {
-    opacity: 1;
-}
-
-/* Tooltip */
-.tooltip {
-    position: absolute;
-    background-color: var(--popover);
-    color: var(--popover-foreground);
-    border: 1px solid var(--border);
-    border-radius: 0.375rem;
-    padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
-    box-shadow: var(--shadow-medium);
-    z-index: 50;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-}
-
-.tooltip.show {
-    opacity: 1;
-}
-
-/* Animations */
 @keyframes slideInFromTop {
     from {
         transform: translateY(-100%);
@@ -448,7 +383,6 @@ body {
     }
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .sidebar {
         transform: translateX(-100%);
@@ -467,7 +401,6 @@ body {
     }
 }
 
-/* Loading */
 .loading {
     display: inline-block;
     width: 20px;
@@ -482,7 +415,6 @@ body {
     to { transform: rotate(360deg); }
 }
 
-/* Utilities */
 .hidden {
     display: none;
 }
