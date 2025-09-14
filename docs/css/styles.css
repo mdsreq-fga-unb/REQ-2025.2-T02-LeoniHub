@@ -36,6 +36,34 @@
     display: inline;
 }
 
+table {
+    width: 80%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #333;
+    padding: 16px; /* aumenta o tamanho das caixas */
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+
+ul.lista-com-traço {
+  list-style: none;
+  padding-left: 1.2em;
+}
+ul.lista-com-traço li::before {
+  content: "– "; /* traço */
+  color: #333;
+  font-weight: bold;
+  margin-left: -1.2em;
+  position: absolute;
+}
+ul.lista-com-traço li {
+  position: relative;
+  margin-bottom: 0.5em;
+}
 .nav-label {
     font-size: 1.1em;
     font-weight: 600;
