@@ -3,88 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interação Equipe e Cliente - Documento de Requisitos</title>
+    <title>Interação Equipe e Cliente - Documento LeoniHub</title>
     <link rel="stylesheet" href="../../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Interação Equipe e Cliente</title>
-        <link rel="stylesheet" href="../../css/styles.css">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <div class="app-container">
-            <!-- Sidebar -->
-            <aside class="sidebar" id="sidebar">
-                <div class="sidebar-header">
-                    <div class="sidebar-logo">
-                        <div class="logo-icon">
-                            <img src="../../img/Logo_semtexto.png" alt="Logo LeoniHub" style="width:60px;height:65px;display:block;margin-top:0.6rem;" />
-                        </div>
-                        <div class="logo-text">
-                            <h1>LeoniHub</h1>
-                            <p>Documentação</p>
-                        </div>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="logo-icon">
+                        <img src="../../img/Logo_semtexto.png" alt="Logo LeoniHub" style="width:60px;height:65px;display:block;margin-top:0.6rem;" />
+                    </div>
+                    <div class="logo-text">
+                        <h1>LeoniHub</h1>
+                        <p>Documentação</p>
                     </div>
                 </div>
-                <nav class="sidebar-nav">
-                    <div class="nav-group">
-                        <a href="../../index.html" class="nav-label nav-inicio" style="display:block; text-decoration:none;">
-                            <span style="vertical-align:middle;">INÍCIO</span>
-                        </a>
-                    </div>
-                    <div class="nav-group">
-                        <input type="checkbox" id="visao-produto" checked>
-                        <label class="nav-label" for="visao-produto">Visão do Produto e Projeto
-                            <span class="arrow-icon-wrap">
-                                <svg class="arrow-down" width="16" height="16" viewBox="0 0 24 24" style="vertical-align:middle; margin-left:4px;"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <svg class="arrow-up" width="16" height="16" viewBox="0 0 24 24" style="vertical-align:middle; margin-left:4px;"><path d="M7 14l5-5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </span>
-                        </label>
-                        <ul class="nav-menu">
-                            <li class="nav-item"><a href="CenarioAtual.html" class="nav-link">Cenário Atual</a></li>
-                            <li class="nav-item"><a href="SolucaoProposta.html" class="nav-link">Solução Proposta</a></li>
-                            <li class="nav-item"><a href="EstrategiasEngenharia.html" class="nav-link">Estratégias de Engenharia</a></li>
-                            <li class="nav-item"><a href="CronogramaEntregas.html" class="nav-link">Cronograma e Entregas</a></li>
-                            <li class="nav-item"><a href="InteracaoEquipeCliente.html" class="nav-link active">Interação Equipe e Cliente</a></li>
-                            <li class="nav-item"><a href="LicoesAprendidas.html" class="nav-link">Lições Aprendidas</a></li>
-                        </ul>
-                    </div>
-                    <div class="nav-group">
-                        <input type="checkbox" id="entregas">
-                        <label class="nav-label" for="entregas">Entregas
-                            <span class="arrow-icon-wrap">
-                                <svg class="arrow-down" width="16" height="16" viewBox="0 0 24 24" style="vertical-align:middle; margin-left:4px;"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <svg class="arrow-up" width="16" height="16" viewBox="0 0 24 24" style="vertical-align:middle; margin-left:4px;"><path d="M7 14l5-5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </span>
-                        </label>
-                        <ul class="nav-menu">
-                            <!-- Tópicos de Entregas futuramente -->
-                        </ul>
-                    </div>
-                </nav>
-            </aside>
-            <div class="main-layout">
-                <header class="header">
-                    <div class="header-title">
-                        <h2>Interação Equipe e Cliente</h2>
-                    </div>
-                </header>
-                <main class="content" id="mainContent">
-                    <div class="page-content">
-                        <div class="page-header">
-                            <h1>5. Interação Equipe e Cliente</h1>
-                            <p class="page-description">Preencher conforme o documento.</p>
-                        </div>
-                    </div>
-                </main>
             </div>
+            <nav class="sidebar-nav">
+                <div class="nav-group">
+                    <a href="../../index.html" class="nav-label nav-inicio" style="display:block; text-decoration:none;">
+                        <span style="vertical-align:middle;">INÍCIO</span>
+                    </a>
+                </div>
+                <div class="nav-group">
+                    <input type="checkbox" id="visao-produto" checked>
+                    <label class="nav-label" for="visao-produto">Visão do Produto e Projeto
+                        <span class="arrow-icon-wrap">
+                            <svg class="arrow-down" width="16" height="16" viewBox="0 0 24 24" style="vertical-align:middle; margin-left:4px;"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <svg class="arrow-up" width="16" height="16" viewBox="0 0 24 24" style="vertical-align:middle; margin-left:4px;"><path d="M7 14l5-5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                    </label>
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="CenarioAtual.html" class="nav-link">Cenário Atual</a></li>
+                        <li class="nav-item"><a href="SolucaoProposta.html" class="nav-link">Solução Proposta</a></li>
+                        <li class="nav-item"><a href="EstrategiasEngenharia.html" class="nav-link">Estratégias de Engenharia</a></li>
+                        <li class="nav-item"><a href="CronogramaEntregas.html" class="nav-link">Cronograma e Entregas</a></li>
+                        <li class="nav-item"><a href="InteracaoEquipeCliente.html" class="nav-link active">Interação Equipe e Cliente</a></li>
+                        <li class="nav-item"><a href="LicoesAprendidas.html" class="nav-link">Lições Aprendidas</a></li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <input type="checkbox" id="entregas">
+                    <label class="nav-label" for="entregas">Entregas
+                        <span class="arrow-icon-wrap">
+                            <svg class="arrow-down" width="16" height="16" viewBox="0 0 24 24" style="vertical-align:middle; margin-left:4px;"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <svg class="arrow-up" width="16" height="16" viewBox="0 0 24 24" style="vertical-align:middle; margin-left:4px;"><path d="M7 14l5-5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                    </label>
+                    <ul class="nav-menu">
+                        </ul>
+                </div>
+            </nav>
+        </aside>
+        <div class="main-layout">
+            <header class="header">
+                <div class="header-title">
+                    <h2>Interação entre Equipe e Cliente</h2>
+                </div>
+            </header>
+            <main class="content" id="mainContent">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1>5. Interação entre Equipe e Cliente</h1>
+                    </div>
+                    <div class="content-card">
+                        <h2>5.1 Composição da Equipe</h2>
+                        <p>A equipe de desenvolvimento será composta por:</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Papel</th>
+                                    <th>Descrição</th>
+                                    <th>Responsável</th>
+                                    <th>Participantes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Analista de Requisitos</td>
+                                    <td>Define os requisitos funcionais e não funcionais do sistema e garante que eles sejam atendidos.</td>
+                                    <td>Diogo Oliveira</td>
+                                    <td>Enzo Fernandes, Kauã Vale, Vitor Gabriel, Caio Vilas, André Ricardo</td>
+                                </tr>
+                                <tr>
+                                    <td>Analista de QA</td>
+                                    <td>Garante a qualidade do produto, executando testes de funcionalidade, performance e usabilidade.</td>
+                                    <td>Enzo Fernandes</td>
+                                    <td>Vitor Gabriel, André Ricardo</td>
+                                </tr>
+                                <tr>
+                                    <td>Scrum Master</td>
+                                    <td>Responsável por facilitar o processo Scrum, remover impedimentos e apoiar a equipe no cumprimento das práticas ágeis.</td>
+                                    <td>André Ricardo</td>
+                                    <td>Caio Vilas</td>
+                                </tr>
+                                <tr>
+                                    <td>Desenvolvedor Back-End</td>
+                                    <td>Implementa a lógica de negócios, integração com banco de dados e APIs.</td>
+                                    <td>Kauã Vale</td>
+                                    <td>Diogo Oliveira, Enzo Fernandes</td>
+                                </tr>
+                                <tr>
+                                    <td>Gerente de Projeto</td>
+                                    <td>Coordena o projeto, garante a comunicação entre cliente e equipe, controla prazos e entregas.</td>
+                                    <td>Vitor Gabriel</td>
+                                    <td>Diogo Oliveira, Kauã Vale</td>
+                                </tr>
+                                <tr>
+                                    <td>Desenvolvedor Front-End</td>
+                                    <td>Responsável pela interface do usuário, design e implementação das funcionalidades no lado do cliente.</td>
+                                    <td>Caio Vilas</td>
+                                    <td>André Ricardo, Kauã Vale</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <br>
+                        <h2>5.2 Comunicação</h2>
+                        <p>Para garantir o alinhamento contínuo entre a equipe de desenvolvimento e o cliente, bem como a colaboração eficiente entre os membros da equipe, serão utilizadas as seguintes ferramentas e métodos de comunicação, em conformidade com os princípios do Scrum/XP:</p>
+                        
+                        <h3>Comunicação com o Cliente:</h3>
+                        <ul>
+                            <li><strong>Ferramenta Principal:</strong> Chamadas via Google Meet e comunicação.</li>
+                            <li><strong>Frequência e Método:</strong>
+                                <ul>
+                                    <li><strong>Reuniões de Revisão de Sprint (Sprint Reviews):</strong> Realizadas ao final de cada sprint quinzenal. Estas reuniões via Google Meet permitirão ao cliente participar diretamente, visualizando as entregas, fornecendo feedback e validando o progresso.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h3>Comunicação entre os Membros da Equipe:</h3>
+                        <ul>
+                            <li><strong>Ferramenta Principal:</strong> Discord/WhatsApp.</li>
+                            <li><strong>Frequência e Método:</strong>
+                                <ul>
+                                    <li><strong>Reuniões de Planejamento de Sprint (Sprint Planning):</strong> No início de cada sprint, via Discord, para garantir que as prioridades e os requisitos sejam bem compreendidos.</li>
+                                    <li><strong>Canais de Texto e Voz:</strong> O WhatsApp será utilizado para comunicação assíncrona e o Discord para comunicação em tempo real, facilitando discussões técnicas e resolução de problemas.</li>
+                                    <li><strong>Programação em Pares e Colaboração Intensiva:</strong> O Discord facilitará a "programação em pares" e outras "práticas do XP", permitindo que os membros da equipe trabalhem juntos em tempo real.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h2>5.3 Processo de Validação</h2>
+                        <p>A validação do Leoni Hub será conduzida de forma incremental, acompanhando o desenvolvimento de cada sprint. O processo tem como objetivo garantir que as funcionalidades atendam tanto aos requisitos técnicos quanto às necessidades práticas das lojas.</p>
+                        
+                        <h3>Validação Interna</h3>
+                        <p>Antes de apresentar ao cliente, a equipe realizará testes internos funcionais e técnicos, verificando se os objetivos do sprint foram atingidos.</p>
+                        
+                        <h3>Definições de Pronto e Concluído (DoR e DoD)</h3>
+                        <ul>
+                            <li><strong>DoR (Definition of Ready):</strong> Apenas funcionalidades com requisitos claros, critérios de aceitação definidos e viabilidade técnica analisada entram em desenvolvimento.</li>
+                            <li><strong>DoD (Definition of Done):</strong> Funcionalidades só serão consideradas finalizadas após passarem por testes, revisão técnica e homologação pelo cliente.</li>
+                        </ul>
+
+                        <h3>Feedback do Cliente</h3>
+                        <p>Ao final de cada sprint, as funcionalidades entregues serão apresentadas ao cliente para avaliação prática. O cliente terá espaço para testar o sistema e apontar ajustes necessários.</p>
+
+                        <h3>Homologação Final</h3>
+                        <p>Após a conclusão de todos os sprints e ajustes solicitados, será realizada a homologação final junto ao cliente, validando o sistema como apto para implantação.</p>
+                    </div>
+                </div>
+            </main>
         </div>
-    </body>
+    </div>
+</body>
 </html>
-                          
