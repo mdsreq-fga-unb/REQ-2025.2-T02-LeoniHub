@@ -1,14 +1,12 @@
-# deploy.yml
-
 name: Deploy Docusaurus to GitHub Pages
 
+permissions:
+  contents: write
+
 on:
-  # Dispara a ação toda vez que você fizer um push para a branch 'docusaurus'
   push:
     branches:
       - docusaurus
-
-  # Permite que você rode esta ação manualmente pela aba "Actions" do GitHub
   workflow_dispatch:
 
 jobs:
@@ -35,5 +33,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # O diretório que o build gerou. Docusaurus gera na pasta 'build'.
           publish_dir: ./build
