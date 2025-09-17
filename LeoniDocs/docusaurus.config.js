@@ -20,15 +20,15 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://LeoniHub.com',
+  url: 'https://mdsreq-fga-unb.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/REQ-2025.2-T02-LeoniHub/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Leonni', // Usually your GitHub org/user name.
-  projectName: 'LeoniHub', // Usually your repo name.
+  organizationName: 'mdsreq-fga-unb', // Usually your GitHub org/user name.
+  projectName: 'REQ-2025.2-T02-LeoniHub', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
