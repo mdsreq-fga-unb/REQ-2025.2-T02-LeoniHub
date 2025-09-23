@@ -32,8 +32,7 @@ O projeto enfrenta alguns desafios importantes:
 
 ## 1.4 Segmentação de Clientes
 
-O **Leoni Hub** atende a principalmente 3 tipos de clientes
+O Leoni Hub atende dois segmentos de clientes principais, definidos por suas necessidades e objetivos dentro do ambiente de trabalho:
 
-- **Transição de sistema:** substituir o software atual sem prejudicar o funcionamento da loja durante o período de adaptação.
-- **Atender duas lojas diferentes:** garantir que Closet Chic e Leonni possam trabalhar dentro da mesma plataforma, mas com identidades diferentes em seus cadastros e relatórios.
-- **Facilidade de uso:** criar uma solução simples e intuitiva para que funcionários consigam utilizá-la no dia a dia, mesmo com diferentes níveis de familiaridade com tecnologia.
+- **Funcionários Novos (18-30 anos):** Este segmento é composto por profissionais que utilizam o sistema para tarefas operacionais diárias. Eles buscam **praticidade e eficiência**, e sua principal necessidade é uma plataforma que reduza o tempo gasto em tarefas repetitivas, como o cadastro de clientes e o agendamento de provas. Eles precisam de uma interface simples e intuitiva, que minimize erros e permita que o atendimento seja o mais ágil e fluido possível.
+- **Funcionários Experientes (30-50 anos):** Este segmento abrange os líderes e gerentes que dependem do Leoni Hub para obter uma **visão analítica e estratégica do negócio**. Sua principal necessidade é acessar dados confiáveis para acompanhar o desempenho geral da empresa e tomar decisões. Eles precisam de relatórios claros e dashboards completos que permitam monitorar indicadores-chave, como o volume de vendas e a produtividade da equipe, para otimizar os resultados e o crescimento da empresa.
