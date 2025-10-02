@@ -60,8 +60,8 @@ RF-06.4 Exibir os produtos mais alugados no período.
 
 ## RF-07 — Autenticação e Perfis de Acesso
 
-RF-08.1 Disponibilizar tela de login para autenticação de usuários.
+RF-07.1 Disponibilizar tela de login para autenticação de usuários.
 
-RF-08.2 Criar perfis de acesso diferenciados (ex.: Atendente e Gestor).
+RF-07.2 Criar perfis de acesso diferenciados (ex.: Atendente e Gestor).
 
-RF-08.3 Restringir funcionalidades de acordo com o perfil de acesso.
+RF-07.3 Restringir funcionalidades de acordo com o perfil de acesso.
