@@ -32,9 +32,9 @@ Estima a complexidade, o tempo e o esforço necessários para a implementação.
 
 ## RF-01 — Cadastro e Gestão de Produtos (estoque)
 
-****RF1.1:**:** Permitir o cadastro de produtos, incluindo fotos, código, tamanho, estado e descrição. - **( VN: 5 / CT: 4 )**
+**RF1.1:** Permitir o cadastro de produtos, incluindo fotos, código, tamanho, estado e descrição. - **( VN: 5 / CT: 4 )**
 
-****RF1.2:**:** Permitir a edição das informações de produtos já cadastrados. - **( VN: 5 / CT: 3 )**
+**RF1.2:** Permitir a edição das informações de produtos já cadastrados. - **( VN: 5 / CT: 3 )**
 
 **RF-01.3:** Permitir a consulta de produtos, com visualização detalhada de suas informações. - **( VN: 5 / CT: 2 )**
 
