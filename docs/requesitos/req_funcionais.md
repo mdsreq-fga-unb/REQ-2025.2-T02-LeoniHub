@@ -30,60 +30,63 @@ Estima a complexidade, o tempo e o esforço necessários para a implementação.
 
 ---
 
-## RF-01 — Cadastro e Gestão de Produtos (estoque)
+## RF1 — Cadastro e Gestão de Produtos (estoque)
 
-RF-01.1 Permitir o cadastro de produtos, incluindo fotos, código, tamanho, estado e descrição.
+**RF1.1:** Permitir o cadastro de produtos, incluindo fotos, código, tamanho, estado e descrição.
 
-RF-01.2 Permitir a edição das informações de produtos já cadastrados.
+**RF1.2:** Permitir a edição das informações de produtos já cadastrados.
 
-RF-01.3 Permitir a consulta de produtos, com visualização detalhada de suas informações.
+**RF1.3:** Permitir a consulta de produtos, com visualização detalhada de suas informações.
 
-RF-01.4 Realizar controle de estoque atualizando quantidades disponíveis.
+**RF1.4:** Realizar controle de estoque  atualizando quantidades disponíveis.
 
-## RF-02 — Controle de Status de Inventário em Tempo Real
+## RF2 — Controle de Status de Inventário em Tempo Real
 
-RF-02.1 Atualizar automaticamente o status de um produto (disponível, alugado, devolvido) após operações de aluguel ou devolução.
+**RF2.1:** Atualizar automaticamente o status de um produto (disponível, alugado, devolvido) após operações de aluguel ou devolução.
 
-## RF-03 — Gestão de Clientes e Histórico de Aluguéis
 
-RF-03.1 Permitir o cadastro de clientes com nome, CPF/CNPJ, telefone e endereço.
+## RF3 — Gestão de Clientes e Histórico de Aluguéis
 
-RF-03.2 Consultar clientes por nome, CPF ou telefone.
+**RF3.1:** Permitir o cadastro de clientes com nome, CPF/CNPJ, telefone e endereço.
 
-RF-03.3 Exibir o histórico completo de aluguéis e contratos vinculados a cada cliente.
+**RF3.2:** Consultar clientes por nome, CPF ou telefone.
 
-## RF-04 — Contratos Digitais e Assinaturas
+**RF3.3:** Exibir o histórico completo de aluguéis e contratos vinculados a cada cliente.
 
-RF-04.1 Gerar contratos digitais vinculados ao pedido e ao cliente.
+## RF4 — Contratos Digitais e Assinaturas
 
-RF-04.2 Permitir assinatura digital dos contratos.
+**RF4.1:** Gerar contratos digitais vinculados ao pedido e ao cliente.
 
-RF-04.3 Armazenar contratos de forma segura e organizada.
+**RF4.2:** Permitir assinatura digital dos contratos.
 
-RF-04.4 Disponibilizar busca e recuperação de contratos.
+**RF4.3:** Armazenar contratos de forma segura e organizada.
 
-## RF-05 — Agenda Integrada / Calendário de Provas e Retiradas
+**RF4.4:** Disponibilizar busca e recuperação de contratos.
 
-RF-05.1 Exibir agenda com compromissos de provas, retiradas e devoluções.
+## RF5 — Agenda Integrada / Calendário de Provas e Retiradas
 
-RF-05.2 Disponibilizar filtros de agenda por loja e por atendente.
 
-RF-05.3 Notificar clientes e atendentes sobre compromissos futuros.
+**RF5.1:** Exibir agenda com compromissos de provas, retiradas e devoluções.
 
-## RF-06 — Dashboard e Relatórios para Gestores
+**RF5.2:** Disponibilizar filtros de agenda por loja e por atendente.
 
-RF-06.1 Exibir faturamento do mês em formato visual.
+**RF5.3:** Notificar clientes e atendentes sobre compromissos futuros.
 
-RF-06.2 Exibir a quantidade de pedidos ativos.
+## RF6 — Dashboard e Relatórios para Gestores
 
-RF-06.3 Exibir os próximos agendamentos.
+**RF6.1:** Exibir faturamento do mês em formato visual.
 
-RF-06.4 Exibir os produtos mais alugados no período.
+**RF6.2:** Exibir a quantidade de pedidos ativos.
 
-## RF-07 — Autenticação e Perfis de Acesso
+**RF6.3:** Exibir os próximos agendamentos.
 
-RF-07.1 Disponibilizar tela de login para autenticação de usuários.
+**RF6.4:** Exibir os produtos mais alugados no período.
 
-RF-07.2 Criar perfis de acesso diferenciados (ex.: Atendente e Gestor).
 
-RF-07.3 Restringir funcionalidades de acordo com o perfil de acesso.
+## RF7 — Autenticação e Perfis de Acesso
+
+**RF7.1:** Disponibilizar tela de login para autenticação de usuários.
+
+**RF7.2:** Criar perfis de acesso diferenciados (ex.: Atendente e Gestor).
+
+**RF7.3:** Restringir funcionalidades de acordo com o perfil de acesso.
