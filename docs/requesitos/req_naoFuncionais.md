@@ -4,34 +4,48 @@ sidebar_position: 2
 
 # Requisitos Não Funcionais (RNF)
 
-## Usabilidade
-- RNF01: A interface deve ser simples e intuitiva, adequada para atendentes com pouca familiaridade com tecnologia.
-- RNF02: O tempo necessário para treinamento de novos usuários não deve exceder 2 horas.
+## RNF1 - Usabilidade e Design
 
-## Desempenho
-- RNF03: A atualização do status de estoque deve ocorrer em tempo quase real.
-**Tempo de resposta (percentil 95):**
-    - Consultas: ≤ 1 segundo.
-    - Criação/cancelamento de pedidos: ≤ 2 segundos.
+**RNF1.1:** A interface deve ser simples e intuitiva, adequada para atendentes com pouca familiaridade com tecnologia.
 
-## Disponibilidade
-- RNF04: O sistema deve estar disponível em, no mínimo, 98,5% do tempo durante o horário comercial.
+**RNF1.2:** O tempo necessário para treinamento de novos usuários não deve exceder 1 hora.
 
-## Segurança e LGPD
-- RNF05: Os dados sensíveis dos clientes devem ser protegidos com criptografia, tanto em trânsito (HTTPS) quanto em repouso (no banco de dados).
-- RNF06: Todos os acessos a dados devem ser controlados e registrados, garantindo a conformidade com a Lei Geral de Proteção de Dados (LGPD).
+## RNF2 - Desempenho
 
-## Confiabilidade
-- RNF07: As operações críticas, como a criação de pedidos e a atualização de estoque, devem ser transacionais para garantir a consistência dos dados (ou tudo funciona, ou nada é alterado).
+**RNF2.1:** A atualização do status de estoque deve ocorrer em tempo real (atraso máximo de 2 segundos após a alteração).
 
-## Manutenibilidade
-- RNF08: O código-fonte deve ser modular e bem documentado para facilitar futuras manutenções e evoluções.
-- RNF09: O sistema deve contar com testes automatizados para unidades críticas e um processo de integração contínua (CI).
+## RNF3 - Disponibilidade
 
-## Portabilidade
-- RNF10: O sistema será desenvolvido utilizando tecnologias web padrão (React, Node.js, PostgreSQL), permitindo sua execução em diferentes servidores.
-- RNF11: O processo de deploy deve ser configurado para ambientes separados de homologação (testes) и produção.
+**RNF3.1:** O sistema deve estar disponível em, no mínimo, 98,5% do tempo durante o horário comercial (8h–18h, de segunda a sexta-feira).
 
-## Observabilidade
-- RNF12: A plataforma deve registrar métricas básicas de desempenho, como número de requisições, latência e taxa de erros.
-- RNF13: Devem ser gerados logs estruturados para facilitar o suporte técnico, a depuração de problemas e auditorias de segurança.
+## RNF4 - Segurança e LGPD
+
+**RNF4.1:** Todos os acessos a dados devem ser controlados e registrados em logs de auditoria, garantindo conformidade com a LGPD.
+
+**RNF4.2:** Garantir que os dados de clientes, produtos e pedidos sejam isolados por loja.
+
+## RNF5 - Confiabilidade
+
+**RNF5.1:** As operações críticas, como criação de pedidos e atualização de estoque, devem ser transacionais para garantir a consistência dos dados.
+
+## RNF6 - Manutenibilidade
+
+**RNF6.1:** O código-fonte deve ser modular e bem documentado para facilitar futuras manutenções.
+
+**RNF6.2:** O sistema deve contar com testes automatizados para unidades críticas.
+
+**RNF6.3:** Deve haver um processo de integração contínua (CI) configurado para garantir qualidade e segurança nas entregas.
+
+## RNF7 - Portabilidade
+
+**RNF7.1:** O sistema será desenvolvido utilizando tecnologias web padrão (React, Node.js, PostgreSQL).
+
+**RNF7.2:** O processo de deploy deve ser configurado em ambientes separados de homologação (testes) e produção.
+
+## RNF8 - Observabilidade
+
+**RNF8.1:** O sistema deve registrar métricas básicas de desempenho (número de requisições, latência, taxa de erros).
+
+**RNF8.2:** Devem ser gerados logs estruturados para suporte técnico, depuração de problemas e auditorias de segurança.
+
+**RNF8.3:** Devem ser configurados alertas automáticos em caso de falhas críticas ou indisponibilidade.
