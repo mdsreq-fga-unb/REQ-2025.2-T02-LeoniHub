@@ -30,7 +30,7 @@ Estima a complexidade, o tempo e o esforço necessários para a implementação.
 
 ---
 
-## RF1 — Cadastro e Gestão de Produtos (estoque)
+## RF-01 — Cadastro e Gestão de Produtos (estoque)
 
 ****RF1.1:**:** Permitir o cadastro de produtos, incluindo fotos, código, tamanho, estado e descrição. - **( VN: 5 / CT: 4 )**
 
@@ -40,11 +40,11 @@ Estima a complexidade, o tempo e o esforço necessários para a implementação.
 
 **RF-01.4:** Realizar controle de estoque  atualizando quantidades disponíveis. - **( VN: 5 / CT: 3 )**
 
-## RF2 — Controle de Status de Inventário em Tempo Real
+## RF-02 — Controle de Status de Inventário em Tempo Real
 
 **RF-02.1:** Atualizar automaticamente o status de um produto (disponível, alugado, devolvido) após operações de aluguel ou devolução. - **( VN: 4 / CT: 2 )**
 
-## RF3 — Gestão de Clientes e Histórico de Aluguéis
+## RF-03 — Gestão de Clientes e Histórico de Aluguéis
 
 **RF-03.1:** Permitir o cadastro de clientes com nome, CPF/CNPJ, telefone e endereço. - **( VN: 5 / CT: 3 )**
 
@@ -52,7 +52,7 @@ Estima a complexidade, o tempo e o esforço necessários para a implementação.
 
 **RF-03.3:** Exibir o histórico completo de aluguéis e contratos vinculados a cada cliente. - **( VN: 5 / CT: 4 )**
 
-## RF4 — Contratos Digitais e Assinaturas
+## RF-04 — Contratos Digitais e Assinaturas
 
 **RF-04.1:** Gerar contratos digitais vinculados ao pedido e ao cliente. - **( VN: 5 / CT: 4 )**
 
@@ -62,7 +62,7 @@ Estima a complexidade, o tempo e o esforço necessários para a implementação.
 
 **RF-04.4:** Disponibilizar busca e recuperação de contratos. - **( VN: 5 / CT: 3 )**
 
-## RF5 — Agenda Integrada / Calendário de Provas e Retiradas
+## RF-05 — Agenda Integrada / Calendário de Provas e Retiradas
 
 **RF-05.1:** Exibir agenda com compromissos de provas, retiradas e devoluções. - **( VN: 4 / CT: 4 )**
 
@@ -70,7 +70,7 @@ Estima a complexidade, o tempo e o esforço necessários para a implementação.
 
 **RF-05.3:** Notificar clientes e atendentes sobre compromissos futuros. - **( VN: 3 / CT: 2 )**
 
-## RF6 — Dashboard e Relatórios para Gestores
+## RF-06 — Dashboard e Relatórios para Gestores
 
 **RF-06.1:** Exibir faturamento do mês em formato visual. - **( VN: 4 / CT: 4 )**
 
@@ -80,7 +80,7 @@ Estima a complexidade, o tempo e o esforço necessários para a implementação.
 
 **RF-06.4:** Exibir os produtos mais alugados no período. - **( VN: 4 / CT: 2 )**
 
-## RF7 — Autenticação e Perfis de Acesso
+## RF-07 — Autenticação e Perfis de Acesso
 
 **RF-07.1:** Disponibilizar tela de login para autenticação de usuários. - **( VN: 5 / CT: 3 )**
 
