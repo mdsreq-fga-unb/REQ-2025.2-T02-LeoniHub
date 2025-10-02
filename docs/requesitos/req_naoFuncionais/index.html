@@ -5,7 +5,7 @@
 <meta name="generator" content="Docusaurus v3.8.1">
 <title data-rh="true">Requisitos Não Funcionais (RNF) | Leoni Hub</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://mdsreq-fga-unb.github.io/REQ-2025.2-T02-LeoniHub/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://mdsreq-fga-unb.github.io/REQ-2025.2-T02-LeoniHub/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://mdsreq-fga-unb.github.io/REQ-2025.2-T02-LeoniHub/docs/requesitos/req_naoFuncionais"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Requisitos Não Funcionais (RNF) | Leoni Hub"><meta data-rh="true" name="description" content="---"><meta data-rh="true" property="og:description" content="---"><link data-rh="true" rel="icon" href="/REQ-2025.2-T02-LeoniHub/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://mdsreq-fga-unb.github.io/REQ-2025.2-T02-LeoniHub/docs/requesitos/req_naoFuncionais"><link data-rh="true" rel="alternate" href="https://mdsreq-fga-unb.github.io/REQ-2025.2-T02-LeoniHub/docs/requesitos/req_naoFuncionais" hreflang="en"><link data-rh="true" rel="alternate" href="https://mdsreq-fga-unb.github.io/REQ-2025.2-T02-LeoniHub/docs/requesitos/req_naoFuncionais" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Requesitos de Software","item":"https://mdsreq-fga-unb.github.io/REQ-2025.2-T02-LeoniHub/docs/category/requesitos-de-software"},{"@type":"ListItem","position":2,"name":"Requisitos Não Funcionais (RNF)","item":"https://mdsreq-fga-unb.github.io/REQ-2025.2-T02-LeoniHub/docs/requesitos/req_naoFuncionais"}]}</script><link rel="alternate" type="application/rss+xml" href="/REQ-2025.2-T02-LeoniHub/blog/rss.xml" title="Leoni Hub RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/REQ-2025.2-T02-LeoniHub/blog/atom.xml" title="Leoni Hub Atom Feed"><link rel="stylesheet" href="/REQ-2025.2-T02-LeoniHub/assets/css/styles.db2edcd6.css">
-<script src="/REQ-2025.2-T02-LeoniHub/assets/js/runtime~main.0368ca08.js" defer="defer"></script>
+<script src="/REQ-2025.2-T02-LeoniHub/assets/js/runtime~main.83f1bc3c.js" defer="defer"></script>
 <script src="/REQ-2025.2-T02-LeoniHub/assets/js/main.4bfb6774.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -16,23 +16,43 @@
 <hr>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="definição-das-escalas-de-classificação-1-a-5">Definição das Escalas de Classificação (1 a 5)<a href="#definição-das-escalas-de-classificação-1-a-5" class="hash-link" aria-label="Direct link to Definição das Escalas de Classificação (1 a 5)" title="Direct link to Definição das Escalas de Classificação (1 a 5)">​</a></h2>
 <p>Para classificar os requisitos, as seguintes escalas de 1 a 5 foram utilizadas:</p>
-<p><strong>Valor de Negócio (VN)</strong><br>
+<p><strong>1. Valor de Negócio (VN)</strong><br>
 <!-- -->Mede o impacto do requisito para o sucesso do projeto e do negócio.</p>
 <ul>
-<li><strong>5 (Crítico):</strong> Essencial para o lançamento. Sem ele, o sistema falha completamente em seu propósito de negócio e o lançamento é impossível.</li>
-<li><strong>4 (Alto):</strong> Primário. Sem ele, a operação principal é inviável ou a funcionalidade central do produto é comprometida.</li>
-<li><strong>3 (Médio):</strong> Relevante. Agrega valor legal, financeiro ou de segurança, ou melhora significativamente a experiência do usuário.</li>
-<li><strong>2 (Baixo):</strong> Melhora Operacional. Melhora a eficiência ou a experiência do usuário, mas o negócio pode operar sem ele no início.</li>
-<li><strong>1 (Desejável):</strong> &quot;Nice to have&quot;. Melhoria de qualidade de vida ou requisito futuro. Sua ausência não impacta a operação ou o valor central.</li>
+<li>
+<p><strong>5 (Crítico):</strong> Requisito essencial para o Valor Mínimo Viável (MVP). Sua ausência inviabiliza o projeto ou causa falha crítica no controle de estoque (OE2) ou viola a LGPD (OE4).</p>
+</li>
+<li>
+<p><strong>4 (Alto):</strong> Resolve um problema primário ou contribui diretamente para a eficiência operacional (OE1) ou para a autonomia das duas marcas. É prioritário para a satisfação do stakeholder.</p>
+</li>
+<li>
+<p><strong>3 (Médio):</strong> Agrega valor significativo à facilidade de uso ou melhora um módulo de relatório (OE3) crucial para a tomada de decisão.</p>
+</li>
+<li>
+<p><strong>2 (Baixo):</strong> Otimiza um fluxo já funcional ou uma característica existente. Sua entrega é recomendada, mas pode ser postergada para o final do sprint ou para uma iteração futura.</p>
+</li>
+<li>
+<p><strong>1 (Desejável):</strong> Requisito de &quot;Nice to have&quot; (aprimoramento estético, pequeno ajuste). Representa escopo para a próxima versão do produto.</p>
+</li>
 </ul>
-<p><strong>Custo Técnico (CT)</strong><br>
-<!-- -->Estima a complexidade, o tempo e o esforço necessários para a implementação.</p>
+<p><strong>2. Custo Técnico (CT)</strong><br>
+<!-- -->Estima o esforço da equipe, a complexidade técnica (envolvendo React, Node.js, PostgreSQL) e o risco inerente, dado o cronograma de 3 meses.</p>
 <ul>
-<li><strong>5 (Muito Alto):</strong> Altamente Complexo. Exige P&amp;D, nova arquitetura, integração crítica com terceiros, ou um alto risco de implementação.</li>
-<li><strong>4 (Alto):</strong> Complexo. Requer muito tempo, envolve múltiplas equipes ou uso de tecnologias não triviais (ex: tempo real, segurança avançada).</li>
-<li><strong>3 (Médio):</strong> Moderado. Requer trabalho padrão, mas com várias etapas de desenvolvimento, design de UI/UX dedicado e testes rigorosos.</li>
-<li><strong>2 (Baixo):</strong> Simples. Implementação direta, uso de componentes já existentes no sistema.</li>
-<li><strong>1 (Muito Baixo):</strong> Trivial. Rápido de implementar, ajuste ou correção menor.</li>
+<li>
+<p><strong>5 (Muito Alto):</strong> Exige estudo ou envolve a integração complexa de estoque (área de pouca experiência da equipe). Alto risco de falha ou atraso do sprint.</p>
+</li>
+<li>
+<p><strong>4 (Alto):</strong> Requer múltiplas camadas de desenvolvimento (Front-End/React, Back-End/Node.js e Banco de Dados/PostgreSQL). Envolve funcionalidades de segurança (OE4/OE5) ou arquitetura não trivial.</p>
+</li>
+<li>
+<p><strong>3 (Médio):</strong> Trabalho padrão que consome uma fatia significativa do sprint quinzenal. Poderá envolver testes rigorosos (TDD/XP) e lógica de negócios moderada.</p>
+</li>
+<li>
+<p><strong>2 (Baixo):</strong> Implementação direta no Front-End ou Back-End, utilizando componentes e padrões já definidos. Permite uso de programação em pares (XP) para ser concluído rapidamente.</p>
+</li>
+<li>
+<p><strong>1 (Muito Baixo):</strong> Correção de bugs mínimos, ajuste de texto ou pequenas alterações de UI/UX que não afetam a lógica de negócios. Ideal para ser encaixado em um sprint com alto esforço.</p>
+</li>
 </ul>
 <hr>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="rnf1---usabilidade-e-design">RNF1 - Usabilidade e Design<a href="#rnf1---usabilidade-e-design" class="hash-link" aria-label="Direct link to RNF1 - Usabilidade e Design" title="Direct link to RNF1 - Usabilidade e Design">​</a></h2>
