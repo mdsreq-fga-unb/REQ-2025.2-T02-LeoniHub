@@ -104,6 +104,7 @@ const config = {
           },
         ],
       },
+
       // Escondi a parte de baixo com informações extras por ser desnecessario
       /*footer: {
         style: 'dark',
@@ -151,6 +152,7 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       */ // Remover essa linha para voltar a mostrar o footer
+      
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,

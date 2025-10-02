@@ -1,49 +1,47 @@
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
-const FeatureList = [
+const Integrantes = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: (
-      <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
-      </>
-    ),
+    title: 'Enzo Fernandes',
+    imageUrl:  '/img/enzoFoto.png',
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
-    ),
+    title: 'André Ricardo Meyer',
+    imageUrl:  '/img/andreFoto.png',
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
-      </>
-    ),
+    title: 'Diogo Oliveira Ferreira',
+    imageUrl:  '/img/diogoFoto.png',
+  },
+  {
+    title: 'Caio Vilas Boas',
+    imageUrl:  '/img/caioFoto.png',
+  },
+  {
+    title: 'Kauã Vale Leao',
+    imageUrl:  '/img/kauaFoto.png',
+  },
+  {
+    title: 'Vitor Gabriel',
+    imageUrl:  'img/vitorFoto.png',
   },
 ];
 
-function Feature({Svg, title, description}) {
+function IntegrantesLayout({imageUrl, title}) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx('col col--2')}>
       <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+        <img
+          className={styles.integrantesImg}
+          src={useBaseUrl(imageUrl)}
+          alt={title}
+        />
       </div>
       <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
+        <h3>{title}</h3>
       </div>
     </div>
   );
@@ -51,11 +49,17 @@ function Feature({Svg, title, description}) {
 
 export default function HomepageFeatures() {
   return (
-    <section className={styles.features}>
+    <section className={styles.features} style={{display: 'flex', flexDirection: 'column'}}>
+      <div style={{marginBottom: '70px', marginTop:'30px'}}>
+        <h1 style={{fontSize:'40px'}}>
+          INTEGRANTES
+        </h1>
+      </div>
+
       <div className="container">
         <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
+          {Integrantes.map((props, idx) => (
+            <IntegrantesLayout key={idx} {...props} />
           ))}
         </div>
       </div>
