@@ -10,23 +10,31 @@ sidebar_position: 2
 
 Para classificar os requisitos, as seguintes escalas de 1 a 5 foram utilizadas:
 
-**Valor de Negócio (VN)**  
+**1. Valor de Negócio (VN)**  
 Mede o impacto do requisito para o sucesso do projeto e do negócio.
 
-- **5 (Crítico):** Essencial para o lançamento. Sem ele, o sistema falha completamente em seu propósito de negócio e o lançamento é impossível.
-- **4 (Alto):** Primário. Sem ele, a operação principal é inviável ou a funcionalidade central do produto é comprometida.
-- **3 (Médio):** Relevante. Agrega valor legal, financeiro ou de segurança, ou melhora significativamente a experiência do usuário.
-- **2 (Baixo):** Melhora Operacional. Melhora a eficiência ou a experiência do usuário, mas o negócio pode operar sem ele no início.
-- **1 (Desejável):** "Nice to have". Melhoria de qualidade de vida ou requisito futuro. Sua ausência não impacta a operação ou o valor central.
+- **5 (Crítico):** Requisito essencial para o Valor Mínimo Viável (MVP). Sua ausência inviabiliza o projeto ou causa falha crítica no controle de estoque (OE2) ou viola a LGPD (OE4).
 
-**Custo Técnico (CT)**  
-Estima a complexidade, o tempo e o esforço necessários para a implementação.
+- **4 (Alto):** Resolve um problema primário ou contribui diretamente para a eficiência operacional (OE1) ou para a autonomia das duas marcas. É prioritário para a satisfação do stakeholder.
 
-- **5 (Muito Alto):** Altamente Complexo. Exige P&D, nova arquitetura, integração crítica com terceiros, ou um alto risco de implementação.
-- **4 (Alto):** Complexo. Requer muito tempo, envolve múltiplas equipes ou uso de tecnologias não triviais (ex: tempo real, segurança avançada).
-- **3 (Médio):** Moderado. Requer trabalho padrão, mas com várias etapas de desenvolvimento, design de UI/UX dedicado e testes rigorosos.
-- **2 (Baixo):** Simples. Implementação direta, uso de componentes já existentes no sistema.
-- **1 (Muito Baixo):** Trivial. Rápido de implementar, ajuste ou correção menor.
+- **3 (Médio):** Agrega valor significativo à facilidade de uso ou melhora um módulo de relatório (OE3) crucial para a tomada de decisão.
+
+- **2 (Baixo):** Otimiza um fluxo já funcional ou uma característica existente. Sua entrega é recomendada, mas pode ser postergada para o final do sprint ou para uma iteração futura.
+
+- **1 (Desejável):** Requisito de "Nice to have" (aprimoramento estético, pequeno ajuste). Representa escopo para a próxima versão do produto.
+
+**2. Custo Técnico (CT)**  
+Estima o esforço da equipe, a complexidade técnica (envolvendo React, Node.js, PostgreSQL) e o risco inerente, dado o cronograma de 3 meses.
+
+- **5 (Muito Alto):** Exige estudo ou envolve a integração complexa de estoque (área de pouca experiência da equipe). Alto risco de falha ou atraso do sprint.
+
+- **4 (Alto):** Requer múltiplas camadas de desenvolvimento (Front-End/React, Back-End/Node.js e Banco de Dados/PostgreSQL). Envolve funcionalidades de segurança (OE4/OE5) ou arquitetura não trivial.
+
+- **3 (Médio):** Trabalho padrão que consome uma fatia significativa do sprint quinzenal. Poderá envolver testes rigorosos (TDD/XP) e lógica de negócios moderada.
+
+- **2 (Baixo):** Implementação direta no Front-End ou Back-End, utilizando componentes e padrões já definidos. Permite uso de programação em pares (XP) para ser concluído rapidamente.
+
+- **1 (Muito Baixo):** Correção de bugs mínimos, ajuste de texto ou pequenas alterações de UI/UX que não afetam a lógica de negócios. Ideal para ser encaixado em um sprint com alto esforço.
 
 ---
 
