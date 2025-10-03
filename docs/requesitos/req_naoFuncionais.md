@@ -50,7 +50,7 @@ Estima o esforço da equipe, a complexidade técnica (envolvendo React, Node.js,
 
 ## RNF3 - Disponibilidade
 
-**RNF3.1:** O sistema deve estar disponível em, no mínimo, 98,5% do tempo durante o horário comercial (8h–18h, de segunda a sexta-feira). **(VN: 5 / CT: 4)**
+**RNF3.1:** O sistema deve estar disponível 100% do tempo no horário comercial (8h–18h, de segunda a sexta-feira). **(VN: 5 / CT: 4)**
 
 ## RNF4 - Segurança e LGPD
 

@@ -46,11 +46,13 @@ Estima o esforço da equipe, a complexidade técnica (envolvendo React, Node.js,
 
 **RF-01.3:** Permitir a consulta de produtos, com visualização detalhada de suas informações. - **( VN: 5 / CT: 2 )**
 
-**RF-01.4:** Realizar controle de estoque atualizando quantidades disponíveis. - **( VN: 5 / CT: 3 )**
+## RF-02 — Criação e Gestão de Pedidos
 
-## RF-02 — Controle de Status de Inventário em Tempo Real
+**RF-02.1:** Permitir a criação dos pedidos com código, preço e data do pedido,  nome e CPF/CNPJ do cliente; código , tamanho e foto do produto; contrato digital do pedido; data da prova, coleta e devolução;  **( VN: 5 / CT: 4 )**
 
-**RF-02.1:** Atualizar automaticamente o status de um produto (disponível, alugado, devolvido) após operações de aluguel ou devolução. - **( VN: 4 / CT: 2 )**
+**RF-02.2:** Permitir a edição das informações dos pedidos já cadastrados. - **( VN: 5 / CT: 3 )**
+
+**RF-02.3:** Permitir a consulta de pedidos, com visualização detalhada de suas informações. - **( VN: 5 / CT: 2 )**
 
 ## RF-03 — Gestão de Clientes e Histórico de Aluguéis
 
@@ -66,32 +68,26 @@ Estima o esforço da equipe, a complexidade técnica (envolvendo React, Node.js,
 
 **RF-04.2:** Permitir assinatura digital dos contratos. - **( VN: 4 / CT: 4 )**
 
-**RF-04.3:** Armazenar contratos de forma segura e organizada. - **( VN: 3 / CT: 3 )**
-
-**RF-04.4:** Disponibilizar busca e recuperação de contratos. - **( VN: 5 / CT: 3 )**
+**RF-04.3:** Disponibilizar busca e recuperação de contratos. - **( VN: 5 / CT: 3 )**
 
 ## RF-05 — Agenda Integrada / Calendário de Provas e Retiradas
 
-**RF-05.1:** Exibir agenda com compromissos de provas, retiradas e devoluções. - **( VN: 4 / CT: 4 )**
+**RF-05.1:** Consultar agenda com compromissos de provas, retiradas e devoluções. - **( VN: 4 / CT: 4 )**
 
-**RF-05.2:** Disponibilizar filtros de agenda por loja e por atendente. - **( VN: 4 / CT: 4 )**
-
-**RF-05.3:** Notificar clientes e atendentes sobre compromissos futuros. - **( VN: 3 / CT: 2 )**
+**RF-05.2:** Notificar clientes e atendentes sobre compromissos futuros. - **( VN: 3 / CT: 2 )**
 
 ## RF-06 — Dashboard e Relatórios para Gestores
 
-**RF-06.1:** Exibir faturamento do mês em formato visual. - **( VN: 4 / CT: 4 )**
+**RF-06.1:** Consultar faturamento do mês em formato visual. - **( VN: 4 / CT: 4 )**
 
-**RF-06.2:** Exibir a quantidade de pedidos ativos. - **( VN: 3 / CT: 2 )**
+**RF-06.2:** Consultar a quantidade de pedidos ativos. - **( VN: 3 / CT: 2 )**
 
-**RF-06.3:** Exibir os próximos agendamentos. - **( VN: 4 / CT: 3 )**
+**RF-06.3:** Consultar os próximos agendamentos. - **( VN: 4 / CT: 3 )**
 
-**RF-06.4:** Exibir os produtos mais alugados no período. - **( VN: 4 / CT: 2 )**
+**RF-06.4:** Consultar os produtos mais alugados no período. - **( VN: 4 / CT: 2 )**
 
 ## RF-07 — Autenticação e Perfis de Acesso
 
 **RF-07.1:** Disponibilizar tela de login e registro para autenticação de usuários. - **( VN: 5 / CT: 3 )**
 
 **RF-07.2:** Criar perfis de acesso diferenciados (ex.: Atendente e Gestor). - **( VN: 4 / CT: 4 )**
-
-**RF-07.3:** Restringir funcionalidades de acordo com o perfil de acesso. - **( VN: 4 / CT: 5 )**
