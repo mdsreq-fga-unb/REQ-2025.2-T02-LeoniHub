@@ -47,6 +47,7 @@ Estima o esforço da equipe, a complexidade técnica (envolvendo React, Node.js,
 ## RNF2 - Desempenho
 
 **RNF2.1:** A atualização do status de estoque deve ocorrer em tempo real (atraso máximo de 2 segundos após a alteração). **(VN: 3 / CT: 4)**
+
 **RNF2.2:** O sistema deve registrar métricas básicas de desempenho (número de requisições, latência, taxa de erros). **(VN: 3 / CT: 2)**
 
 
