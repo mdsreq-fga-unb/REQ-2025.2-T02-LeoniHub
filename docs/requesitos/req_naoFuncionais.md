@@ -47,6 +47,8 @@ Estima o esforço da equipe, a complexidade técnica (envolvendo React, Node.js,
 ## RNF2 - Desempenho
 
 **RNF2.1:** A atualização do status de estoque deve ocorrer em tempo real (atraso máximo de 2 segundos após a alteração). **(VN: 3 / CT: 4)**
+**RNF2.2:** O sistema deve registrar métricas básicas de desempenho (número de requisições, latência, taxa de erros). **(VN: 3 / CT: 2)**
+
 
 ## RNF3 - Disponibilidade
 
@@ -62,6 +64,10 @@ Estima o esforço da equipe, a complexidade técnica (envolvendo React, Node.js,
 
 **RNF5.1:** As operações críticas, como criação de pedidos e atualização de estoque, devem ser transacionais para garantir a consistência dos dados. **(VN: 5 / CT: 4)**
 
+
+**RNF5.2:** Devem ser configurados alertas automáticos em caso de falhas críticas ou indisponibilidade. **(VN: 4 / CT: 3)**
+
+
 ## RNF6 - Manutenibilidade
 
 **RNF6.1:** O código-fonte deve ser modular e bem documentado para facilitar futuras manutenções. **(VN: 3 / CT: 2)**
@@ -70,16 +76,12 @@ Estima o esforço da equipe, a complexidade técnica (envolvendo React, Node.js,
 
 **RNF6.3:** Deve haver um processo de integração contínua (CI) configurado para garantir qualidade e segurança nas entregas. **(VN: 3 / CT: 2)**
 
+**RNF6.4:** Devem ser gerados logs estruturados para suporte técnico, depuração de problemas e auditorias de segurança. **(VN: 4 / CT: 3)**
+
+
 ## RNF7 - Portabilidade
 
 **RNF7.1:** O sistema será desenvolvido utilizando tecnologias web padrão (React, Node.js, PostgreSQL). **(VN: 3 / CT: 2)**
 
 **RNF7.2:** O processo de deploy deve ser configurado em ambientes separados de homologação (testes) e produção. **(VN: 4 / CT: 3)**
 
-## RNF8 - Observabilidade
-
-**RNF8.1:** O sistema deve registrar métricas básicas de desempenho (número de requisições, latência, taxa de erros). **(VN: 3 / CT: 2)**
-
-**RNF8.2:** Devem ser gerados logs estruturados para suporte técnico, depuração de problemas e auditorias de segurança. **(VN: 4 / CT: 3)**
-
-**RNF8.3:** Devem ser configurados alertas automáticos em caso de falhas críticas ou indisponibilidade. **(VN: 4 / CT: 3)**
