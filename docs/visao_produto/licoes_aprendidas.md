@@ -1,12 +1,12 @@
 ---
 title: "Lições Aprendidas"
 sidebar_label: "Lições Aprendidas"
-sidebar_position: 6
+sidebar_position: 7
 ---
 
-# 6. Lições Aprendidas
+# 7. Lições Aprendidas
 
-## 6.1 - Unidade 1
+## 7.1 - Unidade 1
 
 Durante a primeira unidade do projeto do Leoni Hub, foram identificadas algumas lições importantes que servirão de base para melhorias nos próximos ciclos.
 

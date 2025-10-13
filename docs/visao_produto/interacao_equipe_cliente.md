@@ -1,12 +1,12 @@
 ---
 title: "Interação Equipe e Cliente"
 sidebar_label: "Interação Equipe e Cliente"
-sidebar_position: 5
+sidebar_position: 6
 ---
 
-# 5. Interação entre Equipe e Cliente
+# 6. Interação entre Equipe e Cliente
 
-## 5.1 Composição da Equipe
+## 6.1 Composição da Equipe
 
 A equipe de desenvolvimento será composta por:
 
@@ -21,7 +21,7 @@ A equipe de desenvolvimento será composta por:
 
 <br/>
 
-## 5.2 Comunicação
+## 6.2 Comunicação
 
 Para garantir o alinhamento contínuo entre a equipe de desenvolvimento e o cliente, bem como a colaboração eficiente entre os membros da equipe, serão utilizadas as seguintes ferramentas e métodos de comunicação, em conformidade com os princípios do Scrum/XP:
 
@@ -39,7 +39,7 @@ Para garantir o alinhamento contínuo entre a equipe de desenvolvimento e o clie
   - **Canais de Texto e Voz:** O WhatsApp será utilizado para comunicação assíncrona e o Discord para comunicação em tempo real, facilitando discussões técnicas e resolução de problemas.
   - **Programação em Pares e Colaboração Intensiva:** O Discord facilitará a "programação em pares" e outras "práticas do XP", permitindo que os membros da equipe trabalhem juntos em tempo real.
 
-## 5.3 Processo de Validação
+## 6.3 Processo de Validação
 
 A validação do Leoni Hub será conduzida de forma incremental, acompanhando o desenvolvimento de cada sprint. O processo tem como objetivo garantir que as funcionalidades atendam tanto aos requisitos técnicos quanto às necessidades práticas das lojas.
 

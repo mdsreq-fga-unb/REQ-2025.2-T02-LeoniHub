@@ -1,10 +1,10 @@
 ---
 title: "Cronograma e Entregas"
 sidebar_label: "Cronograma e Entregas"
-sidebar_position: 4
+sidebar_position: 5
 ---
 
-## 4. Cronograma e Entregas
+## 5. Cronograma e Entregas
 
 A partir da estratégia de desenvolvimento de software estabelecida, tem-se a seguinte proposta de cronograma, suas fases e resultados esperados:
 
