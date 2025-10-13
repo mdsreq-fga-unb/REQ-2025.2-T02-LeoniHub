@@ -16,11 +16,11 @@ Facilitar o dia a dia das lojas simplificando o acesso de estoque, busca de prod
 
 | Código | Objetivo Específico | Indicador de Sucesso |
 | :--- | :--- | :--- |
-| **OE1** | Simplificar o fluxo de caixa, facilitando o uso do sistema para os atendentes e otimizando o tempo de atendimento. | Redução do tempo para fechamento das compras em 20%. |
-| **OE2** | Garantir a integridade e atualização em tempo real do estoque (disponível, alugado, devolvido), evitando inconsistências. | Redução em ≥ 80% dos erros de disponibilidade ou falhas no registro de estoque |
-| **OE3** | Disponibilizar relatórios e dashboards claros para gestores, visando decisões estratégicas e acompanhamento de resultados. | Satisfação ≥ 70% dos gestores com os relatórios gerados |
-| **OE4** | Armazenamento seguro de contratos fechados pelos clientes, estando em conformidade com a LGPD, evitando vazamento de dados. | Ausência de vazamentos de dados e conformidade com auditorias de segurança. |
-| **OE5** | Implementação de funcionalidade de cargos para maior controle das informações do sistema, gestão de funcionários e segurança de dados. | Redução de Incidentes de Acesso e Otimização do Tempo de Administração de Permissões. |
+| **OE1** | Aumentar a eficiência operacional no fluxo de compra. | Redução do tempo para fechamento das compras em 20%. |
+| **OE2** | Aumentar a precisão do controle do estoque em tempo real. | Redução em ≥ 80% dos erros de disponibilidade ou falhas no registro de estoque. |
+| **OE3** | Apoiar a tomada de decisão estratégica dos gestores com os dados coletados. | Satisfação ≥ 70% dos gestores com os dados fornecidos. |
+| **OE4** | Garantir a segurança dos dados dos clientes e garantir a conformidade com a LGPD. | Ausência de vazamentos de dados e conformidade com auditorias de segurança. |
+| **OE5** | Estabelecer um controle de acesso às informações do sistema e otimizar sua administração. | Redução de Incidentes de Acesso e Otimização do Tempo de Administração de Permissões. |
 
 ## 2.2 Características da Solução
 
