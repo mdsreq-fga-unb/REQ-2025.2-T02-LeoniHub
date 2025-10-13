@@ -53,3 +53,20 @@ sidebar_position: 4
 ## Organização e Atualização de Requisitos
 
 - **Backlog de Requisitos (Product Backlog):** Será a fonte única e central de todos os trabalhos a serem feitos. Manteremos uma lista dinâmica e priorizada de todas as funcionalidades, melhorias e correções para o novo sistema da Closet Chic e Leoni. O backlog será constantemente refinado e atualizado com base no feedback das Sprints e nas novas necessidades do negócio.
+
+
+## 4.2 Engenharia de Requisitos e o Scrum/XP
+
+| Fases do Processo | Atividades ER | Prática | Técnica | Resultado Esperado |
+|-------------------|---------------:|--------:|--------:|-------------------|
+| **Planejamento de Release** | Elicitação e Descoberta | Levantamento de requisitos e Refinamento contínuo | Reuniões com cliente, Brainstorming, Priorização MoSCoW, Refinamento do Backlog | Uma lista inicial de necessidades e funcionalidades levantadas, ainda não priorizada, que reflete os problemas e a visão do cliente | 
+| |Análise e Consenso | Refinamento do Backlog (Backlog Refinement), Priorização MoSCoW | Priorização dos Requisitos | Um Product Backlog priorizado que define o escopo essencial (MVP) do projeto, com o alinhamento de todos os envolvidos. | 
+| |Verificação e Validação | Validação de requisitos | Critérios de aceitação | Requisitos validados, com escopo claro e testável, alinhando as expectativas do cliente com o que será efetivamente desenvolvido. | 
+| |	Declaração | Registro dos requisitos | User Story | Itens do Backlog registrados como Histórias de Usuário, prontos para serem detalhados com Critérios de Aceitação pela equipe. | 
+| |	Organização e Atualização | Organização dos requisitos implementados ou atrasados | Backlog de Requisitos | Backlog atualizado. | 
+| **Sprint Planning** | Análise e Consenso | Seleção e Detalhamento de Histórias para a Sprint | Planning Game (XP) | Escopo da Sprint negociado e as histórias selecionadas pela equipe. | 
+|  | Declaração | Definição de Critérios de Aceitação | Critérios de aceitação, User Story | Escopo de cada História de Usuário definido através de critérios de aceitação claros e testáveis | 
+| **Execução da Sprint** | Representação | Criação de storyboard | Storyboards | Um guia visual que alinha a equipe | 
+| | Verificação e Validação | Verificação de implementação | Critérios de Aceitação, Definition of Done (DoD)| Garantia de que o time está construindo a coisa certa, da maneira certa |
+| **Sprint Review** | Verificação e Validação | Validação com o cliente das funcionalidades implementadas | Feedback do Cliente | Funcionalidades avaliadas com base no retorno dos clientes. | 
+| |	Organização e Atualização | Organização dos requisitos implementados ou atrasados | Backlog de Requisitos | Backlog atualizado. |
