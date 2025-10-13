@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import styles from './mapeamento.module.css'; 
+import styles from '../tabela.module.css'; 
 
 const todosRequisitos = [
   // RF-01 - Gestão de Produtos (OE2: Integridade do Estoque)
@@ -43,22 +43,28 @@ export default function TabelaRequisitos() {
 
   return (
     <div>
+        
         {/*Inicio da Tabela de Requisitos*/}
 
-        <strong>Filtrar por Objetivo Específico (OE):</strong>
+        <div>
+          <strong>Filtrar por Objetivo Específico (OE):</strong>
 
-        {/*Botões para Seleção dos OEs*/}
+          {/*Botões para Seleção dos OEs*/}
 
-        <div className={styles['layout-buttons-map']}>
-          {['Todos', 'OE1', 'OE2', 'OE3', 'OE4', 'OE5'].map(objetivo => (
-            <div className={styles['button-map']} key={objetivo} onClick={() => setFiltroObjetivo(objetivo)}>
+          <div className={styles['layout-buttons-map']}>
+            {['Todos', 'OE1', 'OE2', 'OE3', 'OE4', 'OE5'].map(objetivo => (
+              <button
+              className={styles['button-map']} 
+              key={objetivo} 
+              onClick={() => setFiltroObjetivo(objetivo)}>
               {objetivo}
-            </div>
-          ))}
+              </button>
+            ))}
+          </div>
         </div>
 
       {/* --- Tabela de Rastreabilidade --- */}
-      <table>
+      <table className={styles['tabela-customizada']}>
         <thead>
           <tr>
             <th>ID</th>
@@ -70,7 +76,7 @@ export default function TabelaRequisitos() {
         <tbody>
           {requisitosFiltrados.map((requisito) => (
             <tr key={requisito.id}>
-              <td>{requisito.id}</td>
+              <td><strong>{requisito.id}</strong></td>
               <td>{requisito.nome}</td>
               <td><strong>{requisito.objetivo}</strong></td>
               <td>{requisito.rnf}</td>

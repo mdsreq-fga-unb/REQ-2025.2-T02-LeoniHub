@@ -1,0 +1,40 @@
+
+.layout-buttons-map{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.button-map{
+   
+    background-color: #d3d3d3;
+    padding: 5px;
+    padding-left: 10px ;
+    padding-right: 10px;
+    border-radius: 10px;
+    height: auto;
+    width: auto;
+    font-size: 15px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.button-map:hover{
+    background-color: #b3b3b3;
+}
+
+.tabela-customizada td {
+
+    border: 1px solid #6d6d6d;
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle; 
+}
+
+.tabela-customizada th {
+    background-color: #f2f2f2;
+    border: 1px solid #6d6d6d;
+    font-weight: bold;
+}
