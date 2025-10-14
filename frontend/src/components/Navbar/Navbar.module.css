@@ -1,0 +1,24 @@
+
+.navList {
+  display: flex;
+  list-style: none;
+  gap: 25px; 
+}
+
+.navLink {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent; 
+  transition: border-color 0.3s ease;
+}
+
+.navLink:hover {
+  border-color: #3498db; 
+}
+
+.navLink.active {
+  color: #3498db; 
+  border-color: #3498db; 
+}

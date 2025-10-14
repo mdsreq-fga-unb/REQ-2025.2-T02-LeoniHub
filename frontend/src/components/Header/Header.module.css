@@ -1,0 +1,29 @@
+
+.header {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  top: 0;
+  z-index: 100; /* Garante que o header fique acima de todos os elementos*/
+}
+
+/* Espaçaento e espaço entre elementos da Navbar*/
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100vh;
+  height: 70px;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+  font-size: 32px;
+}
+
+.logoImage{
+  height: 70px;
+  width: 70px;
+  margin-top: 10px;
+}
