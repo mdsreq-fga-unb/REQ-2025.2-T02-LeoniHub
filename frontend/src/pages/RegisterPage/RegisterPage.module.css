@@ -1,0 +1,16 @@
+
+.body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-size: 32px;
+  color: #2c3e50;
+  font-weight: 700;
+}
