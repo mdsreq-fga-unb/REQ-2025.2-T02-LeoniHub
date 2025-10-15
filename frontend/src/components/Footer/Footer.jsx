@@ -8,6 +8,7 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
+        
         {/* Seção 1: Sobre a empresa ou logo */}
         <div className={styles.footerSection}>
           <h4>Nome da Empresa</h4>
