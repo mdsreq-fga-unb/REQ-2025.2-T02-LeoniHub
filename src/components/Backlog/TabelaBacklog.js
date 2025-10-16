@@ -9,6 +9,7 @@ const todasHistorias = [
     nome: 'Cadastrar Produto',
     feature: 'F01',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, quero cadastrar produtos, incluindo fotos, código, tamanho, estado e descrição, para poder adicionar novos itens ao sistema.'
   },
   {
@@ -16,6 +17,7 @@ const todasHistorias = [
     nome: 'Editar Produto',
     feature: 'F01',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, quero editar as informações de produtos já cadastrados, para garantir que estejam sempre corretas.'
   },
   {
@@ -23,6 +25,7 @@ const todasHistorias = [
     nome: 'Consultar Produto',
     feature: 'F01',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, quero consultar produtos, com visualização detalhada de suas informações, para ter uma visão clara dos itens disponíveis.'
   },
 
@@ -32,6 +35,7 @@ const todasHistorias = [
     nome: 'Criar Pedido',
     feature: 'F02',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, eu quero criar um novo pedido com todos os dados do cliente, do produto, valores e datas de compromisso, para que o aluguel seja formalizado no eu sistema.'
   },
   {
@@ -39,6 +43,7 @@ const todasHistorias = [
     nome: 'Editar Pedido',
     feature: 'F02',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, eu quero editar um pedido de aluguel existente, para que eu possa alterar dados como datas ou produtos em caso de necessidade do cliente.'
   },
   {
@@ -46,6 +51,7 @@ const todasHistorias = [
     nome: 'Consultar Pedido',
     feature: 'F02',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, eu quero consultar um pedido e ver todos os seus detalhes, para que eu possa rastrear o status e as informações de compromisso do aluguel.'
   },
 
@@ -55,6 +61,7 @@ const todasHistorias = [
     nome: 'Cadastrar Cliente',
     feature: 'F03',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, quero cadastrar clientes com nome, CPF/CNPJ, telefone e endereço, para gerenciar a base de clientes.'
   },
   {
@@ -62,6 +69,7 @@ const todasHistorias = [
     nome: 'Consultar Cliente',
     feature: 'F03',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, quero consultar clientes por nome, CPF ou telefone, para localizar rapidamente as informações de um cliente.'
   },
   {
@@ -69,6 +77,7 @@ const todasHistorias = [
     nome: 'Exibir Histórico do Cliente',
     feature: 'F03',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, quero exibir o histórico completo de aluguéis e contratos vinculados a cada cliente, para ter uma visão detalhada do relacionamento.'
   },
 
@@ -78,6 +87,7 @@ const todasHistorias = [
     nome: 'Gerar Contrato Digital',
     feature: 'F04',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, quero gerar contratos digitais vinculados ao pedido e ao cliente, para formalizar as transações.'
   },
   {
@@ -85,6 +95,7 @@ const todasHistorias = [
     nome: 'Assinar Contrato Digital',
     feature: 'F04',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como signatário do contrato, eu quero aplicar minha assinatura digitalmente ao documento, para que eu possa agilizar o processo de formalização e manter o registro seguro.'
   },
   {
@@ -92,6 +103,7 @@ const todasHistorias = [
     nome: 'Armazenar Contrato',
     feature: 'F04',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, quero armazenar contratos de forma segura e organizada, para garantir a integridade e acessibilidade dos documentos.'
   },
   {
@@ -99,6 +111,7 @@ const todasHistorias = [
     nome: 'Recuperar Contrato',
     feature: 'F04',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, quero buscar e recuperar contratos, para acessar documentos específicos quando necessário.'
   },
 
@@ -108,6 +121,7 @@ const todasHistorias = [
     nome: 'Consultar Agenda de Compromissos',
     feature: 'F05',
     mvp: '❌',
+    moscow: 'Could Have',
     declaracao: 'Como administrador, eu quero consultar a agenda/calendário com todos os compromissos de provas, retiradas e devoluções, para que eu possa planejar o dia e gerenciar a disponibilidade do estoque.'
   },
   {
@@ -115,6 +129,7 @@ const todasHistorias = [
     nome: 'Notificar Compromissos',
     feature: 'F05',
     mvp: '❌',
+    moscow: 'Could Have',
     declaracao: 'Como administrador, eu quero enviar notificações automáticas aos clientes e atendentes sobre compromissos futuros (provas, retiradas, devoluções), para que a chance de esquecimento seja minimizada.'
   },
 
@@ -124,6 +139,7 @@ const todasHistorias = [
     nome: 'Exibir Faturamento Mensal',
     feature: 'F06',
     mvp: '❌',
+    moscow: 'Could Have',
     declaracao: 'Como administrador, quero exibir o faturamento do mês em formato visual, para acompanhar o desempenho financeiro.'
   },
   {
@@ -131,6 +147,7 @@ const todasHistorias = [
     nome: 'Exibir Pedidos Ativos',
     feature: 'F06',
     mvp: '❌',
+    moscow: 'Should Have',
     declaracao: 'Como administrador, quero exibir a quantidade de pedidos ativos, para monitorar a demanda atual.'
   },
   {
@@ -138,6 +155,7 @@ const todasHistorias = [
     nome: 'Exibir Próximos Agendamentos',
     feature: 'F06',
     mvp: '❌',
+    moscow: 'Could Have',
     declaracao: 'Como administrador, quero exibir os próximos agendamentos, para planejar as operações futuras.'
   },
   {
@@ -145,6 +163,7 @@ const todasHistorias = [
     nome: 'Exibir Produtos Mais Alugados',
     feature: 'F06',
     mvp: '❌',
+    moscow: 'Could Have',
     declaracao: 'Como administrador, quero exibir os produtos mais alugados no período, para identificar tendências e popularidade.'
   },
 
@@ -154,6 +173,7 @@ const todasHistorias = [
     nome: 'Autenticar Login',
     feature: 'F07',
     mvp: '✅',
+    moscow: 'Must Have',
     declaracao: 'Como usuário, quero ter uma tela de login para autenticação, para acessar o sistema de forma segura.'
   },
   {
@@ -161,6 +181,7 @@ const todasHistorias = [
     nome: 'Criar Perfis de Acesso',
     feature: 'F07',
     mvp: '❌',
+    moscow: 'Must Have',
     declaracao: 'Como administrador, quero criar perfis de acesso diferenciados (ex.: Atendente e Gestor), para gerenciar permissões.'
   }
 ];
@@ -227,6 +248,7 @@ export default function TabelaUS() {
             <th>Código</th>
             <th>Declaração</th>
             <th>Feature Associada</th>
+            <th>MoSCoW</th>
             <th>MVP</th>
           </tr>
         </thead>
@@ -237,6 +259,7 @@ export default function TabelaUS() {
               <td><strong>{historia.id}</strong></td>
               <td>{historia.declaracao}</td>
               <td><strong>{historia.feature}</strong></td>
+              <td><strong>{historia.moscow}</strong></td>
               <td>{historia.mvp}</td>
             </tr>
           ))}
