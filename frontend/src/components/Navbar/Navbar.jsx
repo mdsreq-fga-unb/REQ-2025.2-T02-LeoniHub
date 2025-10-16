@@ -37,7 +37,7 @@ const Navbar = () => {
             to="/register"
             className={({ isActive }) => isActive ? `${styles.navLink} ${styles.active}` : styles.navLink}
           >
-            Resgistro
+            Registro
           </NavLink>
         </li>
       </ul>
