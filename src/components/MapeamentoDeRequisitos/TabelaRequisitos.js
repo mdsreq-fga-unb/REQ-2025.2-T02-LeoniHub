@@ -29,6 +29,14 @@ const todosRequisitos = [
   { id: 'RF-7.2', nome: 'Criação de Perfis de Acesso (Cargos)', objetivo: 'OE5', rnf: 'RNF-6.1, RNF-6.2' },
 ];
 
+const objetivosEspecificos = {
+  'OE1': 'Simplificar o fluxo de caixa, facilitando o uso do sistema para os atendentes e otimizando o tempo de atendimento.',
+  'OE2': 'Garantir a integridade e atualização em tempo real do estoque (disponível, alugado, devolvido), evitando inconsistências.',
+  'OE3': 'Disponibilizar relatórios e dashboards claros para gestores, visando decisões estratégicas e acompanhamento de resultados.',
+  'OE4': 'Armazenamento seguro de contratos fechados pelos clientes, estando em conformidade com a LGPD, evitando vazamento de dados.',
+  'OE5': 'Implementação de funcionalidade de cargos para maior controle das informações do sistema, gestão de funcionários e segurança de dados.'
+};
+
 export default function TabelaRequisitos() {
   
   const [filtroObjetivo, setFiltroObjetivo] = useState('Todos');
@@ -61,6 +69,14 @@ export default function TabelaRequisitos() {
               </button>
             ))}
           </div>
+
+          {/* Exibe a descrição do OE selecionado */}
+          {filtroObjetivo !== 'Todos' && (
+            <div style={{ marginTop: 12 }}>
+              <strong>Descrição do {filtroObjetivo}:</strong>
+              <p style={{ marginTop: 6 }}>{objetivosEspecificos[filtroObjetivo] || 'Descrição não disponível.'}</p>
+            </div>
+          )}
         </div>
 
       {/* --- Tabela de Rastreabilidade --- */}
