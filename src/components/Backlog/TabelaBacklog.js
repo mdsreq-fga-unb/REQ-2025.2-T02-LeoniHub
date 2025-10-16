@@ -31,14 +31,14 @@ const todasHistorias = [
     id: 'US04',
     nome: 'Criar Pedido',
     feature: 'F02',
-    mvp: '❌',
+    mvp: '✅',
     declaracao: 'Como administrador, eu quero criar um novo pedido com todos os dados do cliente, do produto, valores e datas de compromisso, para que o aluguel seja formalizado no eu sistema.'
   },
   {
     id: 'US05',
     nome: 'Editar Pedido',
     feature: 'F02',
-    mvp: '❌',
+    mvp: '✅',
     declaracao: 'Como administrador, eu quero editar um pedido de aluguel existente, para que eu possa alterar dados como datas ou produtos em caso de necessidade do cliente.'
   },
   {
@@ -123,7 +123,7 @@ const todasHistorias = [
     id: 'US16',
     nome: 'Exibir Faturamento Mensal',
     feature: 'F06',
-    mvp: '✅',
+    mvp: '❌',
     declaracao: 'Como administrador, quero exibir o faturamento do mês em formato visual, para acompanhar o desempenho financeiro.'
   },
   {
