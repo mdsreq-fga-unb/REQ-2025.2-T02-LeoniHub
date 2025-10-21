@@ -16,7 +16,7 @@ sidebar_position: 4
 
 ## Análise e Consenso
 
-- **Refinamento do Backlog (Backlog Refinement):** Em vez de um único grande workshop, nossa equipe adotará a prática de refinamento contínuo do backlog. Regularmente, o Product Owner, o time de desenvolvimento e stakeholders relevantes se reunirão para revisar, priorizar e detalhar os itens do backlog. O objetivo é garantir que as Histórias de Usuário que estão no topo da lista estejam claras, testáveis e prontas (Definition of Ready) para serem puxadas para uma Sprint.
+- **Refinamento do Backlog (Backlog Refinement):** Em vez de um único grande workshop, nossa equipe adotará a prática de refinamento contínuo do backlog. Regularmente, o time de desenvolvimento e clientes se reunirão para revisar, priorizar e detalhar os itens do backlog. O objetivo é garantir que as Histórias de Usuário que estão no topo da lista estejam claras, testáveis e prontas (Definition of Ready) para serem puxadas para uma Sprint.
 
 - **Priorização MoSCoW:** A priorização MoSCoW é uma técnica utilizada para classificar requisitos ou funcionalidades com base em sua importância para o sucesso do projeto. Suas iniciais representam as categorias "Must have", "Should have", "Could have" e "Won't have". O projeto da Closet Chic apresenta uma complexidade clara: substituir um sistema legado com múltiplas falhas (Clariai) e, ao mesmo tempo, suportar a expansão do negócio. Considerando que nosso objetivo principal é resolver os gargalos operacionais atuais para garantir a estabilidade, é essencial aplicar uma técnica de priorização que nos permita distinguir as funcionalidades indispensáveis daquelas que podem ser planejadas para o futuro.
 
