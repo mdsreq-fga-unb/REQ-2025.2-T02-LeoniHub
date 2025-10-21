@@ -33,3 +33,29 @@ Durante a primeira unidade do projeto do Leoni Hub, foram identificadas algumas 
 **Desafio:** Inicialmente houve dificuldade em definir quais funcionalidades deveriam ser priorizadas.
 
 **Ação de Melhoria:** A equipe decidiu reforçar as reuniões de planejamento de sprint, com a participação ativa do cliente, para alinhar prioridades de acordo com os objetivos estratégicos.
+
+
+Aqui está o seu texto inserido no modelo.
+
+Note que o seu conteúdo se encaixa perfeitamente na seção "Dificuldades e Ações para Superá-las". Eu organizei cada um dos seus pontos como um tópico separado dentro dessa seção.
+
+## 7.2 - Unidade 2
+
+Durante a segunda unidade do projeto do Leoni Hub, foram identificadas algumas lições importantes que servirão de base para melhorias nos próximos ciclos.
+
+#### Processo de Engenharia de Requisitos (ER)
+**Desafio:** Implementar o processo de Engenharia de Requisitos de forma coesa e eficaz, alinhado aos princípios do Scrum/XP.
+
+**Ação de Melhoria:** Foram realizadas reuniões semanais que foram realizados os processos de elicitação e refinamento, garantindo clareza e rastreabilidade entre requisitos e objetivos do produto.
+
+#### Definição de Requisitos Funcionais e Não Funcionais
+
+**Desafio:** Definir a primeira lista de requisitos (Funcionais e Não Funcionais) e garantir sua conformidade e mapeamento com os objetivos.
+
+**Ação de Melhoria:** Pesquisa em grupo e definição clara e objetiva do que seria funcional e não funcional, facilitando a criação e decisão da equipe ao definir os requisitos.
+
+#### Elaboração de Backlog
+
+**Desafio:** Criar Features e Histórias de Usuário (US - User Stories) a partir da lista inicial de Requisitos Funcionais (RF) e Não Funcionais (RNF).
+
+**Ação de Melhoria:** A superação veio da estruturação hierárquica (Features) e do fatiamento dos requisitos funcionais em Histórias de Usuário prontas para estimativa.
