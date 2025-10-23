@@ -20,14 +20,15 @@ function App() {
       <Router>
         <Routes>
 
-          {/* --- Grupo de Rotas com a Navbar e Footer --- */}
-          <Route element={<MainLayout />}>
-            <Route index element={<HomePage />} /> {/* 'index' é a rota padrão para a Home */}
-          </Route>
+          {/* --- Rotas SEM Navbar e Footer --- */}
+          <Route index element={<HomePage />} /> 
+          <Route path="/login/:lojaId" element={<LoginPage />} />
+          <Route path="/register/:lojaId" element={<RegisterPage />} />
 
-           {/* --- Grupo de Rotas SEM a Navbar e Footer --- */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          {/* --- Grupo de Rotas COM Navbar e Footer --- */}
+          <Route element={<MainLayout />}>
+            
+          </Route>
           
         </Routes>
       </Router>
