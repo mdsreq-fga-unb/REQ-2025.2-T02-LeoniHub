@@ -53,7 +53,7 @@ a {
   height: 100vh;
   background: linear-gradient(180deg, var(--primary-800), var(--primary-700));
   color: white;
-  padding: 28px 18px;
+  padding: 10px 20px;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -69,7 +69,8 @@ a {
 }
 
 .logo-img {
-  height: 42px;
+  height: 65px;
+  width: 65px;  
   vertical-align: middle;
 }
 
@@ -99,9 +100,8 @@ a {
 /* --- Cabeçalho da Página --- */
 .header-row {
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
   align-items: center;
-  gap: 16px;
   margin-bottom: 22px;
 }
 
