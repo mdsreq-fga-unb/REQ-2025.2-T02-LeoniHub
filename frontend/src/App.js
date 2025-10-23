@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import './style-leoni.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 
 /*Import do Layout Principal */
 import MainLayout from './layouts/MainLayout';
@@ -15,8 +16,7 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 
 function App() {
   return (
-    <div>
-
+    <AuthProvider>
       <Router>
         <Routes>
 
@@ -32,9 +32,7 @@ function App() {
           
         </Routes>
       </Router>
-
-
-    </div>
+    </AuthProvider>
 
   );
 }

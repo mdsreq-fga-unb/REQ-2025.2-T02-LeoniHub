@@ -1,23 +1,38 @@
 
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Para navegação e links
-import styles from './LoginPage.module.css'; // Importando o CSS Module
-import leoniLogo from '../../assets/img/leoni_logo.png'; // Importando a imagem
+import { useNavigate, Link, useParams } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
+import styles from './LoginPage.module.css';
+import leoniLogo from '../../assets/img/leoni_logo.png';
 
 function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate(); // Hook para navegação programática
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { lojaId } = useParams();
+  const { login, loading } = useAuth();
+  const navigate = useNavigate();
 
-  const handleLogin = (event) => {
-    event.preventDefault(); // Previne o recarregamento da página
-    setIsLoading(true); // Ativa o estado de "carregando"
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    setError('');
 
-    // Simula uma chamada de API e redireciona após 900ms
-    setTimeout(() => {
-      // Em uma aplicação real, aqui você faria a chamada para o backend
-      // e só navegaria em caso de sucesso.
-      navigate('/dashboard'); // Navega para a rota do dashboard
-    }, 900);
+    // Validações básicas
+    if (!email || !password) {
+      setError('Preencha todos os campos');
+      return;
+    }
+
+    // Chamar função de login do Context
+    const result = await login(lojaId, email, password);
+
+    if (result.success) {
+      // Login bem-sucedido, redirecionar para dashboard
+      navigate('/dashboard');
+    } else {
+      // Mostrar erro
+      setError(result.error || 'Erro ao fazer login');
+    }
   };
 
   return (
@@ -36,18 +51,48 @@ function LoginPage() {
         </div>
 
         <div className={styles.loginRight}>
-          <h2>Entrar</h2>
+          <h2>Entrar - {lojaId}</h2>
+          
+          {error && (
+            <div style={{ 
+              color: 'red', 
+              backgroundColor: '#ffe6e6', 
+              padding: '10px', 
+              borderRadius: '5px',
+              marginBottom: '15px'
+            }}>
+              {error}
+            </div>
+          )}
+
           <form onSubmit={handleLogin}>
-            <input type="email" placeholder="E-mail" required disabled={isLoading} />
-            <input type="password" placeholder="Senha" required disabled={isLoading} />
-            <button type="submit" disabled={isLoading}>
-              {isLoading ? 'Entrando...' : 'Entrar'}
+            <input 
+              type="email" 
+              placeholder="E-mail" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required 
+              disabled={loading} 
+            />
+            <input 
+              type="password" 
+              placeholder="Senha" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required 
+              disabled={loading} 
+            />
+            <button type="submit" disabled={loading}>
+              {loading ? 'Entrando...' : 'Entrar'}
             </button>
           </form>
+
+          <p style={{ marginTop: '15px', textAlign: 'center' }}>
+            Não tem conta? <Link to={`/register/${lojaId}`}>Cadastre-se</Link>
+          </p>
         </div>
       </div>
       
-      {/* O componente Link é a forma correta de criar links de navegação interna */}
       <Link to="/" className={styles.buttonBack}>
         ← Voltar ao Menu Principal
       </Link>
