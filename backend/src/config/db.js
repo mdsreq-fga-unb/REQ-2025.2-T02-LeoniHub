@@ -1,19 +1,19 @@
-import { supabaseClosetChic } from './closetChic.js';
-import { supabaseLeonni } from './leonni.js';
+import { supabaseLoja1 } from './db_loja1.js';
+import { supabaseLoja2 } from './db_loja2.js';
 
 export const getSupabaseClient = (lojaId) => {
   switch (lojaId) {
-    case 'ClosetChic':
+    case 'loja1':
     case '1':
-      if (!supabaseClosetChic) throw new Error('ClosetChic não configurada');
-      return supabaseClosetChic;
-    case 'Leonni':
+      if (!supabaseLoja1) throw new Error('Loja 1 não configurada');
+      return supabaseLoja1;
+    case 'loja2':
     case '2':
-      if (!supabaseLeonni) throw new Error('Leonni não configurada. Configure SUPABASE_LEONNI_URL e SUPABASE_LEONNI_ANON_KEY no .env');
-      return supabaseLeonni;
+      if (!supabaseLoja2) throw new Error('Loja 2 não configurada. Configure SUPABASE_LOJA2_URL e SUPABASE_LOJA2_ANON_KEY no .env');
+      return supabaseLoja2;
     default:
-      throw new Error(`Loja inválida: ${lojaId}. Use: ClosetChic ou Leonni`);
+      throw new Error(`Loja inválida: ${lojaId}. Use: loja1 ou loja2`);
   }
 };
 
-export { supabaseClosetChic, supabaseLeonni };
+export { supabaseLoja1, supabaseLoja2 };

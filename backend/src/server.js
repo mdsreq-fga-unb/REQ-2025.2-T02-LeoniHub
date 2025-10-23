@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
   res.json({ 
     message: 'API LeoniHub funcionando!',
     version: '1.0.0',
-    lojas: ['ClosetChic', 'Leonni'],
+    lojas: ['loja1', 'loja2'],
     timestamp: new Date().toISOString()
   });
 });
