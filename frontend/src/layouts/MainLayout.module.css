@@ -1,22 +1,21 @@
- 
-.app-container {
+ .app-container {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     min-height: 100vh;
-}
+ }
 
- .page-container{
+ .page-container {
     display: flex;
     flex: 1;
  }
 
- .navbar{
-    width: 250px;
-    min-width: 250px;
+ .navbar {
+    width: 260px;
+    min-width: 260px;
  }
 
- .main-container{
-   flex: 1;
-   padding: 20px;
-   overflow-y: auto;
+ .main-container {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
  }

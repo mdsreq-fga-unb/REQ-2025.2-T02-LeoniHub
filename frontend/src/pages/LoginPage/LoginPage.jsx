@@ -11,12 +11,17 @@ function LoginPage() {
   const handleLogin = (event) => {
     event.preventDefault(); // Previne o recarregamento da página
     setIsLoading(true); // Ativa o estado de "carregando"
-
+    const storeId = localStorage.getItem('lojaId'); //guarda id da loja
     // Simula uma chamada de API e redireciona após 900ms
     setTimeout(() => {
       // Em uma aplicação real, aqui você faria a chamada para o backend
       // e só navegaria em caso de sucesso.
-      navigate('/dashboard'); // Navega para a rota do dashboard
+      if (storeId) {
+        navigate(`/dashboard/${storeId}`);
+      } else {
+        // Caso não tenha lojaId salvo (fallback)
+        navigate('/login');
+      } // Navega para a rota do dashboard // 
     }, 900);
   };
 
@@ -24,10 +29,10 @@ function LoginPage() {
     <div className={styles.loginWrap}>
       <div className={styles.loginCard}>
         <div className={styles.loginLeft}>
-          <img 
-            src={leoniLogo} 
-            alt="Logo Leoni Hub" 
-            className={styles.logoImage} 
+          <img
+            src={leoniLogo}
+            alt="Logo Leoni Hub"
+            className={styles.logoImage}
           />
           <h1 className={styles.brandTitle}>Leoni Hub</h1>
           <p className={styles.brandSubtitle}>
@@ -46,7 +51,7 @@ function LoginPage() {
           </form>
         </div>
       </div>
-      
+
       {/* O componente Link é a forma correta de criar links de navegação interna */}
       <Link to="/" className={styles.buttonBack}>
         ← Voltar ao Menu Principal

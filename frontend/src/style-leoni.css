@@ -70,7 +70,7 @@ a {
 
 .logo-img {
   height: 65px;
-  width: 65px;  
+  width: 65px;
   vertical-align: middle;
 }
 
@@ -92,9 +92,18 @@ a {
 
 /* --- Conteúdo Principal (Main) --- */
 .main {
-  margin-left: 300px;
+  margin-left: 260px;
+  /* alinhado com a sidebar width */
   padding: 32px;
   max-width: 1200px;
+}
+
+/* Responsividade: quando a viewport for pequena, remover deslocamento lateral */
+@media (max-width: 768px) {
+  .main {
+    margin-left: 0;
+    padding: 16px;
+  }
 }
 
 /* --- Cabeçalho da Página --- */

@@ -1,0 +1,100 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    width: 100%;
+}
+
+.card {
+    width: 100%;
+    max-width: 560px;
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid rgba(17, 35, 40, 0.04);
+    box-shadow: 0 18px 40px rgba(17, 35, 40, 0.08);
+    overflow: hidden;
+}
+
+.header {
+    padding: 28px 28px;
+}
+
+.title {
+    margin: 0;
+    font-size: 20px;
+    color: #153a44;
+    font-weight: 600;
+}
+
+.content {
+    padding: 22px 28px 28px 28px;
+    display: block;
+}
+
+.field {
+    margin-bottom: 14px;
+}
+
+.label {
+    display: block;
+    font-size: 13px;
+    color: #4b5563;
+    margin-bottom: 8px;
+}
+
+.input,
+.select,
+.fileInput {
+    width: 100%;
+    background: #eef7f8;
+    border: 1px solid rgba(23, 123, 129, 0.06);
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #203937;
+}
+
+.fileInput {
+    padding: 8px 10px;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    padding-top: 8px;
+}
+
+.primaryBtn {
+    flex: 1;
+    background: linear-gradient(135deg, #177b81, #153a44);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.secondaryBtn {
+    flex: 1;
+    background: white;
+    color: #153a44;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(21, 58, 68, 0.08);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .card {
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: none;
+    }
+
+    .wrapper {
+        padding: 20px;
+    }
+}

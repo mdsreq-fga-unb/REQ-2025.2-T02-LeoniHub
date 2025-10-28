@@ -1,35 +1,52 @@
-
 .navList {
   display: flex;
   flex-direction: column;
   list-style: none;
   gap: 10px;
+  font-size: 16px;
+  line-height: 1.2;
+  font-family: inherit;
 }
 
 .navLink {
-  display:flex;
-  min-width: 200px;
+  display: flex;
+  width: 100%;
   color: #ffffff;
   font-weight: 500;
   padding: 10px;
-  border-left: 4px solid transparent; 
+  /* remove default button borders but keep left accent */
+  border: 0;
+  border-left: 4px solid transparent;
   border-radius: 10px;
   transition: border-color 0.3s ease;
   background-color: #83838342;
+  text-decoration: none;
+  align-items: center;
+  cursor: pointer;
+  justify-content: flex-start;
+  text-align: left;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .navLink:hover {
-  border-color: #3498db; 
-  transform: translateX(+3px); 
+  border-color: #3498db;
+  transform: translateX(+3px);
   transition: all 0.3s ease;
 }
 
-.navLink.active {
-  color: #3498db; 
-  border-color: #3498db; 
+/* Remove foco padrão do botão e qualquer outline indesejado */
+.navLink:focus {
+  outline: none;
+  box-shadow: none;
 }
 
-.title{
+.navLink.active {
+  color: #3498db;
+  border-color: #3498db;
+}
+
+.title {
   font-size: 28px;
   font-weight: 700;
   color: white;
