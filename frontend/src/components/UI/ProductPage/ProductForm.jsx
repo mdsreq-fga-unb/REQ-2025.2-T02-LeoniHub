@@ -7,7 +7,10 @@ export default function ProductForm({ initialData = {}, onSubmit, onCancel }) {
         codigo: initialData.codigo || '',
         tamanho: initialData.tamanho || '',
         tipo: initialData.tipo || '',
+        cor: initialData.cor || '',
         estado: initialData.estado || '',
+        preco: initialData.preco || '',
+        quantidade: initialData.quantidade || '',
         foto: initialData.foto || null,
     });
 
@@ -27,20 +30,39 @@ export default function ProductForm({ initialData = {}, onSubmit, onCancel }) {
     };
 
     const handleSalvar = () => {
-        if (!formData.nome || !formData.codigo || !formData.tamanho || !formData.tipo || !formData.estado) {
-            // fallback simples enquanto não há biblioteca de toasts
-            window.alert('Por favor, preencha todos os campos obrigatórios');
+        if (!formData.nome || !formData.tipo || !formData.preco || !formData.quantidade) {
+            window.alert('Por favor, preencha o nome, tipo e preço do produto');
             return;
         }
 
-        if (onSubmit) onSubmit(formData);
-        window.alert('Produto salvo com sucesso!');
-    };
+        const dataToSend = new FormData();
+
+        if (formData.foto && formData.foto instanceof File) {
+            dataToSend.append('foto', formData.foto);
+        }
+
+        for (const key in formData) {
+            if (key !== 'foto') {
+                dataToSend.append(key, formData[key]);
+            }
+        }
+
+        if (onSubmit) onSubmit(dataToSend);
+    }
 
     const handleLimpar = () => {
-        setFormData({ nome: '', codigo: '', tamanho: '', tipo: '', estado: '', foto: null });
+        setFormData({
+            nome: '',
+            codigo: '',
+            tamanho: '',
+            tipo: '',
+            cor: '',
+            estado: '',
+            preco: '',
+            quantidade: '',
+            foto: null,
+        });
         if (onCancel) onCancel();
-        window.alert('Formulário limpo');
     };
 
     return (
@@ -58,6 +80,11 @@ export default function ProductForm({ initialData = {}, onSubmit, onCancel }) {
                     <div className={styles.field}>
                         <label htmlFor="codigo" className={styles.label}>Código</label>
                         <input id="codigo" name="codigo" type="text" placeholder="SKU-001" value={formData.codigo} onChange={handleInputChange} className={styles.input} />
+                    </div>
+
+                    <div className={styles.field}>
+                        <label htmlFor="preco" className={styles.label}>Preço</label>
+                        <input id="preco" name="preco" type="text" placeholder="200,00" value={formData.preco} onChange={handleInputChange} className={styles.input} />
                     </div>
 
                     <div className={styles.field}>
@@ -81,12 +108,29 @@ export default function ProductForm({ initialData = {}, onSubmit, onCancel }) {
                     </div>
 
                     <div className={styles.field}>
+                        <label htmlFor="cor" className={styles.label}>Cor</label>
+                        <select id="cor" value={formData.cor} onChange={(e) => handleSelectChange('cor', e.target.value)} className={styles.select}>
+                            <option value="">Selecione</option>
+                            <option value="vermelho">Vermelho</option>
+                            <option value="amarelo">Amarelo</option>
+                            <option value="verde">Verde</option>
+                            <option value="azul">Azul</option>
+                            <option value="cinza">Cinza</option>
+                        </select>
+                    </div>
+
+                    <div className={styles.field}>
                         <label htmlFor="estado" className={styles.label}>Estado</label>
                         <select id="estado" value={formData.estado} onChange={(e) => handleSelectChange('estado', e.target.value)} className={styles.select}>
                             <option value="">Selecione</option>
                             <option value="novo">Novo</option>
                             <option value="usado">Usado</option>
                         </select>
+                    </div>
+
+                    <div className={styles.field}>
+                        <label htmlFor="quantidade" className={styles.label}>Quantidade</label>
+                        <input id="quantidade" name="quantidade" type="text" placeholder="5" value={formData.quantidade} onChange={handleInputChange} className={styles.input} />
                     </div>
 
                     <div className={styles.field}>

@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useStore } from '../../context/StoreContext';
+import { useParams } from 'react-router-dom';
 import styles from './DashboardPage.module.css';
+import fetchJsonSafe from '../../utils/fetchJsonSafe';
 
-export default function Dashboard() {
+export default function DashboardPage() {
+    const { lojaId: contextLojaId } = useStore();
+    const { lojaId: paramLojaId } = useParams();
+    const lojaId = paramLojaId || contextLojaId || 'loja1';
+
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    // Estatísticas (preparadas para serem carregadas do backend)
+
     const [stats, setStats] = useState({
         productsAvailable: 0,
         activeOrders: 0,
@@ -15,49 +22,6 @@ export default function Dashboard() {
     const [statsLoading, setStatsLoading] = useState(false);
     const [statsError, setStatsError] = useState(null);
 
-    // Fallback mocks (úteis enquanto o backend não estiver disponível)
-    const fallbackProducts = [
-        { id: '1', name: 'Vestido Leoni A', status: 'Disponível', size: 'M', imageUrl: '/125-6.webp' },
-        { id: '2', name: 'Camisa Leoni B', status: 'Alugado', size: 'G', imageUrl: '/125-6.webp' },
-        { id: '3', name: 'Saia Leoni C', status: 'Disponível', size: 'P', imageUrl: '/125-6.webp' },
-    ];
-
-    const fallbackStats = {
-        productsAvailable: 32,
-        activeOrders: 5,
-        upcomingReturns: 2,
-        clients: 48,
-    };
-
-    // Helper seguro para fetch que valida status e content-type antes de parsear JSON
-    async function fetchJsonSafe(url, opts) {
-        const res = await fetch(url, opts);
-        const text = await res.text();
-        const contentType = res.headers.get('content-type') || '';
-
-        if (!res.ok) {
-            // Log para diagnóstico e lançar erro
-            console.error('fetch error', { url, status: res.status, body: text.slice(0, 1000) });
-            throw new Error(`HTTP ${res.status}`);
-        }
-
-        // Se o content-type não indicar JSON, tentar parsear mesmo assim, senão lançar erro com preview
-        if (!contentType.includes('application/json')) {
-            try {
-                return JSON.parse(text.replace(/^\uFEFF/, ''));
-            } catch (e) {
-                console.warn('Resposta não é JSON', { url, contentType, bodyPreview: text.slice(0, 400) });
-                throw new Error('Resposta não é JSON');
-            }
-        }
-
-        try {
-            return JSON.parse(text.replace(/^\uFEFF/, ''));
-        } catch (err) {
-            console.error('JSON parse failed', { url, bodyPreview: text.slice(0, 1000) });
-            throw err;
-        }
-    }
 
     useEffect(() => {
         let mounted = true;
@@ -65,17 +29,20 @@ export default function Dashboard() {
             setLoading(true);
             setError(null);
             try {
-                const base = process.env.REACT_APP_API_BASE ? process.env.REACT_APP_API_BASE.replace(/\/$/, '') : '';
-                const url = base ? `${base}/products` : '/api/products';
+                const base = process.env.REACT_APP_API_BASE ? process.env.REACT_APP_API_BASE.replace(/\/$/, '') : 'http://localhost:3001';
+                const url = `${base}/products`;
 
-                const data = await fetchJsonSafe(url);
-                if (mounted) setProducts(Array.isArray(data) ? data : []);
+                const data = await fetchJsonSafe(url, {
+                    headers: {
+                        'x-loja-id': lojaId,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (mounted) setProducts(Array.isArray(data.data) ? data.data : []);
             } catch (err) {
-                console.warn('Falha ao buscar produtos, usando fallback mock:', err.message);
-                if (mounted) {
-                    setProducts(fallbackProducts);
-                    setError('Backend não disponível — mostrando dados mock');
-                }
+                console.warn('Falha ao buscar produtos:', err.message);
+                if (mounted) setError(err.message || 'Erro ao carregar produtos');
             } finally {
                 if (mounted) setLoading(false);
             }
@@ -83,21 +50,25 @@ export default function Dashboard() {
 
         load();
         return () => { mounted = false; };
-    }, []);
+    }, [lojaId]);
 
-    // Busca as estatísticas do backend quando disponível
+    // Busca as estatísticas do backend quando disponível (mantido o padrão, mas adicionando o header)
     useEffect(() => {
         let mounted = true;
         async function loadStats() {
             setStatsLoading(true);
             setStatsError(null);
             try {
-                // endpoint preparado: /api/dashboard/stats (padrão)
-                const base = process.env.REACT_APP_API_BASE ? process.env.REACT_APP_API_BASE.replace(/\/$/, '') : '';
-                const url = base ? `${base}/dashboard/stats` : '/api/dashboard/stats';
+                const base = process.env.REACT_APP_API_BASE ? process.env.REACT_APP_API_BASE.replace(/\/$/, '') : 'http://localhost:3001';
+                const url = `${base}/dashboard/stats`;
 
                 try {
-                    const data = await fetchJsonSafe(url);
+                    const data = await fetchJsonSafe(url, {
+                        headers: {
+                            'x-loja-id': lojaId,
+                            'Content-Type': 'application/json'
+                        }
+                    });
                     const mapped = {
                         productsAvailable: Number(data.productsAvailable ?? data.products ?? data.totalProducts ?? stats.productsAvailable) || 0,
                         activeOrders: Number(data.activeOrders ?? data.ordersActive ?? data.active ?? stats.activeOrders) || 0,
@@ -106,10 +77,9 @@ export default function Dashboard() {
                     };
                     if (mounted) setStats(mapped);
                 } catch (err) {
-                    console.warn('Falha ao buscar estatísticas, usando fallback:', err.message);
+                    console.warn('Falha ao buscar estatísticas:', err.message);
                     if (mounted) {
-                        setStats(fallbackStats);
-                        setStatsError('Backend não disponível — mostrando estatísticas mock');
+                        setStatsError(err.message || 'Erro ao carregar estatísticas');
                     }
                 }
             } catch (err) {
@@ -121,25 +91,20 @@ export default function Dashboard() {
 
         loadStats();
         return () => { mounted = false; };
-    }, []);
+    }, [lojaId]);
 
     const getStatusColor = (status) => {
-        // status expected: 'Disponível', 'Alugado', etc.
         if (!status) return '#999';
         const s = String(status).toLowerCase();
         if (s.includes('alug')) return '#d90003';
         if (s.includes('disp')) return '#24bcc4';
         return '#999';
     };
+
     return (
         <div className={styles.container}>
-
-            {/* Main Content */}
             <main className={styles.mainContent}>
-                {/* Header */}
-                <h2 className={styles.pageTitle}>Painel Leoni - Controle</h2>
-
-                {/* Stats Cards */}
+                <h2 className={styles.pageTitle}>Painel Leoni - Controle ({lojaId.toUpperCase()})</h2>
                 <div className={styles.statsGrid}>
                     <div className={styles.statCard}>
                         <p className={styles.statLabel}>PRODUTOS DISPONÍVEIS</p>
@@ -158,8 +123,6 @@ export default function Dashboard() {
                         <p className={styles.statValue}>{statsLoading ? '...' : stats.clients}</p>
                     </div>
                 </div>
-
-                {/* Search and Filter */}
                 <div className={styles.searchRow}>
                     <input
                         type="text"
@@ -170,39 +133,34 @@ export default function Dashboard() {
                         <option>Todos os tipos</option>
                     </select>
                 </div>
-
-                {/* Product Cards */}
                 <div className={styles.productsGrid}>
                     {loading && <p>Carregando produtos...</p>}
                     {error && <p style={{ color: 'crimson' }}>Erro: {error}</p>}
                     {!loading && !error && products.length === 0 && (
-                        <p>Nenhum produto cadastrado.</p>
+                        <p>Nenhum produto cadastrado na loja {lojaId}.</p>
                     )}
-
                     {!loading && !error && products.map((p) => (
                         <div className={styles.productCard} key={p.id || p._id || p.code}>
                             <div className={styles.productImageContainer}>
                                 <img
-                                    src={p.imageUrl || p.image || '/125-6.webp'}
-                                    alt={p.name || 'Produto'}
+                                    src={p.foto || p.imageUrl || p.image || '/125-6.webp'}
+                                    alt={p.nome || 'Produto'}
                                     className={styles.productImage}
                                 />
                             </div>
-
                             <div className={styles.productInfo}>
-                                <h3 className={styles.productName}>{p.name || p.title || 'Sem nome'}</h3>
+                                <h3 className={styles.productName}>{p.nome || p.title || 'Sem nome'}</h3>
                                 <div className={styles.statusBadge}>
                                     <div
                                         className={styles.statusIndicator}
-                                        style={{ width: '26px', backgroundColor: getStatusColor(p.status) }}
+                                        style={{ width: '26px', backgroundColor: getStatusColor(p.status || (p.quantidade > 0 ? 'Disponível' : 'Alugado')) }}
                                     />
-                                    <span className={styles.statusText}>{p.status || 'Indefinido'}</span>
+                                    <span className={styles.statusText}>{p.status || (p.quantidade > 0 ? 'Disponível' : 'Alugado')}</span>
                                 </div>
-                                <p className={styles.productSize}>Tam: {p.size || p.sizeLabel || '—'}</p>
+                                <p className={styles.productSize}>Preço: R$ {p.preco || '0.00'}</p>
                             </div>
-
                             <div className={styles.actionButtons}>
-                                <button className={styles.primaryBtn}>{p.status && String(p.status).toLowerCase().includes('alug') ? 'Devolver' : 'Alugar'}</button>
+                                <button className={styles.primaryBtn}>Detalhes</button>
                                 <button className={styles.secondaryBtn}>Editar</button>
                             </div>
                         </div>
@@ -212,4 +170,3 @@ export default function Dashboard() {
         </div>
     );
 }
-
