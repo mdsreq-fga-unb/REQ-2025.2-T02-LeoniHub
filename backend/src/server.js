@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.js';
+import produtoRoutes from './routes/produtoRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 
 // Rotas da API
 app.use('/auth', authRoutes);
+app.use('/api/produtos', produtoRoutes);
 
 // Rota 404
 app.use((req, res) => {
