@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
+
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
@@ -117,8 +118,71 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Função de RECUPERAR a senha
+  const forgotPassword = async (email, lojaId) =>{
+    try{
+      setLoading(true);
+
+      const response = await fetch(`http://localhost:3001/auth/${lojaId}/forgotPassword`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email}),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao recuperar a senha');
+      }
+
+      return { success: data.success, message: data.message };
+    }
+     
+    catch (error) 
+    {
+      console.error('Erro na recuperação de senha:', error);
+      return { success: false, error: error.message };
+    } 
+    finally 
+    {
+      setLoading(false);
+    }
+  };
+    
+  // Função de MUDAR a senha
+  const changePassword = async (token, newPassword, lojaId) => {
+    try {
+      setLoading(true);
+      
+      const response = await fetch(`http://localhost:3001/auth/${lojaId}/updatePassword`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token, newPassword }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao atualizar a senha');
+      }
+
+      return { success: true, message: data.message };
+      
+    } catch (error) {
+      console.error('Erro no resetPassword:', error);
+      return { success: false, error: error.message };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Função de LOGOUT
   const logout = async () => {
+    
     try {
       const token = localStorage.getItem('token');
       const savedLojaId = localStorage.getItem('lojaId');
@@ -155,6 +219,8 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: !!user,           // Se está autenticado (true/false)
     login,                             // Função para fazer login
     signup,                            // Função para criar conta
+    forgotPassword,                   // Função para recuperação de senha
+    changePassword,                   // Função para MUDAR a senha
     logout,                            // Função para sair
   };
 

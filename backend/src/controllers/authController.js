@@ -182,6 +182,76 @@ export const signup = async (req, res) => {
   }
 };
 
+// POST - Função de RECUPERAR SENHA
+export const forgotPassword = async (req, res) => {
+
+  const { email } = req.body;
+  const { lojaId } = req.params;
+
+  const redirectUrl = `http://localhost:3000/forgotpassword/${lojaId}/updatepassword`;
+
+    try {
+      
+      // Chama o método de recuperação de senha do Supabase
+      const { data, error } = await supabaseSchema.auth.resetPasswordForEmail(email, { // O uso do supabaseSchema não quebra, o ".auth" redireciona pro lugar correto na tabela padrão do Supabase
+        redirectTo: redirectUrl,
+      });
+
+      if (error) {
+            return res.status(400).json({ success: false, error: error.message });
+      }
+
+      return res.status(200).json({ success: true, data: { message: 'Email de recuperação enviado com sucesso.' }});
+    
+    } catch (error) {
+        console.error("Erro inesperado no servidor:", error.message);
+        return res.status(500).json({ success: false, error: 'Erro interno do servidor.'});
+    }
+};
+
+// POST - Função de ATUALIZAR a senha
+export const changePassword = async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+    const { lojaId } = req.params;
+
+    if (!token || !newPassword) {
+      return res.status(400).json({ success: false, error: 'Token e nova senha são obrigatórios.' });
+    }
+    
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        success: false,
+        error: 'A nova senha deve ter no mínimo 6 caracteres'
+      });
+    }
+
+    const supabase = getSupabaseClient(lojaId);
+
+    // Pegar o usuário pelo TOKEN fornecido
+    const { data: { user }, error: userError } = await supabase.auth.getUser(token);
+
+    if (userError || !user) { // Verifica TOKEN
+      return res.status(401).json({ success: false, error: 'Token inválido ou expirado.' });
+    }
+
+    const { error: updateError } = await supabaseSchema.auth.admin.updateUserById(
+      user.id,
+      { password: newPassword }
+    );
+    
+    if (updateError) {
+      return res.status(500).json({ success: false, error: updateError.message });
+    }
+
+    return res.status(200).json({ success: true, message: 'Senha atualizada com sucesso!' });
+    
+  } catch (error) {
+    console.error("Erro inesperado no updatePassword:", error.message);
+    return res.status(500).json({ success: false, error: 'Erro interno do servidor.' });
+  }
+};
+
 // POST - Logout
 export const logout = async (req, res) => {
   try {

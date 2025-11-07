@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { useNavigate, Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import styles from './RegisterPage.module.css';
 import leoniLogo from '../../assets/img/leoni_logo.png';
@@ -18,7 +18,6 @@ function RegisterPage() {
 
   const { lojaId } = useParams();
   const { signup, loading } = useAuth();
-  const navigate = useNavigate();
 
   function validarCPF(cpf) { // Retorna "true" se CPF é valido e "false" se não é.
     // 1. Remove caracteres não numéricos (pontos, traços) -> REGEX
@@ -95,7 +94,7 @@ function RegisterPage() {
     const result = await signup(lojaId, email, password, nomeCompleto, cpf);
 
     if (result.success) {
-      // Login bem-sucedido, redirecionar para dashboard
+      // Registro bem-sucedido
       setSuccessMessage('Cadastro realizado! Verifique seu e-mail para autenticar sua conta!');
     } else {
       // Mostrar erro
@@ -191,6 +190,10 @@ function RegisterPage() {
               {loading ? 'Entrando...' : 'Entrar'}
             </button>
           </form>
+
+          <p style={{ marginTop: '15px', textAlign: 'center' }}>
+            Já tem uma conta? <Link style={{color:'#1876b1ff'}} to={`/login/${lojaId}`}>Faça Login</Link>
+          </p>
 
         </div>
       </div>
