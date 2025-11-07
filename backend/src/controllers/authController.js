@@ -1,4 +1,15 @@
 import { getSupabaseClient } from '../config/db.js';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = 'https://khgmbtfxojurshfdhldu.supabase.co';
+const supabaseServiceKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoZ21idGZ4b2p1cnNoZmRobGR1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MTIzNjg5OCwiZXhwIjoyMDc2ODEyODk4fQ.J44ILd9RA1EBBe4mwFUyfwzrH1_m0666NaS63btNnu0';
+
+const supabaseSchema = createClient(supabaseUrl, supabaseServiceKey, {
+  db: {
+    schema: 'Leoni-Hub'
+  }
+});
+
 
 // POST - Login do usuário
 export const login = async (req, res) => {
@@ -61,14 +72,14 @@ export const login = async (req, res) => {
 // POST - Registro de novo usuário
 export const signup = async (req, res) => {
   try {
-    const { email, password, nome } = req.body;
+    const { email, password, nome, cpf } = req.body;
     const { lojaId } = req.params;
     
     // Validação
-    if (!email || !password) {
+    if (!email || !password || !nome || !cpf) {
       return res.status(400).json({
         success: false,
-        error: 'Email e senha são obrigatórios'
+        error: 'Todos os campos são obrigatórios'
       });
     }
     
@@ -81,7 +92,7 @@ export const signup = async (req, res) => {
     
     const supabase = getSupabaseClient(lojaId);
     
-    // Criar usuário
+    // Criar usuário PADRÃO do Supabase
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -93,21 +104,34 @@ export const signup = async (req, res) => {
       }
     });
     
-    if (error) {
+    if (error) { // Se usuário já existe
       return res.status(400).json({
         success: false,
         error: error.message
       });
+    }
+
+    // Registra informações Extras do Funcionário no Supabase --> Table Funcionarios
+    const { error: profileError } = await supabaseSchema
+      .from('Funcionarios') // O nome da sua tabela de usuários
+      .insert({
+        id: data.user.id, // Vincula o perfil ao usuário do Auth
+        Nome: nome,
+        CPF: cpf,
+        Email: email,
+        Loja: lojaId,
+      });
+
+    if (profileError) { // Checa se algo deu errado nessa segunda inserção
+      return res.status(500).json({ success: false, error: profileError.message });
     }
     
     res.status(201).json({
       success: true,
       message: 'Usuário criado com sucesso! Verifique seu email para confirmar.',
       data: {
-        user: {
-          id: data.user.id,
-          email: data.user.email
-        },
+        user: data.user,   
+        session: data.session,
         lojaId: lojaId
       }
     });
