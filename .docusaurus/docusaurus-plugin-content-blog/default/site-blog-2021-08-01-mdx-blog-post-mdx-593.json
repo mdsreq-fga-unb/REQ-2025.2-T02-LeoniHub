@@ -1,0 +1,55 @@
+{
+  "permalink": "/REQ-2025.2-T02-LeoniHub/blog/mdx-blog-post",
+  "editUrl": "https://github.com/mdsreq-fga-unb/REQ-2025.2-T02-LeoniHub.git/blog/2021-08-01-mdx-blog-post.mdx",
+  "source": "@site/blog/2021-08-01-mdx-blog-post.mdx",
+  "title": "MDX Blog Post",
+  "description": "Blog posts support Docusaurus Markdown features, such as MDX.",
+  "date": "2021-08-01T00:00:00.000Z",
+  "tags": [
+    {
+      "inline": false,
+      "label": "Docusaurus",
+      "permalink": "/REQ-2025.2-T02-LeoniHub/blog/tags/docusaurus",
+      "description": "Docusaurus tag description"
+    }
+  ],
+  "readingTime": 0.27,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Sébastien Lorber",
+      "title": "Docusaurus maintainer",
+      "url": "https://sebastienlorber.com",
+      "page": {
+        "permalink": "/REQ-2025.2-T02-LeoniHub/blog/authors/all-sebastien-lorber-articles"
+      },
+      "socials": {
+        "x": "https://x.com/sebastienlorber",
+        "linkedin": "https://www.linkedin.com/in/sebastienlorber/",
+        "github": "https://github.com/slorber",
+        "newsletter": "https://thisweekinreact.com"
+      },
+      "imageURL": "https://github.com/slorber.png",
+      "key": "slorber"
+    }
+  ],
+  "frontMatter": {
+    "slug": "mdx-blog-post",
+    "title": "MDX Blog Post",
+    "authors": [
+      "slorber"
+    ],
+    "tags": [
+      "docusaurus"
+    ]
+  },
+  "unlisted": false,
+  "prevItem": {
+    "title": "Welcome",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/blog/welcome"
+  },
+  "nextItem": {
+    "title": "Long Blog Post",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/blog/long-blog-post"
+  }
+}

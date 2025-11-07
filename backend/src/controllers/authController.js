@@ -35,6 +35,16 @@ export const login = async (req, res) => {
     });
     
     if (error) {
+
+      // Caso o e-mail do usuário não tenha sido confirmado
+      if (error.message === 'Email not confirmed') { // Mensagem da documentação do Supabase (Mensagem de erro da DB)
+        return res.status(401).json({
+          success: false,
+          error: 'Por favor, confirme seu email antes de fazer o login.'
+        });
+      }
+
+      // Se for qualquer outro erro
       return res.status(401).json({
         success: false,
         error: 'Email ou senha inválidos'
@@ -104,38 +114,66 @@ export const signup = async (req, res) => {
       }
     });
     
-    if (error) { // Se usuário já existe
+    if (error) { // Se usuário já existe na Tabela de Users (Padrão do Supabase)
       return res.status(400).json({
         success: false,
         error: error.message
       });
     }
 
-    // Registra informações Extras do Funcionário no Supabase --> Table Funcionarios
+    // ============================================================================
+    // VERIFICAÇÃO SE JÁ EXISTE UM USUARIO COM O MESMO CPF
+
+    const { data: cpfExistente, error: cpfCheckError } = await supabaseSchema
+      .from('Funcionarios')
+      .select('CPF')    
+      .eq('CPF', cpf)     // Checa se tem um 'cpf' na coluna de 'CPF'
+      .maybeSingle();     // Retorna 'null' se não encontrar, ou um objeto se encontrar
+
+    // Se houver um erro na consulta
+    if (cpfCheckError) {
+        console.error('Erro ao verificar CPF:', cpfCheckError.message);
+        return res.status(500).json({ success: false, error: 'Erro interno ao verificar dados.' });
+    }
+
+    if (cpfExistente) { // Se CPF já existir, deletar usuário criado
+      await supabase.auth.admin.deleteUser(data.user.id);
+
+      return res.status(409).json({ // Erro de duplicata
+        success: false,
+        error: 'Este CPF já está cadastrado.'
+      });
+
+    // ============================================================================
+
+    // Após ter certeza de que não existe esse usuário, criamos ele na outra tabela
+
+    // Registra informações Extras do Funcionário no Supabase na Table "Funcionarios"
     const { error: profileError } = await supabaseSchema
-      .from('Funcionarios') // O nome da sua tabela de usuários
+      .from('Funcionarios')
       .insert({
-        id: data.user.id, // Vincula o perfil ao usuário do Auth
+        id: data.user.id, 
         Nome: nome,
         CPF: cpf,
         Email: email,
         Loja: lojaId,
       });
 
-    if (profileError) { // Checa se algo deu errado nessa segunda inserção
+    if (profileError) { 
       return res.status(500).json({ success: false, error: profileError.message });
     }
     
+
     res.status(201).json({
       success: true,
-      message: 'Usuário criado com sucesso! Verifique seu email para confirmar.',
+      message: 'Usuário criado com sucesso! Verifique seu e-mail para confirmar.',
       data: {
         user: data.user,   
-        session: data.session,
         lojaId: lojaId
       }
     });
-    
+  }
+
   } catch (error) {
     res.status(500).json({
       success: false,

@@ -1,0 +1,29 @@
+{
+  "id": "visao_produto/solucao_proposta",
+  "title": "Solução Proposta",
+  "description": "2.1 Objetivos do Produto",
+  "source": "@site/docs/visao_produto/solucao_proposta.md",
+  "sourceDirName": "visao_produto",
+  "slug": "/visao_produto/solucao_proposta",
+  "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/solucao_proposta",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mdsreq-fga-unb/REQ-2025.2-T02-LeoniHub.git/docs/visao_produto/solucao_proposta.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Solução Proposta",
+    "sidebar_label": "Solução Proposta",
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Cenário Atual",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/cenario_atual"
+  },
+  "next": {
+    "title": "Estratégias de Engenharia",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/estrategias_de_engenharia"
+  }
+}

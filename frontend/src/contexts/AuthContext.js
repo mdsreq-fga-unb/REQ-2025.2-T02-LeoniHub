@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Criar o Context
 const AuthContext = createContext({});
 
-// Provider que vai "abraçar" a aplicação
 export const AuthProvider = ({ children }) => {
   // Estados compartilhados
   const [user, setUser] = useState(null);
@@ -55,6 +53,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       if (data.success) {
+
         // Salvar dados no localStorage
         localStorage.setItem('token', data.data.session.access_token);
         localStorage.setItem('refresh_token', data.data.session.refresh_token);
@@ -78,7 +77,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Função de CADASTRO
-  const signup = async (lojaId, email, password, nome) => {
+  const signup = async (lojaId, email, password, nome, cpf) => {
     try {
       setLoading(true);
 
@@ -87,13 +86,26 @@ export const AuthProvider = ({ children }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, nome }),
+        body: JSON.stringify({ email, password, nome , cpf}),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.error || 'Erro ao criar conta');
+      }
+
+      if (data.success) {
+
+        // Salvar dados no localStorage
+        localStorage.setItem('user', JSON.stringify(data.data.user));
+        localStorage.setItem('lojaId', lojaId);
+
+        // Atualizar estados
+        setUser(data.data.user);
+        setLojaId(lojaId);
+
+        return { success: true, data: data.data };
       }
 
       return { success: data.success, message: data.message, data: data.data };

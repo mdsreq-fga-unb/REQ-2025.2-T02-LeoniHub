@@ -1,0 +1,29 @@
+{
+  "id": "visao_produto/licoes_aprendidas",
+  "title": "Lições Aprendidas",
+  "description": "7.1 - Unidade 1",
+  "source": "@site/docs/visao_produto/licoes_aprendidas.md",
+  "sourceDirName": "visao_produto",
+  "slug": "/visao_produto/licoes_aprendidas",
+  "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/licoes_aprendidas",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mdsreq-fga-unb/REQ-2025.2-T02-LeoniHub.git/docs/visao_produto/licoes_aprendidas.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "title": "Lições Aprendidas",
+    "sidebar_label": "Lições Aprendidas",
+    "sidebar_position": 7
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Interação Equipe e Cliente",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/interacao_equipe_cliente"
+  },
+  "next": {
+    "title": "Backlog do Produto",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/backlog_do_produto"
+  }
+}

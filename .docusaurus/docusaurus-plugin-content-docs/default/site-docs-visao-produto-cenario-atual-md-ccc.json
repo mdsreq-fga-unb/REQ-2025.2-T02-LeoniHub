@@ -1,0 +1,29 @@
+{
+  "id": "visao_produto/cenario_atual",
+  "title": "Cenário Atual",
+  "description": "1.1 Introdução ao Negócio e Contexto",
+  "source": "@site/docs/visao_produto/cenario_atual.md",
+  "sourceDirName": "visao_produto",
+  "slug": "/visao_produto/cenario_atual",
+  "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/cenario_atual",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mdsreq-fga-unb/REQ-2025.2-T02-LeoniHub.git/docs/visao_produto/cenario_atual.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Cenário Atual",
+    "sidebar_label": "Cenário Atual",
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Visão do Produto e do Projeto",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/category/visão-do-produto-e-do-projeto"
+  },
+  "next": {
+    "title": "Solução Proposta",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/solucao_proposta"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "requesitos/req_naoFuncionais",
+  "title": "Requisitos Não Funcionais (RNF)",
+  "description": "---",
+  "source": "@site/docs/requesitos/req_naoFuncionais.md",
+  "sourceDirName": "requesitos",
+  "slug": "/requesitos/req_naoFuncionais",
+  "permalink": "/REQ-2025.2-T02-LeoniHub/docs/requesitos/req_naoFuncionais",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mdsreq-fga-unb/REQ-2025.2-T02-LeoniHub.git/docs/requesitos/req_naoFuncionais.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Requisitos Funcionais (RF)",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/requesitos/req_funcionais"
+  },
+  "next": {
+    "title": "Mapeamento dos Requisitos",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/requesitos/mapeamento"
+  }
+}
