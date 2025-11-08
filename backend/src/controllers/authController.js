@@ -143,7 +143,7 @@ export const signup = async (req, res) => {
         success: false,
         error: 'Este CPF já está cadastrado.'
       });
-
+    }
     // ============================================================================
 
     // Após ter certeza de que não existe esse usuário, criamos ele na outra tabela
@@ -174,7 +174,7 @@ export const signup = async (req, res) => {
     });
   }
 
-  } catch (error) {
+  catch (error) {
     res.status(500).json({
       success: false,
       error: error.message
