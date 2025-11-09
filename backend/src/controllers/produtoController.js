@@ -47,8 +47,63 @@ return res.status(500).json({ message: 'Erro interno do servidor.' });
 }
 }
 
+// Controla a atualização de um produto.
+async function updateProduto(req, res) {
+try {
+    // O :codigo vem da URL (ex: /api/produtos/1/SKU-001)
+    const { lojaId, codigo } = req.params;
+    const { tamanho, estado, descricao, fotos } = req.body;
+
+    // Se o 'codigo' vier no body, é um erro 400.
+    if (req.body.codigo) {
+    return res.status(400).json({ 
+        message: 'O código do produto não pode ser editado.' 
+    });
+    }
+
+    // Montamos o objeto APENAS com os campos que podem ser atualizados
+    // e que foram enviados na requisição
+    const dadosParaAtualizar = {
+    ...(tamanho !== undefined && { tamanho }),
+    ...(estado !== undefined && { estado }),
+    ...(descricao !== undefined && { descricao }),
+    ...(fotos !== undefined && { fotos }),
+    };
+
+    // Validação para garantir que pelo menos um campo foi enviado
+    if (Object.keys(dadosParaAtualizar).length === 0) {
+    return res.status(400).json({
+        message: 'Nenhum dado válido para atualização foi fornecido.'
+    });
+    }
+
+    // Chama o Model para atualizar o produto
+    const produtoAtualizado = await produtoModel.update(lojaId, codigo, dadosParaAtualizar);
+
+    // 200 OK - Padrão REST para atualização bem-sucedida
+    return res.status(200).json(produtoAtualizado);
+
+} catch (error) {
+    // Tratamento de erros do Model
+
+    if (error.message.includes('emprestado')) {
+    // 403 Forbidden - Ação proibida pela regra de negócio
+    return res.status(403).json({ message: error.message });
+    }
+
+    if (error.message.includes('Produto não encontrado')) {
+    // 404 Not Found - O recurso (produto) não existe
+    return res.status(404).json({ message: error.message });
+    }
+
+    console.error('Erro no controller updateProduto:', error);
+    return res.status(500).json({ message: 'Erro interno do servidor.' });
+}
+}
+
 // Exportamos um objeto com todas as funções do controller
 export const produtoController = {
 createProduto,
+updateProduto,
 // (aqui entrarão outras funções: getProdutoById, updateProduto, etc.)
 };
