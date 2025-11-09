@@ -1,5 +1,6 @@
 import { produtoModel } from '../models/produto.js';
 
+// FUNÇÃO 1: Criar Produto
 async function createProduto(req, res) {
 try {
 // 1. Pega o lojaId (Ex: da URL /produtos/1)
@@ -47,7 +48,7 @@ return res.status(500).json({ message: 'Erro interno do servidor.' });
 }
 }
 
-// Controla a atualização de um produto.
+// FUNÇÃO 2: Atualizar Produto
 async function updateProduto(req, res) {
 try {
     // O :codigo vem da URL (ex: /api/produtos/1/SKU-001)
@@ -101,9 +102,50 @@ try {
 }
 }
 
+//FUNÇÕES 3 E 4: Consultar Produtos 
+
+async function getAllProdutos(req, res) {
+    try {
+        const { lojaId } = req.params;
+        // Pega os filtros da URL (query string)
+        const { codigo, tamanho, estado } = req.query;
+        const filters = {
+        ...(codigo && { codigo }),
+        ...(tamanho && { tamanho }),
+        ...(estado && { estado }),
+        };
+
+        const produtos = await produtoModel.getAll(lojaId, filters);
+        return res.status(200).json(produtos);
+
+    } catch (error) {
+        console.error('Erro no controller getAllProdutos:', error);
+        return res.status(500).json({ message: 'Erro interno do servidor.' });
+    }
+}
+
+async function getProdutoPorCodigo(req, res) {
+    try {
+        const { lojaId, codigo } = req.params;
+        const produto = await produtoModel.getByCodigo(lojaId, codigo);
+        return res.status(200).json(produto);
+
+    } catch (error) {
+        if (error.message.includes('Produto não encontrado')) {
+        return res.status(404).json({ message: error.message });
+        }
+        console.error('Erro no controller getProdutoPorCodigo:', error);
+        return res.status(500).json({ message: 'Erro interno do servidor.' });
+    }
+}
+
+
 // Exportamos um objeto com todas as funções do controller
 export const produtoController = {
 createProduto,
 updateProduto,
+getAllProdutos,
+getProdutoPorCodigo,
+
 // (aqui entrarão outras funções: getProdutoById, updateProduto, etc.)
 };

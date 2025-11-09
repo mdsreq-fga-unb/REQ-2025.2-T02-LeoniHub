@@ -85,9 +85,77 @@ async function update(lojaId, codigo, produtoData) {
     return data;
 }
 
+ // FUNÇÃO 3: Buscar Todos os Produtos (com filtros)
+    /**
+     * Busca todos os produtos da loja, com filtros opcionais.
+     * @param {string} lojaId - O ID da loja ('1' ou '2').
+     * @param {object} filters - Objeto com filtros { codigo, tamanho, estado }.
+     * @returns {Array} Lista de produtos.
+     */
+    async function getAll(lojaId, filters = {}) {
+    const supabase = getSupabaseClient(lojaId);
+
+    // Inicia a query básica
+    let query = supabase.from('produtos').select('*');
+
+    //Aplica filtros se eles existirem
+    if (filters.codigo) {
+        // Usamos 'ilike' para busca textual "case-insensitive" (ignora maiúsculas/minúsculas)
+        // e com '%' para "contém"
+        query = query.ilike('codigo', `%${filters.codigo}%`);
+    }
+    if (filters.tamanho) {
+        query = query.eq('tamanho', filters.tamanho);
+    }
+    if (filters.estado) {
+        query = query.eq('estado', filters.estado);
+    }
+
+    // Executa a query
+    const { data, error } = await query;
+
+    if (error) {
+        console.error('Erro ao buscar todos os produtos:', error.message);
+        throw new Error('Não foi possível buscar os produtos.');
+    }
+
+    return data;
+    }
+
+    // FUNÇÃO 4: Buscar Um Produto por Código 
+
+    /**
+     * Busca um único produto pelo seu código.
+     * @param {string} lojaId - O ID da loja ('1' ou '2').
+     * @param {string} codigo - O código do produto.
+     * @returns {object} O produto encontrado.
+     */
+    async function getByCodigo(lojaId, codigo) {
+    const supabase = getSupabaseClient(lojaId);
+
+    const { data, error } = await supabase
+        .from('produtos')
+        .select('*')
+        .eq('codigo', codigo)
+        .single(); // Espera exatamente 1 resultado
+
+    if (error) {
+        // Se o 'error' for do tipo "PGRST116" (PostgREST), significa que não achou (0 rows)
+        if (error.code === 'PGRST116') {
+        throw new Error('Produto não encontrado.');
+        }
+        console.error('Erro ao buscar produto por código:', error.message);
+        throw new Error('Não foi possível buscar o produto.');
+    }
+
+    return data;
+    }
+
 // Exportamos um objeto com todas as funções do model
 export const produtoModel = {
 create,
 update,
+getAll,
+getByCodigo,
 // (aqui entrarão outras funções, como getById, update, delete, etc.)
 };
