@@ -3,7 +3,6 @@ import { clienteModel } from '../models/cliente.js'; // Importamos o model de cl
 import { produtoModel } from '../models/produto.js'; // Importamos o model de produto
 
 //  Controla a criação de um novo pedido.
-
 async function createPedido(req, res) {
 const { lojaId } = req.params;
 const {
@@ -14,7 +13,7 @@ const {
     data_devolucao
 } = req.body;
 
-// Validação de todos os campos
+// CA1: Validação de todos os campos
 if (!codigo_cliente || !codigo_produto || !valor || !data_aluguel || !data_devolucao) {
     return res.status(400).json({
     message: 'Todos os campos são obrigatórios: codigo_cliente, codigo_produto, valor, data_aluguel, data_devolucao.'
@@ -22,45 +21,56 @@ if (!codigo_cliente || !codigo_produto || !valor || !data_aluguel || !data_devol
 }
 
 try {
-    // 1. Verificar se o cliente existe (buscando pelo código)
+    // 1. CA3: Verificar se o cliente existe
     const cliente = await clienteModel.getByCodigo(lojaId, codigo_cliente);
 
-    // 2. Verificar se o produto existe (buscando pelo código)
+    // 2. Verificar se o produto existe
     const produto = await produtoModel.getByCodigo(lojaId, codigo_produto);
 
-    // 3. Não alugar um produto que já está emprestado
-    if (produto.estado === 'emprestado') {
+    // 3. Checar disponibilidade de datas
+    const estaDisponivel = await pedidoModel.checkAvailability(
+    lojaId,
+    produto.id,       // ID do produto
+    data_aluguel,     // Data de início
+    data_devolucao,   // Data de fim
+    null              // ID a excluir (null, pois é um NOVO pedido)
+    );
+
+    if (!estaDisponivel) {
     return res.status(409).json({
-        message: 'Este produto já está emprestado e não pode ser alugado no momento.'
+        message: 'Conflito de datas. O produto já está reservado para este período.'
     });
     }
-
     // 4. Montar o objeto de dados para o novo pedido
     const pedidoData = {
-    client_id: cliente.id,   // Usamos o ID (int8) real do cliente
-    produto_id: produto.id,  // Usamos o ID (int8) real do produto
+    client_id: cliente.id,
+    produto_id: produto.id,
     valor,
     data_aluguel,
     data_devolucao,
-    status: 'ativo'       // Status inicial do pedido
+    status: 'ativo'
     };
 
     // 5. Criar o Pedido
     const novoPedido = await pedidoModel.create(lojaId, pedidoData);
 
-    // 6. ATUALIZAR o status do produto para 'emprestado'
-    await produtoModel.update(lojaId, produto.codigo, { estado: 'emprestado' });
+    // 6. REMOVEMOS a atualização de estado do produto.
+    // O "estado" de um produto é dinâmico, baseado nas reservas.
+    // A linha "await produtoModel.update(...)" FOI REMOVIDA.
 
     // 7. Retornar o pedido criado
     return res.status(201).json(novoPedido);
 
 } catch (error) {
-    // Trata os erros "Não encontrado" vindos dos models
+    // Trata os erros "Não encontrado"
     if (error.message.includes('Cliente não encontrado')) {
     return res.status(404).json({ message: 'Cliente não encontrado. Verifique o código.' });
     }
     if (error.message.includes('Produto não encontrado')) {
     return res.status(404).json({ message: 'Produto não encontrado. Verifique o código.' });
+    }
+    if (error.message.includes('disponibilidade')) {
+        return res.status(500).json({ message: error.message });
     }
     
     console.error('Erro no controller createPedido:', error);
@@ -68,6 +78,116 @@ try {
 }
 }
 
+// Controla a busca por todos os pedidos.
+async function getAllPedidos(req, res) {
+try {
+    const { lojaId } = req.params;
+    const pedidos = await pedidoModel.getAll(lojaId);
+    return res.status(200).json(pedidos);
+} catch (error) {
+    console.error('Erro no controller getAllPedidos:', error);
+    return res.status(500).json({ message: 'Erro interno do servidor.' });
+}
+}
+
+// Controla a busca por um pedido específico (pelo ID).
+async function getPedidoById(req, res) {
+try {
+    const { lojaId, pedidoId } = req.params;
+    const pedido = await pedidoModel.getById(lojaId, pedidoId);
+    return res.status(200).json(pedido);
+} catch (error) {
+    if (error.message.includes('Pedido não encontrado')) {
+    return res.status(404).json({ message: error.message });
+    }
+    console.error('Erro no controller getPedidoById:', error);
+    return res.status(500).json({ message: 'Erro interno do servidor.' });
+}
+}
+
+//Controla a atualização de um pedido.
+async function updatePedido(req, res) {
+try {
+    const { lojaId, pedidoId } = req.params;
+    const { valor, data_aluguel, data_devolucao, status } = req.body;
+
+    // 1. Buscar o pedido original
+    const pedidoAtual = await pedidoModel.getById(lojaId, pedidoId);
+
+    // 2. Montar o objeto de dados para atualizar (com o que veio no body)
+    const dadosParaAtualizar = {
+    ...(valor !== undefined && { valor }),
+    ...(data_aluguel !== undefined && { data_aluguel }),
+    ...(data_devolucao !== undefined && { data_devolucao }),
+    ...(status !== undefined && { status }),
+    };
+
+    // 3. (Bloqueio por Coleta)
+    // Se o pedido NÃO estiver 'ativo'...
+    if (pedidoAtual.status !== 'ativo') {
+    
+    // ...verificamos se o usuário está tentando mudar algo ALÉM do status.
+    const estaMudandoApenasOStatus = (status !== undefined) && 
+                                    (valor === undefined) && 
+                                    (data_aluguel === undefined) && 
+                                    (data_devolucao === undefined);
+
+    // Se ele tentar mudar valor ou datas, nós bloqueamos.
+    if (!estaMudandoApenasOStatus) {
+        return res.status(403).json({
+        message: `Não é possível editar dados (valor, datas) de um pedido com status "${pedidoAtual.status}". Apenas o status pode ser alterado.`
+        });
+    }
+    // Se estiver mudando SÓ o status (ex: de 'coletado' para 'devolvido'), nós permitimos
+    // e pulamos a checagem de datas.
+    } 
+    // Se o pedido ESTIVER 'ativo', checamos a Regra 1 (disponibilidade)
+    else {
+    // 4. (Checagem de Disponibilidade de Data)
+    const mudandoDatas = (data_aluguel && data_aluguel !== pedidoAtual.data_aluguel) ||
+                        (data_devolucao && data_devolucao !== pedidoAtual.data_devolucao);
+
+    if (mudandoDatas) {
+        const novaDataAluguel = data_aluguel || pedidoAtual.data_aluguel;
+        const novaDataDevolucao = data_devolucao || pedidoAtual.data_devolucao;
+        
+        const estaDisponivel = await pedidoModel.checkAvailability(
+        lojaId,
+        pedidoAtual.produto_id,
+        novaDataAluguel,
+        novaDataDevolucao,
+        pedidoId
+        );
+
+        if (!estaDisponivel) {
+        return res.status(409).json({
+            message: 'Conflito de datas. O produto já está reservado para este período.'
+        });
+        }
+    }
+    }
+
+    // 5. Se passou em todas as regras, atualiza o pedido
+    const pedidoAtualizado = await pedidoModel.update(lojaId, pedidoId, dadosParaAtualizar);
+
+    return res.status(200).json(pedidoAtualizado);
+
+} catch (error) {
+    if (error.message.includes('Pedido não encontrado')) {
+    return res.status(404).json({ message: error.message });
+    }
+    if (error.message.includes('disponibilidade')) {
+    return res.status(500).json({ message: error.message });
+    }
+    
+    console.error('Erro no controller updatePedido:', error);
+    return res.status(500).json({ message: 'Erro interno do servidor.' });
+}
+}
+
 export const pedidoController = {
 createPedido,
+getAllPedidos,
+getPedidoById,
+updatePedido,
 };
