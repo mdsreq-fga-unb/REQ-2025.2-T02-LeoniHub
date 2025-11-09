@@ -78,17 +78,6 @@ try {
 }
 }
 
-// Controla a busca por todos os pedidos.
-async function getAllPedidos(req, res) {
-try {
-    const { lojaId } = req.params;
-    const pedidos = await pedidoModel.getAll(lojaId);
-    return res.status(200).json(pedidos);
-} catch (error) {
-    console.error('Erro no controller getAllPedidos:', error);
-    return res.status(500).json({ message: 'Erro interno do servidor.' });
-}
-}
 
 // Controla a busca por um pedido específico (pelo ID).
 async function getPedidoById(req, res) {
@@ -183,6 +172,39 @@ try {
     console.error('Erro no controller updatePedido:', error);
     return res.status(500).json({ message: 'Erro interno do servidor.' });
 }
+}
+
+//Controla a busca por todos os pedidos (com filtros). (US06)
+
+async function getAllPedidos(req, res) {
+try {
+    const { lojaId } = req.params;
+    const {
+    codigo_cliente,
+    nome_cliente,
+    codigo_produto,
+    data_aluguel,
+    status 
+    } = req.query;
+
+    // Monta o objeto de filtros
+    const filters = {
+    ...(codigo_cliente && { codigo_cliente }),
+    ...(nome_cliente && { nome_cliente }),
+    ...(codigo_produto && { codigo_produto }),
+    ...(data_aluguel && { data_aluguel }),
+    ...(status && { status }),
+    };
+
+    const pedidos = await pedidoModel.getAll(lojaId, filters);
+    
+    // Retorna os pedidos
+    return res.status(200).json(pedidos);
+
+} catch (error) {
+    console.error('Erro no controller getAllPedidos:', error);
+    return res.status(500).json({ message: 'Erro interno do servidor.' });
+}   
 }
 
 export const pedidoController = {

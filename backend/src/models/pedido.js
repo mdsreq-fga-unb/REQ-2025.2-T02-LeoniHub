@@ -28,32 +28,6 @@ return data;
 }
 
 
-/**
- * Busca todos os pedidos da loja.
- * @param {string} lojaId - O ID da loja ('1' ou '2').
- * @returns {Array} Lista de pedidos.
- */
-async function getAll(lojaId) {
-    const supabase = getSupabaseClient(lojaId);
-
-// Para pedidos, é útil "expandir" as chaves estrangeiras.
-// 'clientes(*)' e 'produtos(*)' fará com que o Supabase
-// traga o objeto inteiro do cliente e do produto, em vez de apenas o ID.
-const { data, error } = await supabase
-    .from('pedidos')
-    .select(`
-    *,
-    clientes (codigo, nome),
-    produtos (codigo, descricao, estado)
-    `);
-
-if (error) {
-    console.error('Erro ao buscar todos os pedidos:', error.message);
-    throw new Error('Não foi possível buscar os pedidos.');
-}
-
-return data;
-}
 
 /**
  * Busca um único pedido pelo seu ID.
@@ -146,6 +120,58 @@ if (error) {
 
 // Se 'data' tiver 0 itens, não há conflitos. Está disponível.
 return data.length === 0;
+}
+
+/**
+ * Busca todos os pedidos da loja, com filtros. (US06)
+ * @param {string} lojaId - O ID da loja ('1' ou '2').
+ * @param {object} filters - Objeto com filtros { codigo_cliente, nome_cliente, codigo_produto, data_aluguel, status }.
+ * @returns {Array} Lista de pedidos.
+ */
+async function getAll(lojaId, filters = {}) {
+    const supabase = getSupabaseClient(lojaId);
+    let query = supabase
+        .from('pedidos')
+        .select(`
+        *,
+        clientes!inner (codigo, nome),
+        produtos!inner (codigo, descricao)
+        `);
+
+    // --- Aplicar Filtros ---
+
+    // Filtros na tabela 'pedidos'
+    if (filters.data_aluguel) {
+        query = query.eq('data_aluguel', filters.data_aluguel);
+    }
+    if (filters.status) {
+        query = query.eq('status', filters.status);
+    }
+
+    // Filtros nas tabelas 'clientes' e 'produtos' (via join)
+    // A sintaxe é 'tabela_estrangeira.coluna.operador.valor'
+    if (filters.codigo_cliente) {
+        query = query.ilike('clientes.codigo', `%${filters.codigo_cliente}%`);
+    }
+    if (filters.nome_cliente) {
+        query = query.ilike('clientes.nome', `%${filters.nome_cliente}%`);
+    }
+    if (filters.codigo_produto) {
+        query = query.ilike('produtos.codigo', `%${filters.codigo_produto}%`);
+    }
+
+    // Ordenar pelos mais recentes por padrão
+    query = query.order('created_at', { ascending: false });
+
+    // Executa a query
+    const { data, error } = await query;
+
+    if (error) {
+        console.error('Erro ao buscar todos os pedidos:', error.message);
+        throw new Error('Não foi possível buscar os pedidos.');
+    }
+
+    return data;
 }
 
 
