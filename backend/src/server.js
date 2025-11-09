@@ -3,6 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.js';
 import produtoRoutes from './routes/produtoRoutes.js';
+import clienteRoutes from './routes/clienteRoutes.js';
+import pedidoRoutes from './routes/pedidoRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -30,6 +32,8 @@ app.get('/', (req, res) => {
 // Rotas da API
 app.use('/auth', authRoutes);
 app.use('/api/produtos', produtoRoutes);
+app.use('/api/clientes', clienteRoutes);
+app.use('/api/pedidos', pedidoRoutes);
 
 // Rota 404
 app.use((req, res) => {
