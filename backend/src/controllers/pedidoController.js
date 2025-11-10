@@ -212,31 +212,33 @@ try {
 async function assinarPedido(req, res) {
 try {
     const { lojaId, pedidoId } = req.params;
-    // O frontend deve enviar o link do documento assinado (ex: do Adobe/Gov.br)
-    const { link_assinatura_externa } = req.body;
+    // O frontend enviará UMA destas duas chaves
+    const { link_assinatura_externa, assinatura_base64 } = req.body;
 
-    // Validamos se o link foi enviado
-    if (!link_assinatura_externa) {
-    return res.status(400).json({ 
-        message: 'O link da assinatura externa é obrigatório.' 
+    // Validamos se pelo menos UMA forma de assinatura foi enviada
+    if (!link_assinatura_externa && !assinatura_base64) {
+    return res.status(400).json({
+        message: 'Nenhum método de assinatura foi fornecido (link externo ou assinatura digital).'
     });
     }
-    // A função getById já trata o erro 404 se não encontrar.
+    // Verifica se o pedido existe
     await pedidoModel.getById(lojaId, pedidoId);
 
-    // Armazenamos o status e o link
+    // Monta o objeto de dados com o que veio
     const dadosParaAtualizar = {
     status_assinatura: 'assinado',
-    link_assinatura_externa: link_assinatura_externa
+    // Adiciona o link OU a assinatura, o que tiver sido enviado
+    ...(link_assinatura_externa && { link_assinatura_externa }),
+    ...(assinatura_base64 && { assinatura_base64 }),
     };
 
-    // Reutilizamos a função 'update' que já tínhamos (da US05)
+    // Reutilizamos a função 'update'
     const pedidoAtualizado = await pedidoModel.update(lojaId, pedidoId, dadosParaAtualizar);
 
+    // O frontend verá este 200 OK e mostrará a mensagem de sucesso
     return res.status(200).json(pedidoAtualizado);
 
 } catch (error) {
-    // Se o getById ou o update falhar 
     if (error.message.includes('Pedido não encontrado')) {
     return res.status(404).json({ message: error.message });
     }
