@@ -93,11 +93,15 @@ try {
 async function getAllClientes(req, res) {
 try {
     const { lojaId } = req.params;
-    const { cpf_cnpj, nome } = req.query; // Filtros da URL
+    
+    // Capturar filtros da query string (URL)
+    const { cpf_cnpj, nome, estado, cidade } = req.query;
     
     const filters = {
     ...(cpf_cnpj && { cpf_cnpj }),
     ...(nome && { nome }),
+    ...(estado && { estado }),     // <-- ADIÇÃO DA US08
+    ...(cidade && { cidade }),     // <-- ADIÇÃO DA US08
     };
 
     const clientes = await clienteModel.getAll(lojaId, filters);

@@ -53,9 +53,9 @@ return data;
 }
 
 /**
- * Busca todos os clientes da loja, com filtros opcionais.
+ * Busca todos os clientes da loja, com filtros opcionais. (US08)
  * @param {string} lojaId - O ID da loja ('1' ou '2').
- * @param {object} filters - Objeto com filtros { codigo, nome }.
+ * @param {object} filters - Objeto com filtros { cpf_cnpj, nome, estado, cidade }.
  * @returns {Array} Lista de clientes.
  */
 async function getAll(lojaId, filters = {}) {
@@ -63,12 +63,20 @@ const supabase = getSupabaseClient(lojaId);
 
 let query = supabase.from('clientes').select('*');
 
-// Mantemos os filtros antigos, mas agora filtramos por cpf_cnpj e nome
+// Aplicar filtros
 if (filters.cpf_cnpj) {
     query = query.ilike('cpf_cnpj', `%${filters.cpf_cnpj}%`);
 }
 if (filters.nome) {
     query = query.ilike('nome', `%${filters.nome}%`);
+}
+
+if (filters.estado) {
+    // .eq para correspondência exata (case-insensitive)
+    query = query.ilike('estado', filters.estado);
+}
+if (filters.cidade) {
+    query = query.ilike('cidade', `%${filters.cidade}%`);
 }
 
 const { data, error } = await query;
