@@ -207,9 +207,49 @@ try {
 }   
 }
 
+// Controla a "assinatura" de um pedido, atualizando seu status e salvando o link externo (US10).
+
+async function assinarPedido(req, res) {
+try {
+    const { lojaId, pedidoId } = req.params;
+    // O frontend deve enviar o link do documento assinado (ex: do Adobe/Gov.br)
+    const { link_assinatura_externa } = req.body;
+
+    // Validamos se o link foi enviado
+    if (!link_assinatura_externa) {
+    return res.status(400).json({ 
+        message: 'O link da assinatura externa é obrigatório.' 
+    });
+    }
+    // A função getById já trata o erro 404 se não encontrar.
+    await pedidoModel.getById(lojaId, pedidoId);
+
+    // Armazenamos o status e o link
+    const dadosParaAtualizar = {
+    status_assinatura: 'assinado',
+    link_assinatura_externa: link_assinatura_externa
+    };
+
+    // Reutilizamos a função 'update' que já tínhamos (da US05)
+    const pedidoAtualizado = await pedidoModel.update(lojaId, pedidoId, dadosParaAtualizar);
+
+    return res.status(200).json(pedidoAtualizado);
+
+} catch (error) {
+    // Se o getById ou o update falhar 
+    if (error.message.includes('Pedido não encontrado')) {
+    return res.status(404).json({ message: error.message });
+    }
+    
+    console.error('Erro no controller assinarPedido:', error);
+    return res.status(500).json({ message: 'Erro interno do servidor.' });
+}
+}
+
 export const pedidoController = {
 createPedido,
 getAllPedidos,
 getPedidoById,
 updatePedido,
+assinarPedido,
 };
