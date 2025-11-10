@@ -123,57 +123,62 @@ return data.length === 0;
 }
 
 /**
- * Busca todos os pedidos da loja, com filtros. (US06)
+ * Busca todos os pedidos da loja, com filtros. (Atualizado US09)
  * @param {string} lojaId - O ID da loja ('1' ou '2').
- * @param {object} filters - Objeto com filtros { codigo_cliente, nome_cliente, codigo_produto, data_aluguel, status }.
+ * @param {object} filters - Objeto com filtros { ... }.
  * @returns {Array} Lista de pedidos.
  */
 async function getAll(lojaId, filters = {}) {
-    const supabase = getSupabaseClient(lojaId);
-    let query = supabase
-        .from('pedidos')
-        .select(`
-        *,
-        clientes!inner (codigo, nome),
-        produtos!inner (codigo, descricao)
-        `);
+const supabase = getSupabaseClient(lojaId);
 
-    // --- Aplicar Filtros ---
+//  FILTRO DE 1 ANO (US09) 
+const oneYearAgo = new Date();
+oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+const oneYearAgoISO = oneYearAgo.toISOString();
 
-    // Filtros na tabela 'pedidos'
-    if (filters.data_aluguel) {
-        query = query.eq('data_aluguel', filters.data_aluguel);
-    }
-    if (filters.status) {
-        query = query.eq('status', filters.status);
-    }
+let query = supabase
+    .from('pedidos')
+    .select(`
+    *,
+    clientes!inner (codigo, nome),
+    produtos!inner (codigo, descricao)
+    `);
 
-    // Filtros nas tabelas 'clientes' e 'produtos' (via join)
-    // A sintaxe é 'tabela_estrangeira.coluna.operador.valor'
-    if (filters.codigo_cliente) {
-        query = query.ilike('clientes.codigo', `%${filters.codigo_cliente}%`);
-    }
-    if (filters.nome_cliente) {
-        query = query.ilike('clientes.nome', `%${filters.nome_cliente}%`);
-    }
-    if (filters.codigo_produto) {
-        query = query.ilike('produtos.codigo', `%${filters.codigo_produto}%`);
-    }
+// Aplicar Filtro de Data (RN4) 
+// gte = "greater than or equal to" (maior ou igual a)
+query = query.gte('created_at', oneYearAgoISO);
 
-    // Ordenar pelos mais recentes por padrão
-    query = query.order('created_at', { ascending: false });
-
-    // Executa a query
-    const { data, error } = await query;
-
-    if (error) {
-        console.error('Erro ao buscar todos os pedidos:', error.message);
-        throw new Error('Não foi possível buscar os pedidos.');
-    }
-
-    return data;
+// Aplicar Filtros da US06 
+if (filters.data_aluguel) {
+    query = query.eq('data_aluguel', filters.data_aluguel);
+}
+if (filters.status) {
+    query = query.eq('status', filters.status);
+}
+if (filters.codigo_cliente) {
+    // foi trocado para 'clientes.cpf_cnpj' para bater com a US07
+    query = query.ilike('clientes.cpf_cnpj', `%${filters.codigo_cliente}%`);
+}
+if (filters.nome_cliente) {
+    query = query.ilike('clientes.nome', `%${filters.nome_cliente}%`);
+}
+if (filters.codigo_produto) {
+    query = query.ilike('produtos.codigo', `%${filters.codigo_produto}%`);
 }
 
+// Ordenar pelos mais recentes
+query = query.order('created_at', { ascending: false });
+
+// Executa a query
+const { data, error } = await query;
+
+if (error) {
+    console.error('Erro ao buscar todos os pedidos:', error.message);
+    throw new Error('Não foi possível buscar os pedidos.');
+}
+
+return data;
+}
 
 export const pedidoModel = {
 create,
