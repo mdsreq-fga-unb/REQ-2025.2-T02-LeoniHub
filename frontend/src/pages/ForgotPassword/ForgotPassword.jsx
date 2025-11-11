@@ -11,7 +11,7 @@ export default function ForgotPassword() {
   
   
   const { lojaId } = useParams();  
-  const { loading, recoverPassword } = useAuth();  
+  const { loading, forgotPassword } = useAuth();  
 
   const handlePasswordRecover = async (event) => {
     event.preventDefault();
@@ -24,7 +24,7 @@ export default function ForgotPassword() {
     }
 
     // Chamar função de ForgotPassword do Context
-    const result = await recoverPassword(email, lojaId);
+    const result = await forgotPassword(email, lojaId);
 
     if (result.success) {
       setSuccessMessage(result.message || 'Verifique seu e-mail para recuperar sua senha!');

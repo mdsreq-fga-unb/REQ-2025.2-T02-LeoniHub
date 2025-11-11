@@ -247,7 +247,7 @@ export const changePassword = async (req, res) => {
     return res.status(200).json({ success: true, message: 'Senha atualizada com sucesso!' });
     
   } catch (error) {
-    console.error("Erro inesperado no updatePassword:", error.message);
+    console.error("Erro inesperado no changePassword:", error.message);
     return res.status(500).json({ success: false, error: 'Erro interno do servidor.' });
   }
 };
