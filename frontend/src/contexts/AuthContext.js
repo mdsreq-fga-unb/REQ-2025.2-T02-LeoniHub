@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Criar o Context
+
 const AuthContext = createContext({});
 
-// Provider que vai "abraçar" a aplicação
 export const AuthProvider = ({ children }) => {
   // Estados compartilhados
   const [user, setUser] = useState(null);
@@ -55,6 +54,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       if (data.success) {
+
         // Salvar dados no localStorage
         localStorage.setItem('token', data.data.session.access_token);
         localStorage.setItem('refresh_token', data.data.session.refresh_token);
@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Função de CADASTRO
-  const signup = async (lojaId, email, password, nome) => {
+  const signup = async (lojaId, email, password, nome, cpf) => {
     try {
       setLoading(true);
 
@@ -87,13 +87,26 @@ export const AuthProvider = ({ children }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, nome }),
+        body: JSON.stringify({ email, password, nome , cpf}),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.error || 'Erro ao criar conta');
+      }
+
+      if (data.success) {
+
+        // Salvar dados no localStorage
+        localStorage.setItem('user', JSON.stringify(data.data.user));
+        localStorage.setItem('lojaId', lojaId);
+
+        // Atualizar estados
+        setUser(data.data.user);
+        setLojaId(lojaId);
+
+        return { success: true, data: data.data };
       }
 
       return { success: data.success, message: data.message, data: data.data };
@@ -105,8 +118,71 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Função de RECUPERAR a senha
+  const forgotPassword = async (email, lojaId) =>{
+    try{
+      setLoading(true);
+
+      const response = await fetch(`http://localhost:3001/auth/${lojaId}/forgotPassword`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email}),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao recuperar a senha');
+      }
+
+      return { success: data.success, message: data.message };
+    }
+     
+    catch (error) 
+    {
+      console.error('Erro na recuperação de senha:', error);
+      return { success: false, error: error.message };
+    } 
+    finally 
+    {
+      setLoading(false);
+    }
+  };
+    
+  // Função de MUDAR a senha
+  const changePassword = async (token, newPassword, lojaId) => {
+    try {
+      setLoading(true);
+      
+      const response = await fetch(`http://localhost:3001/auth/${lojaId}/updatePassword`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token, newPassword }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao atualizar a senha');
+      }
+
+      return { success: true, message: data.message };
+      
+    } catch (error) {
+      console.error('Erro no resetPassword:', error);
+      return { success: false, error: error.message };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Função de LOGOUT
   const logout = async () => {
+    
     try {
       const token = localStorage.getItem('token');
       const savedLojaId = localStorage.getItem('lojaId');
@@ -143,6 +219,8 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: !!user,           // Se está autenticado (true/false)
     login,                             // Função para fazer login
     signup,                            // Função para criar conta
+    forgotPassword,                   // Função para recuperação de senha
+    changePassword,                   // Função para MUDAR a senha
     logout,                            // Função para sair
   };
 

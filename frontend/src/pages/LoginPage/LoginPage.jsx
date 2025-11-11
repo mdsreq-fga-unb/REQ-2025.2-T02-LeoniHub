@@ -87,8 +87,13 @@ function LoginPage() {
             </button>
           </form>
 
-          <p style={{ marginTop: '15px', textAlign: 'center' }}>
-            Não tem conta? <Link to={`/register/${lojaId}`}>Cadastre-se</Link>
+          <p style={{ marginTop: '20px', textAlign: 'center' }}>
+            <Link style={{color:'#1876b1ff'}} to={`/forgotpassword/${lojaId}`}>Esqueceu a senha?</Link>
+          </p>
+
+
+          <p style={{ marginTop: '10px', textAlign: 'center' }}>
+            Não tem conta? <Link style={{color:'#1876b1ff'}} to={`/register/${lojaId}`}>Cadastre-se</Link>
           </p>
         </div>
       </div>
