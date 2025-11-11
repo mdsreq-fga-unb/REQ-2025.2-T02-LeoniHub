@@ -1,0 +1,27 @@
+{
+  "id": "requisitos/req_funcionais",
+  "title": "Requisitos Funcionais (RF)",
+  "description": "---",
+  "source": "@site/docs/requisitos/req_funcionais.md",
+  "sourceDirName": "requisitos",
+  "slug": "/requisitos/req_funcionais",
+  "permalink": "/REQ-2025.2-T02-LeoniHub/docs/requisitos/req_funcionais",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mdsreq-fga-unb/REQ-2025.2-T02-LeoniHub.git/docs/requisitos/req_funcionais.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Requisitos de Software",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/category/requisitos-de-software"
+  },
+  "next": {
+    "title": "Requisitos Não Funcionais (RNF)",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/requisitos/req_naoFuncionais"
+  }
+}

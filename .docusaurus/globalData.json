@@ -1,0 +1,118 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/REQ-2025.2-T02-LeoniHub/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/REQ-2025.2-T02-LeoniHub/docs",
+          "mainDocId": "visao_produto/cenario_atual",
+          "docs": [
+            {
+              "id": "entregas/unidade_1",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/entregas/unidade_1",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "entregas/unidade_2",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/entregas/unidade_2",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "requisitos/dor_dod",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/requisitos/dor_dod",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "requisitos/mapeamento",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/requisitos/mapeamento",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "requisitos/prototipo",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/requisitos/prototipo",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "requisitos/req_funcionais",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/requisitos/req_funcionais",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "requisitos/req_naoFuncionais",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/requisitos/req_naoFuncionais",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "visao_produto/backlog_do_produto",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/backlog_do_produto",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "visao_produto/cenario_atual",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/cenario_atual",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "visao_produto/cronogramas_e_entregas",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/cronogramas_e_entregas",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "visao_produto/engenharia_de_requisitos",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/engenharia_de_requisitos",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "visao_produto/estrategias_de_engenharia",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/estrategias_de_engenharia",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "visao_produto/interacao_equipe_cliente",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/interacao_equipe_cliente",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "visao_produto/licoes_aprendidas",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/licoes_aprendidas",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "visao_produto/solucao_proposta",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/solucao_proposta",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/visão-do-produto-e-do-projeto",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/category/visão-do-produto-e-do-projeto",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/requisitos-de-software",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/category/requisitos-de-software",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/entregas",
+              "path": "/REQ-2025.2-T02-LeoniHub/docs/category/entregas",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/REQ-2025.2-T02-LeoniHub/docs/category/visão-do-produto-e-do-projeto",
+                "label": "Visão do Produto e do Projeto"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

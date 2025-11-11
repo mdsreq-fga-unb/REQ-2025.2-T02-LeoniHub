@@ -1,0 +1,29 @@
+{
+  "id": "visao_produto/engenharia_de_requisitos",
+  "title": "Engenharia de Requisitos",
+  "description": "4.1 Atividades e Técnicas de ER",
+  "source": "@site/docs/visao_produto/engenharia_de_requisitos.md",
+  "sourceDirName": "visao_produto",
+  "slug": "/visao_produto/engenharia_de_requisitos",
+  "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/engenharia_de_requisitos",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mdsreq-fga-unb/REQ-2025.2-T02-LeoniHub.git/docs/visao_produto/engenharia_de_requisitos.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Engenharia de Requisitos",
+    "sidebar_label": "Engenharia de Requisitos",
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Estratégias de Engenharia",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/estrategias_de_engenharia"
+  },
+  "next": {
+    "title": "Cronograma e Entregas",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/cronogramas_e_entregas"
+  }
+}

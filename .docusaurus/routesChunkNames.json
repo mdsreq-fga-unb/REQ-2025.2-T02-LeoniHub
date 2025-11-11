@@ -1,0 +1,344 @@
+{
+  "/REQ-2025.2-T02-LeoniHub/__docusaurus/debug-f9e": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-docusaurus-debugb-38-fd8"
+    }
+  },
+  "/REQ-2025.2-T02-LeoniHub/__docusaurus/debug/config-e51": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-docusaurus-debugb-38-fd8"
+    }
+  },
+  "/REQ-2025.2-T02-LeoniHub/__docusaurus/debug/content-348": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-docusaurus-debugb-38-fd8"
+    },
+    "__props": "__props---req-2025-2-t-02-leoni-hub-docusaurus-debug-contente-5-d-1b6"
+  },
+  "/REQ-2025.2-T02-LeoniHub/__docusaurus/debug/globalData-a81": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-docusaurus-debugb-38-fd8"
+    }
+  },
+  "/REQ-2025.2-T02-LeoniHub/__docusaurus/debug/metadata-8be": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-docusaurus-debugb-38-fd8"
+    }
+  },
+  "/REQ-2025.2-T02-LeoniHub/__docusaurus/debug/registry-3f0": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-docusaurus-debugb-38-fd8"
+    }
+  },
+  "/REQ-2025.2-T02-LeoniHub/__docusaurus/debug/routes-75b": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-docusaurus-debugb-38-fd8"
+    }
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog-418": {
+    "__comp": "__comp---theme-blog-list-pagea-6-a-7ba",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "items": [
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-766-bd3"
+      },
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blogf-4-f-ab7"
+      },
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-871-6f6"
+      },
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-925-3d9"
+      }
+    ],
+    "__props": "__props---req-2025-2-t-02-leoni-hub-bloga-54-a38"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/archive-e5b": {
+    "__comp": "__comp---theme-blog-archive-page-9-e-4-1d8",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "__props": "__props---req-2025-2-t-02-leoni-hub-blog-archive-479-b5e"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/authors-a9c": {
+    "__comp": "__comp---theme-blog-pages-blog-authors-list-page-621-70c",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---req-2025-2-t-02-leoni-hub-blog-authorsace-a5f"
+      },
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "__props": "__props---req-2025-2-t-02-leoni-hub-blog-authorsdbf-098"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/authors/all-sebastien-lorber-articles-13b": {
+    "__comp": "__comp---theme-blog-pages-blog-authors-posts-page-33-f-bd5",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---req-2025-2-t-02-leoni-hub-blog-authorsace-a5f"
+      },
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "items": [
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-766-bd3"
+      },
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blogf-4-f-ab7"
+      },
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-925-3d9"
+      }
+    ],
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "__props": "__props---req-2025-2-t-02-leoni-hub-blog-authors-all-sebastien-lorber-articlesd-6-e-04d"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/authors/yangshun-2cc": {
+    "__comp": "__comp---theme-blog-pages-blog-authors-posts-page-33-f-bd5",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---req-2025-2-t-02-leoni-hub-blog-authorsace-a5f"
+      },
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "items": [
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-766-bd3"
+      },
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-871-6f6"
+      },
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-925-3d9"
+      }
+    ],
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "__props": "__props---req-2025-2-t-02-leoni-hub-blog-authors-yangshunca-5-14d"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/first-blog-post-482": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---req-2025-2-t-02-leoni-hub-blog-authorsace-a5f"
+      },
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "content": "content---req-2025-2-t-02-leoni-hub-blog-first-blog-poste-27-a4c"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/long-blog-post-d6d": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---req-2025-2-t-02-leoni-hub-blog-authorsace-a5f"
+      },
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "content": "content---req-2025-2-t-02-leoni-hub-blog-long-blog-post-736-c66"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/mdx-blog-post-cf2": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---req-2025-2-t-02-leoni-hub-blog-authorsace-a5f"
+      },
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "content": "content---req-2025-2-t-02-leoni-hub-blog-mdx-blog-post-593-2c2"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/tags-f8c": {
+    "__comp": "__comp---theme-blog-tags-list-page-01-a-d0b",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "__props": "__props---req-2025-2-t-02-leoni-hub-blog-tags-0-bf-277"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/tags/docusaurus-ae7": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "items": [
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-766-bd3"
+      },
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blogf-4-f-ab7"
+      },
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-871-6f6"
+      },
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-925-3d9"
+      }
+    ],
+    "__props": "__props---req-2025-2-t-02-leoni-hub-blog-tags-docusaurus-6-ca-c3f"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/tags/facebook-bc8": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "items": [
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-766-bd3"
+      }
+    ],
+    "__props": "__props---req-2025-2-t-02-leoni-hub-blog-tags-facebook-23-a-cdf"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/tags/hello-dcd": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "items": [
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-766-bd3"
+      },
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-871-6f6"
+      }
+    ],
+    "__props": "__props---req-2025-2-t-02-leoni-hub-blog-tags-helloe-2-c-3d4"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/tags/hola-7b8": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "items": [
+      {
+        "content": "content---req-2025-2-t-02-leoni-hub-blog-925-3d9"
+      }
+    ],
+    "__props": "__props---req-2025-2-t-02-leoni-hub-blog-tags-hola-965-fe2"
+  },
+  "/REQ-2025.2-T02-LeoniHub/blog/welcome-41e": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---req-2025-2-t-02-leoni-hub-blog-authorsace-a5f"
+      },
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-blog-369-3ce"
+    },
+    "sidebar": "sidebar---req-2025-2-t-02-leoni-hub-blog-814-a00",
+    "content": "content---req-2025-2-t-02-leoni-hub-blog-welcomed-9-f-56f"
+  },
+  "/REQ-2025.2-T02-LeoniHub/markdown-page-4a5": {
+    "__comp": "__comp---theme-mdx-page-1-f-3-b90",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-markdown-pagea-74-5f4"
+    },
+    "content": "content---req-2025-2-t-02-leoni-hub-markdown-page-393-347"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs-c0c": {
+    "__comp": "__comp---theme-docs-root-5-e-9-0b6",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-docsaba-d0f"
+    }
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs-aad": {
+    "__comp": "__comp---theme-doc-version-roota-7-b-5de",
+    "__props": "__props---req-2025-2-t-02-leoni-hub-docse-59-26a"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs-600": {
+    "__comp": "__comp---theme-doc-roota-94-67a"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/category/entregas-1d4": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "__props": "__props---req-2025-2-t-02-leoni-hub-docs-category-entregas-00-c-82f"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/category/requisitos-de-software-0dc": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "__props": "__props---req-2025-2-t-02-leoni-hub-docs-category-requisitos-de-software-1-a-6-f61"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/category/visão-do-produto-e-do-projeto-8d4": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "__props": "__props---req-2025-2-t-02-leoni-hub-docs-category-visao-do-produto-e-do-projeto-84-e-252"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/entregas/unidade_1-500": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-entregas-unidade-13-bc-865"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/entregas/unidade_2-67b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-entregas-unidade-26-d-9-00d"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/requisitos/dor_dod-363": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-requisitos-dor-dod-44-a-a3e"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/requisitos/mapeamento-35d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-requisitos-mapeamento-5-e-9-8e5"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/requisitos/prototipo-92a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-requisitos-prototipo-062-8d8"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/requisitos/req_funcionais-97c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-requisitos-req-funcionais-7-e-6-b7a"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/requisitos/req_naoFuncionais-918": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-requisitos-req-nao-funcionais-230-88a"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/backlog_do_produto-1bd": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-visao-produto-backlog-do-produto-1-c-4-142"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/cenario_atual-981": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-visao-produto-cenario-atualccc-e6d"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/cronogramas_e_entregas-087": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-visao-produto-cronogramas-e-entregas-1-ff-11e"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/engenharia_de_requisitos-283": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-visao-produto-engenharia-de-requisitos-4-f-8-67f"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/estrategias_de_engenharia-61a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-visao-produto-estrategias-de-engenharia-7-bf-0da"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/interacao_equipe_cliente-15a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-visao-produto-interacao-equipe-cliente-285-7ec"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/licoes_aprendidas-0da": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-visao-produto-licoes-aprendidasd-5-c-6e5"
+  },
+  "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/solucao_proposta-0dd": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---req-2025-2-t-02-leoni-hub-docs-visao-produto-solucao-propostab-3-b-ee7"
+  },
+  "/REQ-2025.2-T02-LeoniHub/-f6a": {
+    "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",
+    "__context": {
+      "plugin": "plugin---req-2025-2-t-02-leoni-hub-markdown-pagea-74-5f4"
+    },
+    "config": "config---req-2025-2-t-02-leoni-hub-5-e-9-6ac"
+  }
+}

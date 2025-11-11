@@ -1,0 +1,27 @@
+{
+  "id": "requisitos/mapeamento",
+  "title": "Mapeamento dos Requisitos",
+  "description": "Aqui está a lista interativa de todos os requisitos funcionais do projeto. Filtre as informações necessárias através dos botões.",
+  "source": "@site/docs/requisitos/mapeamento.mdx",
+  "sourceDirName": "requisitos",
+  "slug": "/requisitos/mapeamento",
+  "permalink": "/REQ-2025.2-T02-LeoniHub/docs/requisitos/mapeamento",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mdsreq-fga-unb/REQ-2025.2-T02-LeoniHub.git/docs/requisitos/mapeamento.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Requisitos Não Funcionais (RNF)",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/requisitos/req_naoFuncionais"
+  },
+  "next": {
+    "title": "DOR e DOD",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/requisitos/dor_dod"
+  }
+}

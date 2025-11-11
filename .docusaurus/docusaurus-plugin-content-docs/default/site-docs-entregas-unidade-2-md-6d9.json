@@ -1,0 +1,22 @@
+{
+  "id": "entregas/unidade_2",
+  "title": "Unidade 2",
+  "description": "Vídeo de apresentação da Unidade 2",
+  "source": "@site/docs/entregas/unidade_2.md",
+  "sourceDirName": "entregas",
+  "slug": "/entregas/unidade_2",
+  "permalink": "/REQ-2025.2-T02-LeoniHub/docs/entregas/unidade_2",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mdsreq-fga-unb/REQ-2025.2-T02-LeoniHub.git/docs/entregas/unidade_2.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar-position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Unidade 1",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/entregas/unidade_1"
+  }
+}

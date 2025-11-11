@@ -1,0 +1,41 @@
+
+.footer {
+  background-color: #2c3e50; /* Cor escura */
+  color: #ecf0f1; /* Cor clara para o texto */
+  padding: 40px 20px;
+  margin-top: auto; /* Importante para o "sticky footer" */
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap; /* Para responsividade */
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.footerSection {
+  /* Estilos para cada coluna */
+}
+
+.footerSection h4 {
+  margin-bottom: 15px;
+}
+
+.footerSection ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footerSection a {
+  color: #bdc3c7;
+  text-decoration: none;
+}
+
+.footerBottom {
+  text-align: center;
+  margin-top: 30px;
+  border-top: 1px solid #34495e;
+  padding-top: 20px;
+}

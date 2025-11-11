@@ -1,0 +1,29 @@
+{
+  "id": "visao_produto/interacao_equipe_cliente",
+  "title": "Interação Equipe e Cliente",
+  "description": "6.1 Composição da Equipe",
+  "source": "@site/docs/visao_produto/interacao_equipe_cliente.md",
+  "sourceDirName": "visao_produto",
+  "slug": "/visao_produto/interacao_equipe_cliente",
+  "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/interacao_equipe_cliente",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mdsreq-fga-unb/REQ-2025.2-T02-LeoniHub.git/docs/visao_produto/interacao_equipe_cliente.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "title": "Interação Equipe e Cliente",
+    "sidebar_label": "Interação Equipe e Cliente",
+    "sidebar_position": 6
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Cronograma e Entregas",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/cronogramas_e_entregas"
+  },
+  "next": {
+    "title": "Lições Aprendidas",
+    "permalink": "/REQ-2025.2-T02-LeoniHub/docs/visao_produto/licoes_aprendidas"
+  }
+}
