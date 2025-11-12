@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
+import * as authService from '../services/authService';
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
+
   // Estados compartilhados
   const [user, setUser] = useState(null);
   const [lojaId, setLojaId] = useState(null);
@@ -34,82 +36,50 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Função de LOGIN
+ // Função de LOGIN 
   const login = async (lojaId, email, password) => {
     try {
       setLoading(true);
 
-      const response = await fetch(`http://localhost:3001/auth/${lojaId}/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const data = await authService.login(lojaId, email, password); // Chama Service
 
-      const data = await response.json();
+      // Caso o Service não retorne "error" --> Roda o restante do código
+      localStorage.setItem('token', data.data.session.access_token);
+      localStorage.setItem('refresh_token', data.data.session.refresh_token);
+      localStorage.setItem('user', JSON.stringify(data.data.user));
+      localStorage.setItem('lojaId', lojaId);
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Erro ao fazer login');
-      }
+      // Define usuário
+      setUser(data.data.user);
+      setLojaId(lojaId);
 
-      if (data.success) {
-
-        // Salvar dados no localStorage
-        localStorage.setItem('token', data.data.session.access_token);
-        localStorage.setItem('refresh_token', data.data.session.refresh_token);
-        localStorage.setItem('user', JSON.stringify(data.data.user));
-        localStorage.setItem('lojaId', lojaId);
-
-        // Atualizar estados
-        setUser(data.data.user);
-        setLojaId(lojaId);
-
-        return { success: true, data: data.data };
-      }
-
-      return { success: false, error: data.error };
-    } catch (error) {
+      return { success: true, data: data.data };
+    } 
+    catch (error) {
       console.error('Erro no login:', error);
       return { success: false, error: error.message };
-    } finally {
+    } 
+    finally {
       setLoading(false);
     }
   };
 
-  // Função de CADASTRO
+// Função de CADASTRO
   const signup = async (lojaId, email, password, nome, cpf) => {
     try {
       setLoading(true);
+      // 2. CHAMA O SERVIÇO
+      const data = await authService.signup(lojaId, email, password, nome, cpf);
 
-      const response = await fetch(`http://localhost:3001/auth/${lojaId}/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password, nome , cpf}),
-      });
+      // 3. ATUALIZA O ESTADO
+      localStorage.setItem('user', JSON.stringify(data.data.user));
+      localStorage.setItem('lojaId', lojaId);
 
-      const data = await response.json();
+      setUser(data.data.user);
+      setLojaId(lojaId);
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Erro ao criar conta');
-      }
+      return { success: true, data: data.data };
 
-      if (data.success) {
-
-        // Salvar dados no localStorage
-        localStorage.setItem('user', JSON.stringify(data.data.user));
-        localStorage.setItem('lojaId', lojaId);
-
-        // Atualizar estados
-        setUser(data.data.user);
-        setLojaId(lojaId);
-
-        return { success: true, data: data.data };
-      }
-
-      return { success: data.success, message: data.message, data: data.data };
     } catch (error) {
       console.error('Erro no cadastro:', error);
       return { success: false, error: error.message };
@@ -119,34 +89,19 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Função de RECUPERAR a senha
-  const forgotPassword = async (email, lojaId) =>{
-    try{
+  const forgotPassword = async (email, lojaId) => {
+    try {
       setLoading(true);
-
-      const response = await fetch(`http://localhost:3001/auth/${lojaId}/forgotPassword`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({email}),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Erro ao recuperar a senha');
-      }
+      
+      const data = await authService.forgotPassword(email, lojaId); // Chama Service
 
       return { success: data.success, message: data.message };
-    }
-     
-    catch (error) 
-    {
+    } 
+    catch (error) {
       console.error('Erro na recuperação de senha:', error);
       return { success: false, error: error.message };
     } 
-    finally 
-    {
+    finally {
       setLoading(false);
     }
   };
@@ -155,61 +110,40 @@ export const AuthProvider = ({ children }) => {
   const changePassword = async (token, newPassword, lojaId) => {
     try {
       setLoading(true);
+  
+      const data = await authService.changePassword(token, newPassword, lojaId); // Chama Service
       
-      const response = await fetch(`http://localhost:3001/auth/${lojaId}/updatePassword`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token, newPassword }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Erro ao atualizar a senha');
-      }
-
       return { success: true, message: data.message };
-      
-    } catch (error) {
-      console.error('Erro no resetPassword:', error);
+    } 
+    catch (error) {
+      console.error('Erro no changeassword:', error);
       return { success: false, error: error.message };
-    } finally {
+    } 
+    finally {
       setLoading(false);
     }
   };
 
   // Função de LOGOUT
   const logout = async () => {
-    
-    try {
-      const token = localStorage.getItem('token');
-      const savedLojaId = localStorage.getItem('lojaId');
+    const token = localStorage.getItem('token');
+    const savedLojaId = localStorage.getItem('lojaId');
 
-      // Tentar fazer logout no backend
-      if (token && savedLojaId) {
-        await fetch(`http://localhost:5000/api/auth/${savedLojaId}/logout`, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-      }
-    } catch (error) {
-      console.error('Erro ao fazer logout:', error);
-    } finally {
-      // Limpar dados locais (sempre executa, mesmo se der erro)
-      localStorage.removeItem('token');
-      localStorage.removeItem('refresh_token');
-      localStorage.removeItem('user');
-      localStorage.removeItem('lojaId');
-      
-      setUser(null);
-      setLojaId(null);
+    if (token && savedLojaId) {
+      await authService.logout(token, savedLojaId); // Chama Service
     }
+    
+    // Limpa dados locais
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('lojaId');
+    
+    // Desloga Usuário
+    setUser(null);
+    setLojaId(null);
   };
+
 
   // Valores que serão compartilhados com toda aplicação
   const value = {

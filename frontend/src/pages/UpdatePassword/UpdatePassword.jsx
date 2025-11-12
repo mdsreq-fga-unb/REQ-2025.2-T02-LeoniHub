@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styles from './UpdatePassword.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -120,6 +120,11 @@ export default function UpdatePassword() {
                         {loading ? 'Enviando...' : 'Enviar'}
                     </button>
                 </form>
+
+                <Link to="/" className={styles.buttonBack}>
+                  ← Voltar ao Menu Principal
+                </Link>
+
             </div>
         </div>
     </div>
