@@ -6,8 +6,8 @@ import { useAuth } from '../../contexts/AuthContext';
 export default function UpdatePassword() {
 
   // O 'email' não é mais necessário aqui
-  const [senha, setSenha] = useState('');
-  const [senhaConfirmacao, setSenhaConfirmacao] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
   const [token, setToken] = useState(null); // Estado para guardar o token
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -42,11 +42,7 @@ export default function UpdatePassword() {
     setError('');
     setSuccessMessage('');
 
-    if(!senha || !senhaConfirmacao){
-        setError('Ambos os campos têm que ser preenchidos!')
-        return;
-    }
-    if(senha !== senhaConfirmacao){
+    if(newPassword !== newPasswordConfirmation){
         setError('As senhas não conferem!')
         return;
     }
@@ -56,7 +52,7 @@ export default function UpdatePassword() {
     }
 
     // Chamar função de resetPassword com o TOKEN
-    const result = await changePassword( token, senha, lojaId );
+    const result = await changePassword( token, newPassword, newPasswordConfirmation, lojaId );
 
     if (result.success) {
       setSuccessMessage(result.message || 'Senha alterada com sucesso!');
@@ -104,15 +100,15 @@ export default function UpdatePassword() {
                     <input 
                     type="password" 
                     placeholder="Nova senha" 
-                    value={senha}
-                    onChange={(e) => setSenha(e.target.value)}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
                     required 
                     />
                     <input 
                     type="password" 
                     placeholder="Nova senha novamente" 
-                    value={senhaConfirmacao}
-                    onChange={(e) => setSenhaConfirmacao(e.target.value)}
+                    value={newPasswordConfirmation}
+                    onChange={(e) => setNewPasswordConfirmation(e.target.value)}
                     required 
                     />
 

@@ -149,3 +149,57 @@ export const signup = async (nome, cpf, email, password, lojaId) => {
 
   return data.user
 }
+
+export const forgotPassword = async (email, lojaId) => {
+ 
+  const supabase = getSupabaseClient(lojaId);
+  const redirectUrl = `http://localhost:3000/${lojaId}/changePassword`;
+  
+  // Chama o método de recuperação de senha do Supabase
+  const { data, error } = await supabaseSchema.auth.resetPasswordForEmail(email, {
+    redirectTo: redirectUrl,
+  });
+
+  if(error){
+    throw new Error(`Ocorreu um erro interno na recuperação de senha: ${error.message}`)
+  }
+
+}
+
+export const changePassword = async (token, newPassword, newPasswordConfirmation , lojaId) => {
+
+  const supabase = getSupabaseClient(lojaId);
+
+  // ===================  REGRAS DE NEGÓCIO  ===========================
+  
+  // Campos obrigatórios
+  if(!newPassword || !newPasswordConfirmation){
+      throw new Error('Ambos os campos têm que ser preenchidos!')
+  }
+
+  // Tamanho da Senha
+  if (newPassword.length < 6) {
+      throw new Error('A nova senha deve ter no mínimo 6 caracteres')
+  }
+
+  // =================== CHANGE PASSWORD   =============================
+
+  // Pegar o usuário pelo TOKEN fornecido
+  const { data: { user }, error: userError } = await supabase.auth.getUser(token);
+
+  if (userError || !user) { // Verifica TOKEN
+      throw new Error('Token inválido ou expirado.')
+    }
+
+    const { error: updateError } = await supabaseSchema.auth.admin.updateUserById(
+      user.id,
+      { password: newPassword }
+    );
+    
+    if (updateError) {
+      throw new Error(`Erro na atualização da senha ${updateError.message}`)
+    }
+}
+
+  
+  

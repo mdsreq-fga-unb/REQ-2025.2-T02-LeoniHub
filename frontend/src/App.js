@@ -27,7 +27,7 @@ function App() {
           <Route path="/register/:lojaId" element={<RegisterPage />} />
 
           <Route path="/forgotpassword/:lojaId" element={<ForgotPassword />} />
-          <Route path="/forgotpassword/:lojaId/updatepassword" element={<UpdatePassword />} />
+          <Route path="/:lojaId/changePassword" element={<UpdatePassword />} />
 
           {/* --- Grupo de Rotas COM Navbar e Footer --- */}
           <Route element={<MainLayout />}>

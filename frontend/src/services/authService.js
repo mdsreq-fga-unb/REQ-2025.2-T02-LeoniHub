@@ -45,11 +45,11 @@ export const forgotPassword = (email, lojaId) => {
 };
 
 // Função de Mudança de Senha -- POST
-export const changePassword = (token, newPassword, lojaId) => {
+export const changePassword = (token, newPassword, newPasswordConfirmation, lojaId) => {
   return apiFetch(`${API_URL}/${lojaId}/changePassword`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token, newPassword }),
+    body: JSON.stringify({ token, newPassword, newPasswordConfirmation }),
   });
 };
 

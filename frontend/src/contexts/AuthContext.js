@@ -68,10 +68,11 @@ export const AuthProvider = ({ children }) => {
   const signup = async (lojaId, email, password, nome, cpf) => {
     try {
       setLoading(true);
-      // 2. CHAMA O SERVIÇO
+
+      // CHAMA O SERVIÇO
       const data = await authService.signup(lojaId, email, password, nome, cpf);
 
-      // 3. ATUALIZA O ESTADO
+      // ATUALIZA O ESTADO
       localStorage.setItem('user', JSON.stringify(data.data.user));
       localStorage.setItem('lojaId', lojaId);
 
@@ -80,10 +81,12 @@ export const AuthProvider = ({ children }) => {
 
       return { success: true, data: data.data };
 
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Erro no cadastro:', error);
       return { success: false, error: error.message };
-    } finally {
+    } 
+    finally {
       setLoading(false);
     }
   };
@@ -93,12 +96,13 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       
-      const data = await authService.forgotPassword(email, lojaId); // Chama Service
+      // CHAMA SERVICE
+      const data = await authService.forgotPassword(email, lojaId); 
 
       return { success: data.success, message: data.message };
     } 
     catch (error) {
-      console.error('Erro na recuperação de senha:', error);
+      console.error(`Erro na recuperação de senha:${error}`);
       return { success: false, error: error.message };
     } 
     finally {
@@ -107,16 +111,17 @@ export const AuthProvider = ({ children }) => {
   };
     
   // Função de MUDAR a senha
-  const changePassword = async (token, newPassword, lojaId) => {
+  const changePassword = async (token, newPassword, newPasswordConfirmation ,lojaId) => {
     try {
       setLoading(true);
   
-      const data = await authService.changePassword(token, newPassword, lojaId); // Chama Service
+      // CHAMA SERVICE
+      const data = await authService.changePassword(token, newPassword, newPasswordConfirmation, lojaId); 
       
       return { success: true, message: data.message };
     } 
     catch (error) {
-      console.error('Erro no changeassword:', error);
+      console.error(`Erro na troca de senha: ${error}`);
       return { success: false, error: error.message };
     } 
     finally {

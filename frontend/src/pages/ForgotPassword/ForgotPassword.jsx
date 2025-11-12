@@ -17,12 +17,6 @@ export default function ForgotPassword() {
     event.preventDefault();
     setError('');
 
-    // Validação básica
-    if (!email) {
-      setError('O campo E-mail não pode estar vazio');
-      return;
-    }
-
     // Chamar função de ForgotPassword do Context
     const result = await forgotPassword(email, lojaId);
 
