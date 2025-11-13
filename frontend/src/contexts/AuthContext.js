@@ -83,7 +83,6 @@ export const AuthProvider = ({ children }) => {
 
     } 
     catch (error) {
-      console.error('Erro no cadastro:', error);
       return { success: false, error: error.message };
     } 
     finally {

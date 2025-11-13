@@ -1,6 +1,6 @@
 import { produtoService } from '../services/produtoService.js';
 
-async function criarProduto(req, res) {
+export const criarProduto = async (req, res) => {
 
     try {
 
@@ -38,9 +38,3 @@ async function criarProduto(req, res) {
         return res.status(500).json({ message: `Erro no controller createProduto: ${error}` });
     }
 }
-
-
-// Exportamos um objeto com todas as funções do controller
-export const produtoController = {
-    criarProduto,
-};

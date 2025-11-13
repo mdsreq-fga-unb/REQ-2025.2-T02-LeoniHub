@@ -7,6 +7,6 @@ import {
 const router = express.Router();
 
 // Rotas de Produto -- POST
-router.post('/:lojaId/produto/criarProduto', criarProduto);
+router.post('/:lojaId/criarProduto', criarProduto);
 
 export default router;

@@ -19,11 +19,10 @@ export const ProductProvider = ({ children }) => {
 
             const data = await produtoService.criarProduto(nome, estado, tamanho, descricao) ;
 
+            return { success: true, data: data.data };
         }
-        catch{
-
-
-
+        catch(error){
+            return { success: false, error: error.message };
         }
         finally{
             setLoading(false) ;

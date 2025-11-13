@@ -1,10 +1,11 @@
+import {supabaseSchema , getSupabaseClient } from '../config/db.js'
 
 async function criarProduto(lojaId, produtoData) {
 
     // ===================  REGRAS DE NEGÓCIO  ===========================
 
     // Verifica se já existe um produto com o mesmo código
-    const { data: produtoExistente, error: erroBusca } = await supabase
+    const { data: produtoExistente, error: erroBusca } = await supabaseSchema
         .from('produtos')
         .select('codigo')
         .eq('codigo', produtoData.codigo)
@@ -18,7 +19,7 @@ async function criarProduto(lojaId, produtoData) {
 
     // ===================  CADASTRO DO PRODUTO  ===========================
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseSchema
         .from('produtos')
         .insert([produtoData])
         .select() // .select() faz o Supabase retornar o objeto que acabou de ser inserido

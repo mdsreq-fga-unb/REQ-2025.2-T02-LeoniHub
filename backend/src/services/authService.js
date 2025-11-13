@@ -81,7 +81,7 @@ export const signup = async (nome, cpf, email, password, lojaId) => {
   // =====  "CPF" JÁ EXISTENTE  =====
 
   const { data: cpfExistente, error: cpfCheckError } = await supabaseSchema
-    .from('Funcionarios')
+    .from('funcionarios')
     .select('CPF')    
     .eq('CPF', cpfLimpo)     // Checa se tem um 'cpf' na coluna de 'CPF'
     .maybeSingle();     // Retorna 'null' se não encontrar, ou um objeto se encontrar
@@ -117,7 +117,7 @@ export const signup = async (nome, cpf, email, password, lojaId) => {
   // ===================  CRIA USUÁRIO NA TABLE "FUNCIONARIOS"  ===========================
 
   const { error: profileError } = await supabaseSchema
-    .from('Funcionarios')
+    .from('funcionarios')
     .insert({
       id: data.user.id, 
       Nome: nome,
