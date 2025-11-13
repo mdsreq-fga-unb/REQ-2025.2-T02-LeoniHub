@@ -16,69 +16,34 @@ export const AuthProvider = ({ children }) => {
       const savedUser = localStorage.getItem('user');
 
       if (token && savedUser) {
-        // Validar token no backend
-        const response = await fetch('http://localhost:5000/auth/session', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            setUser(data.data.user);
-          } else {
-            // Token inválido, limpar dados
-            localStorage.removeItem('token');
-            localStorage.removeItem('refresh_token');
-            localStorage.removeItem('user');
-            setUser(null);
-          }
-        } else {
-          // Token inválido ou expirado
-          localStorage.removeItem('token');
-          localStorage.removeItem('refresh_token');
-          localStorage.removeItem('user');
-          setUser(null);
-        }
+        setUser(JSON.parse(savedUser));
       }
-    } catch (error) {
+
+    } 
+    catch (error) {
       console.error('Erro ao verificar autenticação:', error);
       // Se houver erro, limpar dados
-      localStorage.removeItem('token');
-      localStorage.removeItem('refresh_token');
-      localStorage.removeItem('user');
-      setUser(null);
-    } finally {
+      logout();
+    } 
+    finally {
       setLoading(false);
     }
   }, []);
 
-  // Verificar se já está logado ao carregar a página
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-
-  // Função de LOGIN
-  const login = async (email, password) => {
+ // Função de LOGIN 
+  const login = async ( email, password) => {
     try {
       setLoading(true);
 
-      const response = await fetch(`http://localhost:5000/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const data = await authService.login( email, password); // Chama Service
 
-      const data = await response.json();
+      // Caso o Service não retorne "error" --> Roda o restante do código
+      localStorage.setItem('token', data.data.session.access_token);
+      localStorage.setItem('refresh_token', data.data.session.refresh_token);
+      localStorage.setItem('user', JSON.stringify(data.data.user));
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Erro ao fazer login');
-      }
+      // Define usuário
+      setUser(data.data.user);
 
       if (data.success) {
         // Salvar dados no localStorage
@@ -102,28 +67,23 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Função de CADASTRO
+// Função de CADASTRO
   const signup = async (email, password, nome, cpf) => {
     try {
       setLoading(true);
 
-      const response = await fetch(`http://localhost:5000/auth/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password, nome, cpf }),
-      });
+      // CHAMA O SERVIÇO
+      const data = await authService.signup(email, password, nome, cpf);
 
-      const data = await response.json();
+      // ATUALIZA O ESTADO
+      localStorage.setItem('user', JSON.stringify(data.data.user));
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Erro ao criar conta');
-      }
+      setUser(data.data.user);
 
-      return { success: data.success, message: data.message, data: data.data };
-    } catch (error) {
-      console.error('Erro no cadastro:', error);
+      return { success: true, data: data.data };
+
+    } 
+    catch (error) {
       return { success: false, error: error.message };
     } 
     finally {
@@ -132,17 +92,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Função de RECUPERAR a senha
-  const forgotPassword = async (email) => {
+  const forgotPassword = async (email ) => {
     try {
       setLoading(true);
       
-      const response = await fetch('http://localhost:5000/auth/forgot-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
+      // CHAMA SERVICE
+      const data = await authService.forgotPassword(email ); 
 
       const data = await response.json();
 
@@ -162,23 +117,12 @@ export const AuthProvider = ({ children }) => {
   };
     
   // Função de MUDAR a senha
-  const changePassword = async (token, newPassword, newPasswordConfirmation) => {
+  const changePassword = async (token, newPassword, newPasswordConfirmation ) => {
     try {
       setLoading(true);
   
-      const response = await fetch('http://localhost:5000/auth/change-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token, newPassword, newPasswordConfirmation }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Erro ao alterar senha');
-      }
+      // CHAMA SERVICE
+      const data = await authService.changePassword(token, newPassword, newPasswordConfirmation); 
       
       return { success: data.success, message: data.message };
     } 
@@ -195,33 +139,17 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     // Pegar o token ANTES de limpar
     const token = localStorage.getItem('token');
+
+    if (token) {
+      await authService.logout(token); // Chama Service
+    }
     
     // Limpar TODOS os dados locais PRIMEIRO
     localStorage.removeItem('token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user');
-    localStorage.removeItem('lojaId'); // Remover campo antigo
-    sessionStorage.clear();
     
     setUser(null);
-    
-    try {
-      // Tentar fazer logout no backend com o token salvo
-      if (token) {
-        await fetch(`http://localhost:5000/auth/logout`, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-      }
-    } catch (error) {
-      console.error('Erro ao fazer logout:', error);
-    }
-    
-    // Forçar reload COMPLETO da página (sem cache) após limpar
-    window.location.replace('/login');
   };
 
 

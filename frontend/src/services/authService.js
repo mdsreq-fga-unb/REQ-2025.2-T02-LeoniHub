@@ -1,25 +1,9 @@
+import * as API from '../utils/helper'
 
-const API_URL = 'http://localhost:3001/auth'; // Link padrão para evitar re-escrita
-
-// Helper genérico para chamadas fetch --> Trata os erros de forma centralizada.
-const apiFetch = async (url, options) => {
-  const response = await fetch(url, options);
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.error || `Erro na requisição: ${response.statusText}`);
-  }
-
-  if (data.success === false) {
-    throw new Error(data.message || 'Ocorreu um erro na API');
-  }
-
-  return data;
-};
 
 // Função de Login -- POST
-export const login = (lojaId, email, password) => {
-  return apiFetch(`${API_URL}/${lojaId}/login`, {
+export const login = ( email, password) => {
+  return API.apiFetch(`auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
@@ -27,8 +11,8 @@ export const login = (lojaId, email, password) => {
 };
 
 // Função de Cadastro -- POST
-export const signup = (lojaId, email, password, nome, cpf) => {
-  return apiFetch(`${API_URL}/${lojaId}/signup`, {
+export const signup = (email, password, nome, cpf) => {
+  return API.apiFetch(`auth/signup`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password, nome, cpf }),
@@ -36,8 +20,8 @@ export const signup = (lojaId, email, password, nome, cpf) => {
 };
 
 // Função de Recuperação de Senha -- POST
-export const forgotPassword = (email, lojaId) => {
-  return apiFetch(`${API_URL}/${lojaId}/forgotPassword`, {
+export const forgotPassword = (email) => {
+  return API.apiFetch(`auth/forgotPassword`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email }),
@@ -45,8 +29,8 @@ export const forgotPassword = (email, lojaId) => {
 };
 
 // Função de Mudança de Senha -- POST
-export const changePassword = (token, newPassword, newPasswordConfirmation, lojaId) => {
-  return apiFetch(`${API_URL}/${lojaId}/changePassword`, {
+export const changePassword = (token, newPassword, newPasswordConfirmation) => {
+  return API.apiFetch(`auth/changePassword`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ token, newPassword, newPasswordConfirmation }),
@@ -54,9 +38,9 @@ export const changePassword = (token, newPassword, newPasswordConfirmation, loja
 };
 
 // Função de Logout -- POST
-export const logout = async (token, lojaId) => {
+export const logout = async (token) => {
   try {
-    await fetch(`http://localhost:5000/api/auth/${lojaId}/logout`, {
+    await fetch(`http://localhost:5000/api/auth/logout`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,

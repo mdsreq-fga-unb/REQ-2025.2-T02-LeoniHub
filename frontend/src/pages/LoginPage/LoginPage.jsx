@@ -21,7 +21,8 @@ function LoginPage() {
       return;
     }
 
-    const result = await login(email, password);
+    // Chamar função de login do Context
+    const result = await login( email, password);
 
     if (result.success) {
       navigate('/clientes');
@@ -82,14 +83,12 @@ function LoginPage() {
             </button>
           </form>
 
-          <p style={{ marginTop: '15px', textAlign: 'center' }}>
-            Não tem conta? <Link to="/register">Cadastre-se</Link>
+          <p style={{ marginTop: '20px', textAlign: 'center' }}>
+            <Link style={{color:'#1876b1ff'}} to={`/forgotpassword`}>Esqueceu a senha?</Link>
           </p>
 
           <p style={{ marginTop: '10px', textAlign: 'center' }}>
-            <Link to="/forgotpassword" style={{ color: '#177b81', fontSize: '14px' }}>
-              Esqueceu sua senha?
-            </Link>
+            Não tem conta? <Link style={{color:'#1876b1ff'}} to={`/register`}>Cadastre-se</Link>
           </p>
         </div>
       </div>

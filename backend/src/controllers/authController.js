@@ -1,5 +1,8 @@
-import { supabase, supabaseAdmin } from '../config/db.js';
+import { getSupabaseClient } from '../config/db.js'
 
+const supabase = getSupabaseClient();
+
+import * as authService from '../services/authService.js'
 
 // POST - Login do usuário
 export const login = async (req, res) => {
@@ -14,19 +17,8 @@ export const login = async (req, res) => {
       });
     }
     
-    // Faz login no Supabase
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-    
-    if (error) {
-      return res.status(401).json({
-        success: false,
-        error: 'Email ou senha inválidos'
-      });
-    }
-    
+    const data = await authService.login(email, password) ;
+
     // Retorna token e informações do usuário
     res.status(200).json({
       success: true,
@@ -42,7 +34,7 @@ export const login = async (req, res) => {
           access_token: data.session.access_token,
           refresh_token: data.session.refresh_token,
           expires_at: data.session.expires_at
-        }
+        },
       }
     });
   } 
@@ -58,7 +50,6 @@ export const login = async (req, res) => {
 export const signup = async (req, res) => {
   try {
     const { email, password, nome, cpf } = req.body;
-    
     // Validação
     if (!email || !password || !nome || !cpf) {
       return res.status(400).json({
@@ -67,30 +58,7 @@ export const signup = async (req, res) => {
       });
     }
     
-    if (password.length < 6) {
-      return res.status(400).json({
-        success: false,
-        error: 'A senha deve ter no mínimo 6 caracteres'
-      });
-    }
-    
-    // Criar usuário PADRÃO do Supabase
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          nome: nome || email.split('@')[0]
-        }
-      }
-    });
-    
-    if (error) { // Se usuário já existe
-      return res.status(400).json({
-        success: false,
-        error: error.message
-      });
-    }
+    const user = await authService.signup(nome, cpf, email, password) ;
 
     // Registra informações Extras do Funcionário no Supabase --> Table Funcionarios
     const { error: profileError } = await supabaseAdmin
@@ -110,8 +78,7 @@ export const signup = async (req, res) => {
       success: true,
       message: 'Usuário criado com sucesso! Verifique seu e-mail para confirmar.',
       data: {
-        user: data.user,   
-        session: data.session
+        user: user,
       }
     })
   }
@@ -142,23 +109,24 @@ export const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
 
-    if (!email) {
-      return res.status(400).json({ success: false, error: 'O campo de e-mail é obrigatório.' });
+    try {
+      
+
+      if (!email) {
+        return res.status(400).json({ success: false, error: 'O campo de e-mail é obrigatório.' });
+      }
+
+      await authService.forgotPassword(email)
+
+      return res.status(200).json({ 
+        success: true, 
+        data: { message: 'Email de recuperação enviado com sucesso.' }
+      });
+    } 
+    catch (error) {
+        console.error(`Erro inesperado no servidor: ${error.message}`);
+        return res.status(500).json({ success: false, error: 'Erro interno do servidor.'});
     }
-
-    // Enviar email de recuperação usando Supabase
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/update-password`,
-    });
-
-    if (error) {
-      return res.status(400).json({ success: false, error: error.message });
-    }
-
-    return res.status(200).json({ 
-      success: true, 
-      data: { message: 'Email de recuperação enviado com sucesso.' }
-    });
   } 
   catch (error) {
     console.error(`Erro inesperado no servidor: ${error.message}`);
@@ -176,33 +144,8 @@ export const changePassword = async (req, res) => {
       return res.status(400).json({ success: false, error: 'Token e nova senha são obrigatórios.' });
     }
 
-    // Verificar se as senhas conferem
-    if (newPassword !== newPasswordConfirmation) {
-      return res.status(400).json({ success: false, error: 'As senhas não conferem.' });
-    }
-
-    // Criar um cliente Supabase com o token de recuperação
-    const { createClient } = await import('@supabase/supabase-js');
-    const supabaseWithToken = createClient(
-      process.env.SUPABASE_URL,
-      process.env.SUPABASE_ANON_KEY,
-      {
-        global: {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      }
-    );
-
-    // Atualizar senha usando o cliente com token
-    const { error } = await supabaseWithToken.auth.updateUser({
-      password: newPassword
-    });
-
-    if (error) {
-      return res.status(400).json({ success: false, error: error.message });
-    }
+    // CHAMA SERVICE
+    await authService.changePassword(token, newPassword, newPasswordConfirmation) ;
 
     return res.status(200).json({ success: true, message: 'Senha atualizada com sucesso!' });
   } 
@@ -264,7 +207,7 @@ export const getSession = async (req, res) => {
           email: user.email,
           role: user.role,
           user_metadata: user.user_metadata
-        }
+        },
       }
     });
     

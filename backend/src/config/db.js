@@ -1,27 +1,31 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_ANON_KEY;
+
+// SELECIONA BANCO DO SUPABASE
+const supabaseUrl = process.env.SUPABASE_LEONNI_URL;
+const supabaseKey = process.env.SUPABASE_LEONNI_ANON_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Variáveis de ambiente do Supabase não configuradas');
+  throw new Error('Variáveis de ambiente da Leonni não configuradas');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseKey, {
+export const supabaseLeonni = createClient(supabaseUrl, supabaseKey);
+
+export const getSupabaseClient = () => {
+  if (!supabaseLeonni) throw new Error('Leonni não configurada. Configure SUPABASE_LEONNI_URL e SUPABASE_LEONNI_ANON_KEY no .env');
+  return supabaseLeonni;
+}
+
+// ===================================================================
+
+// SCHEMA DO DB
+const serviceKey = process.env.SUPABASE_LEONNI_SERVICE_KEY; 
+
+if (!supabaseUrl || !serviceKey) {
+  throw new Error('Variáveis de ambiente do Schema/Service Key não configuradas');
+}
+export const supabaseSchema = createClient(supabaseUrl, serviceKey, {
   db: {
     schema: 'Leoni-Hub'
   }
 });
-
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
-if (!supabaseServiceKey) {
-  throw new Error('SUPABASE_SERVICE_KEY não configurada');
-}
-
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
-  db: {
-    schema: 'Leoni-Hub'
-  }
-});
-
-export default supabase;
