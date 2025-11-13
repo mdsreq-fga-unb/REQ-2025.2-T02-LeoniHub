@@ -1,25 +1,9 @@
+import * as API from '../utils/helper'
 
-const API_URL = 'http://localhost:3001/auth'; // Link padrão para evitar re-escrita
-
-// Helper genérico para chamadas fetch --> Trata os erros de forma centralizada.
-const apiFetch = async (url, options) => {
-  const response = await fetch(url, options);
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.error || `Erro na requisição: ${response.statusText}`);
-  }
-
-  if (data.success === false) {
-    throw new Error(data.message || 'Ocorreu um erro na API');
-  }
-
-  return data;
-};
 
 // Função de Login -- POST
 export const login = (lojaId, email, password) => {
-  return apiFetch(`${API_URL}/${lojaId}/login`, {
+  return API.apiFetch(`auth/${lojaId}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
@@ -28,7 +12,7 @@ export const login = (lojaId, email, password) => {
 
 // Função de Cadastro -- POST
 export const signup = (lojaId, email, password, nome, cpf) => {
-  return apiFetch(`${API_URL}/${lojaId}/signup`, {
+  return API.apiFetch(`auth/${lojaId}/signup`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password, nome, cpf }),
@@ -37,7 +21,7 @@ export const signup = (lojaId, email, password, nome, cpf) => {
 
 // Função de Recuperação de Senha -- POST
 export const forgotPassword = (email, lojaId) => {
-  return apiFetch(`${API_URL}/${lojaId}/forgotPassword`, {
+  return API.apiFetch(`auth/${lojaId}/forgotPassword`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email }),
@@ -46,7 +30,7 @@ export const forgotPassword = (email, lojaId) => {
 
 // Função de Mudança de Senha -- POST
 export const changePassword = (token, newPassword, newPasswordConfirmation, lojaId) => {
-  return apiFetch(`${API_URL}/${lojaId}/changePassword`, {
+  return API.apiFetch(`auth/${lojaId}/changePassword`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ token, newPassword, newPasswordConfirmation }),

@@ -5,6 +5,7 @@ import leoniLogo from '../../assets/img/leonni_logo.jpeg';
 import closetChicLogo from '../../assets/img/closet_chic.jpeg';
 
 export default function HomePage() {
+    
     const navigate = useNavigate();
 
     const handleStoreAccess = (storeId) => {
