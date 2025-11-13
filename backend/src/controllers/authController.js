@@ -1,17 +1,8 @@
-import { getSupabaseClient } from '../config/db.js';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from '../config/db.js'
+
+const supabase = getSupabaseClient();
 
 import * as authService from '../services/authService.js'
-
-const supabaseUrl = 'https://khgmbtfxojurshfdhldu.supabase.co';
-const supabaseServiceKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoZ21idGZ4b2p1cnNoZmRobGR1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MTIzNjg5OCwiZXhwIjoyMDc2ODEyODk4fQ.J44ILd9RA1EBBe4mwFUyfwzrH1_m0666NaS63btNnu0';
-
-const supabaseSchema = createClient(supabaseUrl, supabaseServiceKey, {
-  db: {
-    schema: 'Leoni-Hub'
-  }
-});
-
 
 // POST - Login do usuário
 export const login = async (req, res) => {
@@ -156,7 +147,6 @@ export const changePassword = async (req, res) => {
 export const logout = async (req, res) => {
   try {
     const { lojaId } = req.params;
-    const supabase = getSupabaseClient(lojaId);
     
     const { error } = await supabase.auth.signOut();
     
@@ -189,7 +179,6 @@ export const getSession = async (req, res) => {
     }
     
     const token = authHeader.split(' ')[1];
-    const supabase = getSupabaseClient(lojaId);
     
     // Verificar token
     const { data: { user }, error } = await supabase.auth.getUser(token);
@@ -236,7 +225,6 @@ export const getMe = async (req, res) => {
     }
     
     const token = authHeader.split(' ')[1];
-    const supabase = getSupabaseClient(lojaId);
     
     const { data: { user }, error } = await supabase.auth.getUser(token);
     

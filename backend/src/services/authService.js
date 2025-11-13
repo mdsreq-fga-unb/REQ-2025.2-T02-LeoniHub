@@ -1,17 +1,9 @@
-import { getSupabaseClient } from '../config/db.js';
-import { createClient } from '@supabase/supabase-js';
-const supabaseUrl = 'https://khgmbtfxojurshfdhldu.supabase.co';
-const supabaseServiceKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoZ21idGZ4b2p1cnNoZmRobGR1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MTIzNjg5OCwiZXhwIjoyMDc2ODEyODk4fQ.J44ILd9RA1EBBe4mwFUyfwzrH1_m0666NaS63btNnu0';
+import {supabaseSchema , getSupabaseClient } from '../config/db.js'
 
-const supabaseSchema = createClient(supabaseUrl, supabaseServiceKey, {
-  db: {
-    schema: 'Leoni-Hub'
-  }
-});
+const supabase = getSupabaseClient();
 
 export const login = async (email, password, lojaId) => {
 
-  const supabase = getSupabaseClient(lojaId);
   
   // Faz login no Supabase
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -35,8 +27,6 @@ export const login = async (email, password, lojaId) => {
 
 export const signup = async (nome, cpf, email, password, lojaId) => {
   
-  const supabase = getSupabaseClient(lojaId);
-
   // ===================  REGRAS DE NEGÓCIO  ===========================
 
   // =====  SENHA  =====
@@ -152,7 +142,6 @@ export const signup = async (nome, cpf, email, password, lojaId) => {
 
 export const forgotPassword = async (email, lojaId) => {
  
-  const supabase = getSupabaseClient(lojaId);
   const redirectUrl = `http://localhost:3000/${lojaId}/changePassword`;
   
   // Chama o método de recuperação de senha do Supabase
@@ -167,8 +156,6 @@ export const forgotPassword = async (email, lojaId) => {
 }
 
 export const changePassword = async (token, newPassword, newPasswordConfirmation , lojaId) => {
-
-  const supabase = getSupabaseClient(lojaId);
 
   // ===================  REGRAS DE NEGÓCIO  ===========================
   

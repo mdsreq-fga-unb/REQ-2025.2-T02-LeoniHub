@@ -9,6 +9,7 @@ import {
   getMe 
 } from '../controllers/authController.js';
 
+
 const router = express.Router();
 
 // Rotas de autenticação -- POST
@@ -21,5 +22,6 @@ router.post('/:lojaId/changePassword', changePassword);
 // Rotas de autenticação -- GET
 router.get('/:lojaId/session', getSession);
 router.get('/:lojaId/me', getMe);
+
 
 export default router;
