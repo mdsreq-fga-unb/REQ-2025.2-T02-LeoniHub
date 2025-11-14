@@ -31,11 +31,9 @@ function App() {
       <AuthProvider> 
         <ProdutoProvider>
           <PedidoProvider>
-
             <Routes>
 
               {/* --- Rotas SEM Navbar e Footer --- */}
-              
               <Route index element={<HomePage />} /> 
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />

@@ -18,6 +18,7 @@ export const login = async (req, res) => {
     }
     
     const data = await authService.login(email, password) ;
+    const data = await authService.login(email, password) ;
 
     // Retorna token e informações do usuário
     res.status(200).json({
@@ -50,6 +51,7 @@ export const login = async (req, res) => {
 export const signup = async (req, res) => {
   try {
     const { email, password, nome, cpf } = req.body;
+
     // Validação
     if (!email || !password || !nome || !cpf) {
       return res.status(400).json({
@@ -60,20 +62,6 @@ export const signup = async (req, res) => {
     
     const user = await authService.signup(nome, cpf, email, password) ;
 
-    // Registra informações Extras do Funcionário no Supabase --> Table Funcionarios
-    const { error: profileError } = await supabaseAdmin
-      .from('funcionarios')
-      .insert({
-        id: data.user.id,
-        Nome: nome,
-        CPF: cpf,
-        Email: email
-      });
-
-    if (profileError) {
-      return res.status(500).json({ success: false, error: profileError.message });
-    }
-    
     res.status(201).json({
       success: true,
       message: 'Usuário criado com sucesso! Verifique seu e-mail para confirmar.',
@@ -106,8 +94,9 @@ export const signup = async (req, res) => {
 
 // POST - Função de RECUPERAR SENHA
 export const forgotPassword = async (req, res) => {
-  try {
-    const { email } = req.body;
+
+  const { email } = req.body;
+
 
     try {
       
@@ -116,6 +105,7 @@ export const forgotPassword = async (req, res) => {
         return res.status(400).json({ success: false, error: 'O campo de e-mail é obrigatório.' });
       }
 
+      await authService.forgotPassword(email)
       await authService.forgotPassword(email)
 
       return res.status(200).json({ 
@@ -146,6 +136,7 @@ export const changePassword = async (req, res) => {
 
     // CHAMA SERVICE
     await authService.changePassword(token, newPassword, newPasswordConfirmation) ;
+    await authService.changePassword(token, newPassword, newPasswordConfirmation) ;
 
     return res.status(200).json({ success: true, message: 'Senha atualizada com sucesso!' });
   } 
@@ -158,6 +149,7 @@ export const changePassword = async (req, res) => {
 // POST - Logout
 export const logout = async (req, res) => {
   try {
+
     const { error } = await supabase.auth.signOut();
     
     if (error) throw error;
