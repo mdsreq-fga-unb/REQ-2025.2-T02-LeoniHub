@@ -4,7 +4,7 @@ export const criarProduto = async (req, res) => {
 
     try {
 
-        const { codigo, tamanho, estado, descricao, fotos } = req.body;
+        const { codigo, tamanho, estado, descricao, quantidade, fotos } = req.body;
 
         // Verifica Campos Obrigatórios
         if (!codigo || !tamanho || !estado || !descricao) {
@@ -18,6 +18,7 @@ export const criarProduto = async (req, res) => {
             tamanho,
             estado,
             descricao,
+            quantidade,
             ...(fotos && { fotos }), // Adiciona 'fotos' ao objeto apenas se não for nulo/undefined
         };
 
@@ -42,12 +43,13 @@ export const atualizarProduto = async (req, res) => {
     
     try {
         const { codigo } = req.params;
-        const { tamanho, estado, descricao, fotos } = req.body;
+        const { tamanho, estado, descricao, quantidade, fotos } = req.body;
 
         const dadosParaAtualizar = {
         ...(tamanho !== undefined && { tamanho }),
         ...(estado !== undefined && { estado }),
         ...(descricao !== undefined && { descricao }),
+        ...(quantidade !== undefined && { quantidade }),
         ...(fotos !== undefined && { fotos }),
         };
 
@@ -71,6 +73,36 @@ export const atualizarProduto = async (req, res) => {
 
         if (error.message.includes('Produto não encontrado')) {
             return res.status(404).json({ message: error.message });
+        }
+
+        console.error('Erro no controller updateProduto:', error);
+        return res.status(500).json({ message: 'Erro interno do servidor.' });
+    }
+}
+
+
+export const removerProduto = async (req, res) => {
+    
+    try {
+        const { codigo } = req.params;
+
+        // CHAMA SERVICE
+        await produtoService.removerProduto(codigo);
+
+        return res.status(200).json({ message: 'Produto removido com sucesso!' });
+    } 
+    catch (error) {
+
+        if (error.message.includes('emprestado')) { 
+            return res.status(403).json({ message: error.message });
+        }
+
+        if (error.message.includes('Produto não encontrado')) {
+            return res.status(404).json({ message: error.message });
+        }
+
+        if (error.message === ('Não é possível remover um produto que está no estoque')) {
+            return res.status(400).json({ message: error.message });
         }
 
         console.error('Erro no controller updateProduto:', error);

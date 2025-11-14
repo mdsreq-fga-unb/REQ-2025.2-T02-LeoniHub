@@ -24,11 +24,14 @@ export const AuthProvider = ({ children }) => {
       if (token && savedUser) {
         setUser(JSON.parse(savedUser));
       }
-    } catch (error) {
+
+    } 
+    catch (error) {
       console.error('Erro ao verificar autenticação:', error);
       // Se houver erro, limpar dados
       logout();
-    } finally {
+    } 
+    finally {
       setLoading(false);
     }
   };

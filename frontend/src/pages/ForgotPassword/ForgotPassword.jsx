@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import styles from './ForgotPassword.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 

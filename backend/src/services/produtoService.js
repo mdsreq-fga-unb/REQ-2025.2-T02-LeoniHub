@@ -1,6 +1,6 @@
-import {supabaseSchema , getSupabaseClient } from '../config/db.js'
+import {supabaseSchema } from '../config/db.js'
 
-async function criarProduto( produtoData) {
+async function criarProduto(produtoData) {
 
     // ===================  REGRAS DE NEGÓCIO  ===========================
 
@@ -32,7 +32,7 @@ async function criarProduto( produtoData) {
     return data;
 }
 
-async function atualizarProduto( codigo, produtoData) {
+async function atualizarProduto(codigo, produtoData) {
 
   // Verificar o estado atual do produto
     const { data: produtoAtual, error: erroBusca } = await supabaseSchema
@@ -67,8 +67,43 @@ async function atualizarProduto( codigo, produtoData) {
     return data;
 }
 
+async function removerProduto( codigo ) {
+
+    // Verificar o estoque atual do produto
+    const { data: produtoAtualQuantidade, error: erroBuscaQuantidade } = await supabaseSchema
+    .from('produtos')
+    .select('quantidade')
+    .eq('codigo', codigo)
+    .single();
+
+    // Se não encontrar o produto, erroBusca não será nulo
+    if (erroBuscaQuantidade) {
+        throw new Error('Produto não encontrado para remoção.');
+    }
+
+     // Se o produto existe no estoque, não pode ser removido
+    if (produtoAtualQuantidade.quantidade > 0) {
+        throw new Error('Não é possível remover um produto que está no estoque');
+    }
+
+    // DELETA PRODUTO
+    const { data: deletedData, error: deleteError } = await supabaseSchema
+        .from('produtos')
+        .delete()
+        .eq('codigo', codigo)
+        .select()
+        .single();
+
+    if (deleteError) {
+        console.error('Erro ao deletar produto:', deleteError.message);
+        throw new Error(`Erro ao deletar o produto: ${deleteError.message}`);
+    }
+
+}
+
 // Exportamos um objeto com todas as funções do model
 export const produtoService = {
     criarProduto,
     atualizarProduto,
+    removerProduto,
 };
