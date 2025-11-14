@@ -40,17 +40,18 @@ Estima o esforço da equipe, a complexidade técnica (envolvendo React, Node.js,
 
 ## RNF1 — Usabilidade (U)
 
-| Requisito                                                                                                                | VN  | CT  |
+| Requisito  | VN  | CT  |
 | :----------------------------------------------------------------------------------------------------------------------- | :-: | :-: |
-| **RNF-01.1:** A interface deve ser simples e intuitiva, adequada para atendentes com pouca familiaridade com tecnologia. |  3  |  2  |
-| **RNF-01.2:** O tempo necessário para treinamento de novos usuários não deve exceder 1 hora.                             |  2  |  2  |
+| **RNF-01.1:** Após um treinamento de 30 minutos, um novo atendente deve ser capaz de completar o fluxo de "criação de um novo pedido" em menos de 60 segundos, sem ajuda externa. |  3  |  2  |
+| **RNF-01.2:** A taxa de erro (cliques em locais errados ou necessidade de "voltar") durante a execução do fluxo de "criação de pedido" por um usuário treinado não deve exceder 10%. |  3  |  2  |
+| **RNF-01.3:** O tempo necessário para treinamento de novos usuários não deve exceder 1 hora.                             |  2  |  2  |
 
 ## RNF2 — Confiabilidade (R)
 
 | Requisito                                                                                                                                              | VN  | CT  |
 | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :-: | :-: |
-| **RNF-02.1:** As operações críticas, como criação de pedidos e atualização de estoque, devem ser transacionais para garantir a consistência dos dados. |  5  |  4  |
-| **RNF-02.2:** Devem ser configurados alertas automáticos em caso de falhas críticas ou indisponibilidade.                                              |  4  |  3  |
+| **RNF-02.1:** Em um teste de falha simulada durante a finalização de um pedido, o sistema deve reverter todas as alterações não deixando dados inconsistentes no banco. |  5  |  4  |
+| **RNF-02.2:** Se o sistema registrar 5 erros de servidor em um intervalo de 1 minuto, ou se o banco de dados ficar indisponível, um alerta deve ser enviado via e-mail para a equipe de suporte. |  4  |  3  |
 | **RNF-02.3:** O sistema deve estar disponível 100% do tempo no horário comercial (8h–18h, de segunda a sexta-feira).                                   |  5  |  4  |
 
 ## RNF3 — Desempenho (P)
@@ -58,16 +59,16 @@ Estima o esforço da equipe, a complexidade técnica (envolvendo React, Node.js,
 | Requisito                                                                                                                   | VN  | CT  |
 | :-------------------------------------------------------------------------------------------------------------------------- | :-: | :-: |
 | **RNF-03.1:** A atualização do status de estoque deve ocorrer em tempo real (atraso máximo de 2 segundos após a alteração). |  3  |  4  |
-| **RNF-03.2:** O sistema deve registrar métricas básicas de desempenho (número de requisições, latência, taxa de erros).     |  3  |  2  |
+| **RNF-03.2:** O sistema deve expor um painel (dashboard) de monitoramento que exiba, próximo do tempo real: Requisições por minuto, Latência média,  A contagem de erros por código de status (4xx, 5xx).   |  3  |  2  |
 
 ## RNF4 — Suportabilidade (S)
 
 | Requisito                                                                                                                      | VN  | CT  |
 | :----------------------------------------------------------------------------------------------------------------------------- | :-: | :-: |
-| **RNF-04.1:** O código-fonte deve ser modular e bem documentado para facilitar futuras manutenções.                            |  3  |  2  |
-| **RNF-04.2:** O sistema deve contar com testes automatizados para unidades críticas.                                           |  4  |  3  |
+| **RNF-04.1:** O código-fonte do backend deve aderir à arquitetura de 4 camadas (Context, Services (Frontend), Controller, Services (Backend)) definida no projeto, a ser validada por revisão de código.                            |  3  |  2  |
+| **RNF-04.2:** Os testes unitários devem atingir uma cobertura de código mínima de 60% na camada de Serviço (lógica de negócio).              |  4  |  3  |
 | **RNF-04.3:** Deve haver um processo de integração contínua (CI) configurado para garantir qualidade e segurança nas entregas. |  3  |  2  |
-| **RNF-04.4:** Devem ser gerados logs estruturados para suporte técnico, depuração de problemas e auditorias de segurança.      |  4  |  3  |
+| **RNF-04.4:** Todos os logs gerados pela aplicação devem estar em formato JSON. Logs de erro (level: error) devem obrigatoriamente conter um ID da requisição e o userId (se o usuário estiver autenticado).    |  4  |  3  |
 
 ## RNF5 — Implementação (+)
 
@@ -80,5 +81,4 @@ Estima o esforço da equipe, a complexidade técnica (envolvendo React, Node.js,
 
 | Requisito                                                                                                                            | VN  | CT  |
 | :----------------------------------------------------------------------------------------------------------------------------------- | :-: | :-: |
-| **RNF-06.1:** Todos os acessos a dados devem ser controlados e registrados em logs de auditoria, garantindo conformidade com a LGPD. |  5  |  3  |
-| **RNF-06.2:** Garantir que os dados de clientes, produtos e pedidos sejam isolados por loja.                                         |  5  |  3  |
+| **RNF-06.1:** Qualquer ação de escrita (INSERT, UPDATE, DELETE) em tabelas que contenham dados pessoais deve gerar um registro em uma tabela de Auditoria, contendo: ID do usuário, data/hora da ação e o dado que foi alterado. |  5  |  3  |

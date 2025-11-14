@@ -40,5 +40,5 @@ A **Definition of Done (DoD)** estabelece os critérios que uma funcionalidade d
 - Os testes manuais foram executados e aprovados pela equipe.
 
 ### **3. Validação do Negócio**
-- A funcionalidade foi totalmente aprovada pelo cliente durante a Sprint Review.
+- A funcionalidade foi totalmente aprovada pelo Product Owner (PO) durante a Sprint Review.
 - Feedbacks da Sprint Review foram revisados e validados.
