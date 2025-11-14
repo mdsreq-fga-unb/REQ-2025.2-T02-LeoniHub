@@ -23,11 +23,11 @@ function App() {
 
           {/* --- Rotas SEM Navbar e Footer --- */}
           <Route index element={<HomePage />} /> 
-          <Route path="/login/:lojaId" element={<LoginPage />} />
-          <Route path="/register/:lojaId" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-          <Route path="/forgotpassword/:lojaId" element={<ForgotPassword />} />
-          <Route path="/:lojaId/changePassword" element={<UpdatePassword />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/changePassword" element={<UpdatePassword />} />
 
           {/* --- Grupo de Rotas COM Navbar e Footer --- */}
           <Route element={<MainLayout />}>

@@ -10,7 +10,6 @@ export default function ForgotPassword() {
   const [successMessage, setSuccessMessage] = useState('');
   
   
-  const { lojaId } = useParams();  
   const { loading, forgotPassword } = useAuth();  
 
   const handlePasswordRecover = async (event) => {
@@ -18,7 +17,7 @@ export default function ForgotPassword() {
     setError('');
 
     // Chamar função de ForgotPassword do Context
-    const result = await forgotPassword(email, lojaId);
+    const result = await forgotPassword(email);
 
     if (result.success) {
       setSuccessMessage(result.message || 'Verifique seu e-mail para recuperar sua senha!');
@@ -31,7 +30,7 @@ export default function ForgotPassword() {
   return (
     <div className={styles.body}>
         <div className={styles.header}>
-            <h1 className={styles.mainTitle}>Esqueci a Senha - {lojaId}</h1>
+            <h1 className={styles.mainTitle}> Esqueci a Senha </h1>
         </div>
 
         <div className={styles.formularioCard}>

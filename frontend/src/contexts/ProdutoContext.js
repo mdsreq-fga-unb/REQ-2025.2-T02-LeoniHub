@@ -7,7 +7,6 @@ const produtoContext = createContext({});
 export const ProductProvider = ({ children }) => {
 
     // Estados compartilhados
-    const [lojaId, setLojaId] = useState(null);
     const [loading, setLoading] = useState(true);
 
 

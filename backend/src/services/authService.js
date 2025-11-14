@@ -2,7 +2,7 @@ import {supabaseSchema , getSupabaseClient } from '../config/db.js'
 
 const supabase = getSupabaseClient();
 
-export const login = async (email, password, lojaId) => {
+export const login = async (email, password) => {
 
   
   // Faz login no Supabase
@@ -25,7 +25,7 @@ export const login = async (email, password, lojaId) => {
   return data;
 };
 
-export const signup = async (nome, cpf, email, password, lojaId) => {
+export const signup = async (nome, cpf, email, password) => {
   
   // ===================  REGRAS DE NEGÓCIO  ===========================
 
@@ -105,7 +105,6 @@ export const signup = async (nome, cpf, email, password, lojaId) => {
     options: {
       data: {
         nome: nome || email.split('@')[0],
-        loja_id: lojaId
       }
     }
   });
@@ -123,7 +122,6 @@ export const signup = async (nome, cpf, email, password, lojaId) => {
       Nome: nome,
       CPF: cpfLimpo,
       Email: email,
-      Loja: lojaId,
     });
 
   if (profileError) {
@@ -140,9 +138,9 @@ export const signup = async (nome, cpf, email, password, lojaId) => {
   return data.user
 }
 
-export const forgotPassword = async (email, lojaId) => {
+export const forgotPassword = async (email) => {
  
-  const redirectUrl = `http://localhost:3000/${lojaId}/changePassword`;
+  const redirectUrl = `http://localhost:3000/changePassword`;
   
   // Chama o método de recuperação de senha do Supabase
   const { data, error } = await supabaseSchema.auth.resetPasswordForEmail(email, {
@@ -155,7 +153,7 @@ export const forgotPassword = async (email, lojaId) => {
 
 }
 
-export const changePassword = async (token, newPassword, newPasswordConfirmation , lojaId) => {
+export const changePassword = async (token, newPassword, newPasswordConfirmation) => {
 
   // ===================  REGRAS DE NEGÓCIO  ===========================
   

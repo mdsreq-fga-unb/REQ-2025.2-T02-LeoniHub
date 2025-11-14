@@ -16,7 +16,6 @@ function RegisterPage() {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const { lojaId } = useParams();
   const { signup, loading } = useAuth();
 
 
@@ -34,7 +33,7 @@ function RegisterPage() {
         return;
     }
 
-    const result = await signup(lojaId, email, password, nomeCompleto, cpf);
+    const result = await signup( email, password, nomeCompleto, cpf);
 
     if (result.success) {
       // Registro bem-sucedido
@@ -62,7 +61,7 @@ function RegisterPage() {
         </div>
 
         <div className={styles.loginRight}>
-          <h2>Registar - {lojaId}</h2>
+          <h2>Registar</h2>
           
           {error && (
             <div style={{ 
@@ -136,7 +135,7 @@ function RegisterPage() {
           </form>
 
           <p style={{ marginTop: '15px', textAlign: 'center' }}>
-            Já tem uma conta? <Link style={{color:'#1876b1ff'}} to={`/login/${lojaId}`}>Faça Login</Link>
+            Já tem uma conta? <Link style={{color:'#1876b1ff'}} to={`/login`}>Faça Login</Link>
           </p>
 
         </div>

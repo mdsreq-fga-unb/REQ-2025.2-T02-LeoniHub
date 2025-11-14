@@ -2,8 +2,8 @@ import * as API from '../utils/helper'
 
 
 // Função de Login -- POST
-export const login = (lojaId, email, password) => {
-  return API.apiFetch(`auth/${lojaId}/login`, {
+export const login = ( email, password) => {
+  return API.apiFetch(`auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
@@ -11,8 +11,8 @@ export const login = (lojaId, email, password) => {
 };
 
 // Função de Cadastro -- POST
-export const signup = (lojaId, email, password, nome, cpf) => {
-  return API.apiFetch(`auth/${lojaId}/signup`, {
+export const signup = (email, password, nome, cpf) => {
+  return API.apiFetch(`auth/signup`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password, nome, cpf }),
@@ -20,8 +20,8 @@ export const signup = (lojaId, email, password, nome, cpf) => {
 };
 
 // Função de Recuperação de Senha -- POST
-export const forgotPassword = (email, lojaId) => {
-  return API.apiFetch(`auth/${lojaId}/forgotPassword`, {
+export const forgotPassword = (email) => {
+  return API.apiFetch(`auth/forgotPassword`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email }),
@@ -29,8 +29,8 @@ export const forgotPassword = (email, lojaId) => {
 };
 
 // Função de Mudança de Senha -- POST
-export const changePassword = (token, newPassword, newPasswordConfirmation, lojaId) => {
-  return API.apiFetch(`auth/${lojaId}/changePassword`, {
+export const changePassword = (token, newPassword, newPasswordConfirmation) => {
+  return API.apiFetch(`auth/changePassword`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ token, newPassword, newPasswordConfirmation }),
@@ -38,9 +38,9 @@ export const changePassword = (token, newPassword, newPasswordConfirmation, loja
 };
 
 // Função de Logout -- POST
-export const logout = async (token, lojaId) => {
+export const logout = async (token) => {
   try {
-    await fetch(`http://localhost:5000/api/auth/${lojaId}/logout`, {
+    await fetch(`http://localhost:5000/api/auth/logout`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,

@@ -1,6 +1,6 @@
 import {supabaseSchema , getSupabaseClient } from '../config/db.js'
 
-async function criarProduto(lojaId, produtoData) {
+async function criarProduto( produtoData) {
 
     // ===================  REGRAS DE NEGÓCIO  ===========================
 
@@ -32,7 +32,43 @@ async function criarProduto(lojaId, produtoData) {
     return data;
 }
 
+async function atualizarProduto( codigo, produtoData) {
+
+  // Verificar o estado atual do produto
+    const { data: produtoAtual, error: erroBusca } = await supabaseSchema
+    .from('produtos')
+    .select('estado')
+    .eq('codigo', codigo)
+    .single();
+
+  // Se não encontrar o produto, erroBusca não será nulo
+    if (erroBusca) {
+        throw new Error('Produto não encontrado para atualização.');
+    }
+
+  // Se o produto está emprestado, lança um erro
+    if (produtoAtual.estado === 'emprestado') {
+        throw new Error('Não é possível editar um produto que está emprestado.');
+    }
+
+  // Se passou nas validações, atualiza o produto
+    const { data, error } = await supabaseSchema
+    .from('produtos')
+    .update(produtoData) // Atualiza APENAS os campos enviados
+    .eq('codigo', codigo) // Onde o código for igual
+    .select() // Retorna o objeto atualizado
+    .single();
+
+    if (error) {
+        console.error('Erro ao atualizar produto:', error.message);
+        throw new Error('Não foi possível atualizar o produto no banco de dados.');
+    }
+
+    return data;
+}
+
 // Exportamos um objeto com todas as funções do model
 export const produtoService = {
     criarProduto,
+    atualizarProduto,
 };

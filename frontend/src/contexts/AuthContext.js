@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
 
   // Estados compartilhados
   const [user, setUser] = useState(null);
-  const [lojaId, setLojaId] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // Verificar se já está logado ao carregar a página
@@ -20,12 +19,10 @@ export const AuthProvider = ({ children }) => {
   const checkAuth = async () => {
     try {
       const token = localStorage.getItem('token');
-      const savedLojaId = localStorage.getItem('lojaId');
       const savedUser = localStorage.getItem('user');
 
-      if (token && savedLojaId && savedUser) {
+      if (token && savedUser) {
         setUser(JSON.parse(savedUser));
-        setLojaId(savedLojaId);
       }
     } catch (error) {
       console.error('Erro ao verificar autenticação:', error);
@@ -37,21 +34,19 @@ export const AuthProvider = ({ children }) => {
   };
 
  // Função de LOGIN 
-  const login = async (lojaId, email, password) => {
+  const login = async ( email, password) => {
     try {
       setLoading(true);
 
-      const data = await authService.login(lojaId, email, password); // Chama Service
+      const data = await authService.login( email, password); // Chama Service
 
       // Caso o Service não retorne "error" --> Roda o restante do código
       localStorage.setItem('token', data.data.session.access_token);
       localStorage.setItem('refresh_token', data.data.session.refresh_token);
       localStorage.setItem('user', JSON.stringify(data.data.user));
-      localStorage.setItem('lojaId', lojaId);
 
       // Define usuário
       setUser(data.data.user);
-      setLojaId(lojaId);
 
       return { success: true, data: data.data };
     } 
@@ -65,19 +60,17 @@ export const AuthProvider = ({ children }) => {
   };
 
 // Função de CADASTRO
-  const signup = async (lojaId, email, password, nome, cpf) => {
+  const signup = async (email, password, nome, cpf) => {
     try {
       setLoading(true);
 
       // CHAMA O SERVIÇO
-      const data = await authService.signup(lojaId, email, password, nome, cpf);
+      const data = await authService.signup(email, password, nome, cpf);
 
       // ATUALIZA O ESTADO
       localStorage.setItem('user', JSON.stringify(data.data.user));
-      localStorage.setItem('lojaId', lojaId);
 
       setUser(data.data.user);
-      setLojaId(lojaId);
 
       return { success: true, data: data.data };
 
@@ -91,12 +84,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Função de RECUPERAR a senha
-  const forgotPassword = async (email, lojaId) => {
+  const forgotPassword = async (email ) => {
     try {
       setLoading(true);
       
       // CHAMA SERVICE
-      const data = await authService.forgotPassword(email, lojaId); 
+      const data = await authService.forgotPassword(email ); 
 
       return { success: data.success, message: data.message };
     } 
@@ -110,12 +103,12 @@ export const AuthProvider = ({ children }) => {
   };
     
   // Função de MUDAR a senha
-  const changePassword = async (token, newPassword, newPasswordConfirmation ,lojaId) => {
+  const changePassword = async (token, newPassword, newPasswordConfirmation ) => {
     try {
       setLoading(true);
   
       // CHAMA SERVICE
-      const data = await authService.changePassword(token, newPassword, newPasswordConfirmation, lojaId); 
+      const data = await authService.changePassword(token, newPassword, newPasswordConfirmation); 
       
       return { success: true, message: data.message };
     } 
@@ -131,28 +124,24 @@ export const AuthProvider = ({ children }) => {
   // Função de LOGOUT
   const logout = async () => {
     const token = localStorage.getItem('token');
-    const savedLojaId = localStorage.getItem('lojaId');
 
-    if (token && savedLojaId) {
-      await authService.logout(token, savedLojaId); // Chama Service
+    if (token) {
+      await authService.logout(token); // Chama Service
     }
     
     // Limpa dados locais
     localStorage.removeItem('token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user');
-    localStorage.removeItem('lojaId');
     
     // Desloga Usuário
     setUser(null);
-    setLojaId(null);
   };
 
 
   // Valores que serão compartilhados com toda aplicação
   const value = {
     user,                              // Dados do usuário logado
-    lojaId,                            // ID da loja atual (ClosetChic ou Leonni)
     loading,                           // Estado de carregamento
     isAuthenticated: !!user,           // Se está autenticado (true/false)
     login,                             // Função para fazer login

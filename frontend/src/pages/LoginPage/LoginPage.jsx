@@ -9,7 +9,6 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { lojaId } = useParams();
   const { login, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -24,7 +23,7 @@ function LoginPage() {
     }
 
     // Chamar função de login do Context
-    const result = await login(lojaId, email, password);
+    const result = await login( email, password);
 
     if (result.success) {
       // Login bem-sucedido, redirecionar para dashboard
@@ -51,7 +50,7 @@ function LoginPage() {
         </div>
 
         <div className={styles.loginRight}>
-          <h2>Entrar - {lojaId}</h2>
+          <h2>Entrar</h2>
           
           {error && (
             <div style={{ 
@@ -88,12 +87,12 @@ function LoginPage() {
           </form>
 
           <p style={{ marginTop: '20px', textAlign: 'center' }}>
-            <Link style={{color:'#1876b1ff'}} to={`/forgotpassword/${lojaId}`}>Esqueceu a senha?</Link>
+            <Link style={{color:'#1876b1ff'}} to={`/forgotpassword`}>Esqueceu a senha?</Link>
           </p>
 
 
           <p style={{ marginTop: '10px', textAlign: 'center' }}>
-            Não tem conta? <Link style={{color:'#1876b1ff'}} to={`/register/${lojaId}`}>Cadastre-se</Link>
+            Não tem conta? <Link style={{color:'#1876b1ff'}} to={`/register`}>Cadastre-se</Link>
           </p>
         </div>
       </div>

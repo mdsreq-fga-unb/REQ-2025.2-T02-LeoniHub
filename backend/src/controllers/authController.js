@@ -8,7 +8,6 @@ import * as authService from '../services/authService.js'
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const { lojaId } = req.params;
     
     // Validação
     if (!email || !password) {
@@ -18,7 +17,7 @@ export const login = async (req, res) => {
       });
     }
     
-    const data = await authService.login(email, password, lojaId) ;
+    const data = await authService.login(email, password) ;
 
     // Retorna token e informações do usuário
     res.status(200).json({
@@ -36,7 +35,6 @@ export const login = async (req, res) => {
           refresh_token: data.session.refresh_token,
           expires_at: data.session.expires_at
         },
-        lojaId: lojaId
       }
     });
   } 
@@ -52,8 +50,7 @@ export const login = async (req, res) => {
 export const signup = async (req, res) => {
   try {
     const { email, password, nome, cpf } = req.body;
-    const { lojaId } = req.params;
-    
+
     // Validação
     if (!email || !password || !nome || !cpf) {
       return res.status(400).json({
@@ -62,14 +59,13 @@ export const signup = async (req, res) => {
       });
     }
     
-    const user = await authService.signup(nome, cpf, email, password, lojaId) ;
+    const user = await authService.signup(nome, cpf, email, password) ;
 
     res.status(201).json({
       success: true,
       message: 'Usuário criado com sucesso! Verifique seu e-mail para confirmar.',
       data: {
         user: user,
-        lojaId: lojaId
       }
     })
   }
@@ -99,7 +95,6 @@ export const signup = async (req, res) => {
 export const forgotPassword = async (req, res) => {
 
   const { email } = req.body;
-  const { lojaId } = req.params;
 
 
     try {
@@ -109,7 +104,7 @@ export const forgotPassword = async (req, res) => {
         return res.status(400).json({ success: false, error: 'O campo de e-mail é obrigatório.' });
       }
 
-      await authService.forgotPassword(email, lojaId)
+      await authService.forgotPassword(email)
 
       return res.status(200).json({ 
         success: true, 
@@ -126,7 +121,6 @@ export const forgotPassword = async (req, res) => {
 export const changePassword = async (req, res) => {
   try {
     const { token, newPassword, newPasswordConfirmation } = req.body;
-    const { lojaId } = req.params;
 
     // Verifica Campos Obrigatórios
     if (!token || !newPassword) {
@@ -134,7 +128,7 @@ export const changePassword = async (req, res) => {
     }
 
     // CHAMA SERVICE
-    await authService.changePassword(token, newPassword, newPasswordConfirmation, lojaId) ;
+    await authService.changePassword(token, newPassword, newPasswordConfirmation) ;
 
     return res.status(200).json({ success: true, message: 'Senha atualizada com sucesso!' });
   } 
@@ -146,8 +140,7 @@ export const changePassword = async (req, res) => {
 // POST - Logout
 export const logout = async (req, res) => {
   try {
-    const { lojaId } = req.params;
-    
+
     const { error } = await supabase.auth.signOut();
     
     if (error) throw error;
@@ -168,7 +161,6 @@ export const logout = async (req, res) => {
 // GET - Verificar sessão/obter usuário atual
 export const getSession = async (req, res) => {
   try {
-    const { lojaId } = req.params;
     const authHeader = req.headers.authorization;
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -199,7 +191,6 @@ export const getSession = async (req, res) => {
           role: user.role,
           user_metadata: user.user_metadata
         },
-        lojaId
       }
     });
     
@@ -214,7 +205,6 @@ export const getSession = async (req, res) => {
 // GET - Obter usuário atual (alternativa simplificada)
 export const getMe = async (req, res) => {
   try {
-    const { lojaId } = req.params;
     const authHeader = req.headers.authorization;
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
