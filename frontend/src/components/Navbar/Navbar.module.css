@@ -8,13 +8,14 @@
 
 .navLink {
   display:flex;
+  align-items: center;
   min-width: 200px;
   color: #ffffff;
   font-weight: 500;
-  padding: 10px;
+  padding: 10px 12px;
   border-left: 4px solid transparent; 
   border-radius: 10px;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, transform 0.2s ease;
   background-color: #83838342;
 }
 
@@ -33,4 +34,16 @@
   font-size: 28px;
   font-weight: 700;
   color: white;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  display: inline-block;
+  flex: 0 0 24px;
+}
+
+.navList li span{
+  vertical-align: middle;
 }

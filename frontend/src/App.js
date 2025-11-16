@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/AuthContext';
 
 /*Import do Layout Principal */
 import MainLayout from './layouts/MainLayout';
+import CreateOrder from './pages/CreateOrder/CreateOrder'; 
 
 /*Import das pages desenvolvidas*/
 import HomePage from './pages/HomePage/HomePage';
@@ -31,7 +32,7 @@ function App() {
 
           {/* --- Grupo de Rotas COM Navbar e Footer --- */}
           <Route element={<MainLayout />}>
-            
+            <Route path="/pedidos/criar" element={<CreateOrder />} />  
           </Route>
           
         </Routes>
