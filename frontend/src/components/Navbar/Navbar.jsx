@@ -11,7 +11,7 @@ import icSair from '../../assets/icons/sair.svg';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Navbar = () => {
-  const { logout, lojaId } = useAuth();
+  const { logout} = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -30,13 +30,14 @@ const Navbar = () => {
         <img className="logo-img" src={logo} alt="Leoni Logo" />
         <div>
           <strong className={styles.title}>Leoni Hub</strong>
-          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.85)' }}>
-            {lojaId || localStorage.getItem('lojaId') || ''}
+          <div style={{ fontSize: 14, color: 'rgba(189, 188, 188, 0.85)' }}>
+            Gestão de Aluguéis
           </div>
         </div>
       </div>
 
       <ul className={styles.navList}>
+        <li><div style={{fontSize:15, color: 'rgba(189, 188, 188, 0.85)', padding: '7px 25px'}}>Navegação</div></li>
         <li>
           <NavLink to="/estoque" className={({ isActive }) => isActive ? `${styles.navLink} ${styles.active}` : styles.navLink}>
             <img src={icEstoque} alt="Estoque" className={styles.icon} />

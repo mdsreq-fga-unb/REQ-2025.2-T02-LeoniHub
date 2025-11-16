@@ -12,11 +12,11 @@
   min-width: 200px;
   color: #ffffff;
   font-weight: 500;
-  padding: 10px 12px;
+  padding: 7px 20px;
   border-left: 4px solid transparent; 
   border-radius: 10px;
   transition: border-color 0.3s ease, transform 0.2s ease;
-  background-color: #83838342;
+  font-size: 20px;
 }
 
 .navLink:hover {
