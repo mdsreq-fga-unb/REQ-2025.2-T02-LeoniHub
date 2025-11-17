@@ -101,9 +101,73 @@ async function removerProduto( codigo ) {
 
 }
 
+async function listarProdutos(query){
+
+    // Seleciona TODOS os produtos
+    let selectQuery = supabaseSchema.from('produtos').select()
+
+    // Todos os filtros do produto
+    
+    if(query.codigo){
+        selectQuery = selectQuery.ilike("codigo", `%${query.codigo}%`);
+    }
+    if(query.descricao){
+        selectQuery = selectQuery.ilike("descricao", `%${query.descricao}%`);
+    }
+
+    if(query.tamanho){
+        selectQuery =  selectQuery.ilike("tamanho", `%${query.tamanho}%`)
+    }
+    if(query.estado){
+        selectQuery = selectQuery.ilike("estado", `%${query.estado}%`)
+    }
+
+   
+    // --- Filtros de Quantidade com Operadores ---
+    if (query.quantidade) {
+        const value = String(query.quantidade);
+        let numericValue;
+
+        if (value.startsWith('>=')) {
+            numericValue = parseFloat(value.substring(2)); 
+            if (!isNaN(numericValue)) {
+                selectQuery = selectQuery.gte("quantidade", numericValue);
+            }
+        } else if (value.startsWith('<=')) {
+            numericValue = parseFloat(value.substring(2));
+            if (!isNaN(numericValue)) {
+                selectQuery = selectQuery.lte("quantidade", numericValue);
+            }
+        } else if (value.startsWith('>')) {
+            numericValue = parseFloat(value.substring(1));
+            if (!isNaN(numericValue)) {
+                selectQuery = selectQuery.gt("quantidade", numericValue);
+            }
+        } else if (value.startsWith('<')) {
+            numericValue = parseFloat(value.substring(1));
+            if (!isNaN(numericValue)) {
+                selectQuery = selectQuery.lt("quantidade", numericValue);
+            }
+        } else {
+            // Se não tiver operador, é uma busca por igualdade
+            numericValue = parseFloat(value);
+            if (!isNaN(numericValue)) {
+                selectQuery = selectQuery.eq("quantidade", numericValue);
+            }
+        }
+    }
+
+    const {data, error} = await selectQuery
+    if(error){
+        throw Error(error.message);
+    }
+    return data;
+}
+
 // Exportamos um objeto com todas as funções do model
 export const produtoService = {
     criarProduto,
     atualizarProduto,
     removerProduto,
+    listarProdutos
 };
