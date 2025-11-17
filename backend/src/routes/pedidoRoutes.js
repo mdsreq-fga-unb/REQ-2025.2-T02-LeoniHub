@@ -36,6 +36,9 @@ Campos Necessários:
 
 router.post('/atualizarPedido', controller.atualizarPedido);
 
+// ROTA -- EXCLUIR PEDIDO
+router.post('/excluirPedido', controller.excluirPedido);
+
 /* COMPORTAMENTO DA ROTA DE LISTAR PEDIDOS -- CONSULTAR
     SEM query param(/pedido): returns all
     produto_id (/pedido?produto_id=x) : returns all with produto_id = x

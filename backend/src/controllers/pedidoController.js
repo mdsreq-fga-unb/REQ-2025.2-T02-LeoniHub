@@ -61,4 +61,15 @@ export default class pedidoController{
         }
 
     }
-};
+
+    excluirPedido = async (req,res )=>{
+    
+        try {
+            await this.service.excluirPedido(req.query);
+            return res.status(200).json({message: "Pedido Excluído com Sucesso!"}).send();
+        }
+        catch (error) {
+            return res.status(400).json({ error: error.message }).send();
+        }
+    }
+}

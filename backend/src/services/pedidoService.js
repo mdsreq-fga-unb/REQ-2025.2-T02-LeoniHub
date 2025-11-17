@@ -135,8 +135,29 @@ export default class PedidoService{
             console.error("Erro ao buscar pedido:", error.message);
             throw new Error(error.message);
         }
+
         return data
     }
+
+    async excluirPedido(query){
+
+        if(!query.id){
+            throw Error("O 'id' do pedido é obrigatório para a sua deleção")
+        }
+
+        const {data, error} = await this.schema.from(this.database).delete().eq("id",query.id).select()
+
+        if (error){
+            console.error("Erro ao buscar pedido:", error.message);
+            throw new Error(error.message);
+        }
+
+        if (!data || data.length === 0) {
+            console.error("Pedido não encontrado: Nenhum item com o ID fornecido foi deletado.");
+            throw new Error("Pedido não encontrado. O ID pode estar incorreto.");
+        }
+    }
+
 
 }
 
