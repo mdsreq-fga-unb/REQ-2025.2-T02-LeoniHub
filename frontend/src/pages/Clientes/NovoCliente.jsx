@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { createCliente } from '../../services/clienteService';
 import './ClienteForm.css';
 
 export default function NovoCliente() {
@@ -11,10 +12,15 @@ export default function NovoCliente() {
     email: '',
     telefone: '',
     cpf: '',
-    endereco: ''
+    endereco: '',
+    cep: '',
+    cidade: '',
+    estado: ''
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,14 +62,28 @@ export default function NovoCliente() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (validateForm()) {
-      // Aqui você faria a chamada à API
-      console.log('Salvando cliente:', formData);
-      alert('Cliente criado com sucesso!');
-      navigate('/clientes');
+      try {
+        setLoading(true);
+        setErrorMessage('');
+        
+        await createCliente(formData);
+        
+        alert('Cliente criado com sucesso!');
+        navigate('/clientes');
+      } catch (error) {
+        console.error('Erro ao criar cliente:', error);
+        setErrorMessage(error.message || 'Erro ao criar cliente. Tente novamente.');
+        
+        if (error.message.includes('Token')) {
+          navigate('/login');
+        }
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -81,6 +101,12 @@ export default function NovoCliente() {
       </div>
 
       <div className="form-card">
+        {errorMessage && (
+          <div className="error-banner">
+            {errorMessage}
+          </div>
+        )}
+        
         <form onSubmit={handleSubmit}>
           <div className="form-grid">
             <div className="form-group">
@@ -147,6 +173,43 @@ export default function NovoCliente() {
               {errors.cpf && <span className="error-message">{errors.cpf}</span>}
             </div>
 
+            <div className="form-group">
+              <label htmlFor="cep">CEP</label>
+              <input
+                type="text"
+                id="cep"
+                name="cep"
+                value={formData.cep}
+                onChange={handleChange}
+                placeholder="00000-000"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="cidade">Cidade</label>
+              <input
+                type="text"
+                id="cidade"
+                name="cidade"
+                value={formData.cidade}
+                onChange={handleChange}
+                placeholder="Digite a cidade"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="estado">Estado</label>
+              <input
+                type="text"
+                id="estado"
+                name="estado"
+                value={formData.estado}
+                onChange={handleChange}
+                placeholder="UF (ex: SP, RJ)"
+                maxLength="2"
+              />
+            </div>
+
             <div className="form-group full-width">
               <label htmlFor="endereco">Endereço</label>
               <textarea
@@ -171,8 +234,9 @@ export default function NovoCliente() {
             <button
               type="submit"
               className="btn-save"
+              disabled={loading}
             >
-              Salvar Cliente
+              {loading ? 'Salvando...' : 'Salvar Cliente'}
             </button>
           </div>
         </form>
