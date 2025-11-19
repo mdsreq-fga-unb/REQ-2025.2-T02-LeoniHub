@@ -64,8 +64,6 @@ export const ProdutoProvider = ({ children }) => {
 
             const produtos = await produtoService.listarProdutos() ;
 
-            console.log("PRODUTOS:" , produtos);
-
             return ( produtos ); 
         }
         catch(error){

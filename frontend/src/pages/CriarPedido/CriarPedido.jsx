@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CriarPedido.module.css';
 import { useNavigate } from 'react-router-dom';
+
 import { useProduto } from '../../contexts/ProdutoContext';
 import { usePedido } from '../../contexts/PedidoContext';
 
 // MOCK: SIMULAÇÃO DA FUNÇÃO DE CLIENTES
 const useCliente = () => ({
     listarClientes: async () => [
-        { id: 'cli-001', nome: 'João da Silva' },
-        { id: 'cli-002', nome: 'Maria Souza' },
+        { id: '1', nome: 'João da Silva' , cpf:'05323378166'},
+        { id: '2', nome: 'Maria Souza' , cpf: '06256329155'},
     ]
 });
 
@@ -22,7 +23,7 @@ export default function CriarPedido() {
   // Campos do formulário
   const [cliente, setCliente] = useState('');
   const [produto, setProduto] = useState('');
-  const [dataRetirada, setDataRetirada] = useState('');
+  const [dataAluguel, setDataAluguel] = useState('');
   const [dataDevolucao, setDataDevolucao] = useState('');
   const [valorTotal, setValorTotal] = useState('');
   const [formaPagamento, setFormaPagamento] = useState('PIX');
@@ -32,7 +33,7 @@ export default function CriarPedido() {
   const [successMessage, setSuccessMessage] = useState('');
   const [loadingDados, setLoadingDados] = useState(true);
 
-  const {criarPedido, loading} = usePedido();
+  const { criarPedido, loading } = usePedido();
   const { listarProdutos } = useProduto();
   const { listarClientes } = useCliente(); // ESTÁ NO MOCK (TEMPORARIO)
 
@@ -40,9 +41,9 @@ export default function CriarPedido() {
   const validaCampos = () => {
     if (!cliente) return 'Selecione um cliente';
     if (!produto) return 'Selecione um produto';
-    if (!dataRetirada) return 'Informe a data de retirada';
+    if (!dataAluguel) return 'Informe a data de retirada';
     if (!dataDevolucao) return 'Informe a data de devolução';
-    if (new Date(dataDevolucao) < new Date(dataRetirada)) return 'Data de devolução anterior à retirada';
+    if (new Date(dataDevolucao) < new Date(dataAluguel)) return 'Data de devolução anterior à retirada';
     if (!valorTotal || Number.isNaN(Number(valorTotal))) return 'Informe um valor total válido';
     return null;
   };
@@ -58,13 +59,19 @@ export default function CriarPedido() {
     }
 
     const pedidoData = {
-        cliente_id: cliente,
-        produto_id: produto,
-        data_retirada: dataRetirada,
-        data_devolucao: dataDevolucao,
-        valor_total: parseFloat(valorTotal),
-        forma_pagamento: formaPagamento
+      cliente_cpf_cnpj: cliente,
+      valor: parseFloat(valorTotal),
+      data_aluguel: dataAluguel,
+      data_devolucao: dataDevolucao,
+      status: "AGUARDANDO_ASSINATURA",
+      status_assinatura: "PENDENTE",
+      assinatura_base64: "TESTE",
+      link_assinatura_externa: "TESTE",
+      produto_id: produto,
     };
+
+    console.log(produto) ;
+    console.log(cliente) ;
 
     // Chama Context
     const result = await criarPedido(pedidoData);
@@ -72,7 +79,7 @@ export default function CriarPedido() {
     if (result.success) {
       setCliente('');
       setProduto('');
-      setDataRetirada('');
+      setDataAluguel('');
       setDataDevolucao('');
       setValorTotal('');
       setFormaPagamento('PIX'); 
@@ -97,6 +104,7 @@ export default function CriarPedido() {
         const produtos = await listarProdutos() ;
         setProdutos(produtos); 
 
+        console.log('Produtos Carregados:', produtos);
       } 
       catch (e) {
         console.error('Erro ao carregar dados iniciais:', e);
@@ -133,7 +141,7 @@ export default function CriarPedido() {
               >
                 <option value="">Selecione um Cliente</option>
                 {clientes.map(c => (
-                    <option key={c.id} value={c.id}>
+                    <option key={c.id} value={c.cpf}>
                         {c.nome}
                     </option>
                 ))}
@@ -147,8 +155,8 @@ export default function CriarPedido() {
               >
                 <option value="">Selecione um Produto</option>
                 {produtos.map(p => (
-                    <option key={p.codigo} value={p.codigo}>
-                      {p.nome}
+                    <option key={p.id} value={p.id}>
+                      {p.descricao}
                     </option>
                 ))}
               </select>
@@ -156,8 +164,8 @@ export default function CriarPedido() {
               <label>Data de Retirada</label>
               <input 
                 type="date" 
-                value={dataRetirada} 
-                onChange={(e) => setDataRetirada(e.target.value)} 
+                value={dataAluguel} 
+                onChange={(e) => setDataAluguel(e.target.value)} 
                 disabled={isFormDisabled}
               />
 

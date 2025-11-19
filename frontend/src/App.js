@@ -3,6 +3,8 @@ import './App.css';
 import './style-leoni.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { ProdutoProvider } from './contexts/ProdutoContext';
+import { PedidoProvider } from './contexts/PedidoContext';
 
 /*Import do Layout Principal */
 import MainLayout from './layouts/MainLayout';
@@ -18,27 +20,34 @@ import UpdatePassword from './pages/UpdatePassword/UpdatePassword';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
+    <Router>
+      <AuthProvider> 
+        <ProdutoProvider>
+          <PedidoProvider>
 
-          {/* --- Rotas SEM Navbar e Footer --- */}
-          <Route index element={<HomePage />} /> 
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+            <Routes>
 
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/changePassword" element={<UpdatePassword />} />
+              {/* --- Rotas SEM Navbar e Footer --- */}
+              
+              <Route index element={<HomePage />} /> 
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
 
-          {/* --- Grupo de Rotas COM Navbar e Footer --- */}
-          <Route element={<MainLayout />}>
-            <Route path="/pedido/criar" element={<CriarPedido />} />  
-          </Route>
-          
-        </Routes>
-      </Router>
-    </AuthProvider>
+              <Route path="/forgotpassword" element={<ForgotPassword />} />
+              <Route path="/changePassword" element={<UpdatePassword />} />
+              
 
+              {/* --- Grupo de Rotas COM Navbar e Footer --- */}
+              <Route element={<MainLayout />}>
+                <Route path="/pedido/criar" element={<CriarPedido />} />  
+              </Route>
+              
+            </Routes>
+            
+          </PedidoProvider>
+        </ProdutoProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

@@ -9,12 +9,13 @@ export const PedidoProvider = ({ children }) => {
 
     const [loading, setLoading] = useState(true);
 
-    const criarPedido = async (nome, estado, tamanho, descricao) => {
+    const criarPedido = async (pedidoData) => {
 
         try{
             setLoading(true) ;
 
-            const data = await pedidoService.criarPedido() ;
+            console.log(pedidoData);
+            const data = await pedidoService.criarPedido(pedidoData) ;
 
             return { success: true, data: data.data };
         }

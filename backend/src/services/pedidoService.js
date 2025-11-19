@@ -26,13 +26,10 @@ export default class PedidoService{
 
     async validadorDeUsuario(novoPedido) {
 
-        if(novoPedido.cliente_cpf_cnpj == null || this.cliente_cpf_cnpj == ""){
-            throw  new Error("cpf nao pode ser nulo ou vazio");
+        if( (novoPedido.cliente_cpf_cnpj == null || this.cliente_cpf_cnpj == "") && ( novoPedido.cliente_codigo == null || this.cliente_codigo == "") ){
+            throw  new Error("CPF ou Código do Cliente não pode ser nulo ou vazio");
         }
 
-
-        if(novoPedido.cliente_codigo == null || this.cliente_codigo == ""){
-            throw  new Error("codigo do cliente nao pode ser nulo ou vazio");        }
         let clienteEncontrado = null;
 
         if (novoPedido.cliente_cpf_cnpj) {
