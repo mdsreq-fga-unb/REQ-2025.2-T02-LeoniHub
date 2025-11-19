@@ -2,11 +2,13 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Package, BarChart3, Users, ShoppingCart, Calendar, DollarSign, UserCheck, Truck, LogOut } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import leoniLogo from '../../assets/img/leoni_logo.png';
 import './MainLayout.css';
 
 export function MainLayout() {
   const location = useLocation();
+  const { logout } = useAuth();
 
   const navItems = [
     { title: "Dashboard", url: "/", icon: BarChart3 },
@@ -27,7 +29,7 @@ export function MainLayout() {
   };
 
   const handleSignOut = () => {
-    window.location.href = '/login';
+    logout();
   };
 
   return (

@@ -193,10 +193,20 @@ export const AuthProvider = ({ children }) => {
 
   // Função de LOGOUT
   const logout = async () => {
+    // Pegar o token ANTES de limpar
+    const token = localStorage.getItem('token');
+    
+    // Limpar TODOS os dados locais PRIMEIRO
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('lojaId'); // Remover campo antigo
+    sessionStorage.clear();
+    
+    setUser(null);
+    
     try {
-      const token = localStorage.getItem('token');
-
-      // Tentar fazer logout no backend
+      // Tentar fazer logout no backend com o token salvo
       if (token) {
         await fetch(`http://localhost:5000/auth/logout`, {
           method: 'POST',
@@ -208,14 +218,10 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.error('Erro ao fazer logout:', error);
-    } finally {
-      // Limpar dados locais (sempre executa, mesmo se der erro)
-      localStorage.removeItem('token');
-      localStorage.removeItem('refresh_token');
-      localStorage.removeItem('user');
-      
-      setUser(null);
     }
+    
+    // Forçar reload COMPLETO da página (sem cache) após limpar
+    window.location.replace('/login');
   };
 
 
