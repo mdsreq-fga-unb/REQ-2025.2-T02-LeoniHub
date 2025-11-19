@@ -1,45 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Search, Filter, Users } from 'lucide-react';
+import { getAllClientes } from '../../services/clienteService';
 import './Clientes.css';
 
 export default function Clientes() {
   const navigate = useNavigate();
   
-  const [clientes] = useState([
-    {
-      id: 1,
-      nome: 'João Silva',
-      email: 'joao@email.com',
-      telefone: '(11) 99999-9999',
-      cpf: '123.456.789-00',
-      status: 'ativo',
-      pedidosAtivos: 2,
-      totalGasto: 2450.00
-    },
-    {
-      id: 2,
-      nome: 'Maria Santos',
-      email: 'maria@email.com',
-      telefone: '(11) 88888-8888',
-      cpf: '987.654.321-00',
-      status: 'ativo',
-      pedidosAtivos: 1,
-      totalGasto: 1200.00
-    },
-    {
-      id: 3,
-      nome: 'Carlos Oliveira',
-      email: 'carlos@email.com',
-      telefone: '(11) 77777-7777',
-      cpf: '456.789.123-00',
-      status: 'inativo',
-      pedidosAtivos: 0,
-      totalGasto: 850.00
-    }
-  ]);
-
+  const [clientes, setClientes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    loadClientes();
+  }, []);
+
+  const loadClientes = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await getAllClientes();
+      setClientes(response.data || []);
+    } catch (err) {
+      console.error('Erro ao carregar clientes:', err);
+      setError(err.message || 'Erro ao carregar clientes');
+      if (err.message.includes('Token')) {
+        navigate('/login');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredClientes = clientes.filter(cliente =>
     cliente.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -88,7 +80,18 @@ export default function Clientes() {
         </div>
         
         <div className="clientes-list">
-          {filteredClientes.length === 0 ? (
+          {loading ? (
+            <div className="loading-state">
+              <p>Carregando clientes...</p>
+            </div>
+          ) : error ? (
+            <div className="error-state">
+              <p className="error-message">{error}</p>
+              <button className="btn-primary" onClick={loadClientes}>
+                Tentar Novamente
+              </button>
+            </div>
+          ) : filteredClientes.length === 0 ? (
             <div className="empty-state">
               <Users className="empty-icon" />
               <h3>Nenhum cliente encontrado</h3>
@@ -119,10 +122,10 @@ export default function Clientes() {
                   <p className="cliente-contact">{cliente.telefone}</p>
                 </div>
                 
-                <div className="cliente-stats">
+                  <div className="cliente-stats">
                   <div className="stat">
-                    <span className="stat-value">{cliente.pedidosAtivos} pedidos ativos</span>
-                    <span className="stat-label">Total: R$ {cliente.totalGasto.toFixed(2).replace('.', ',')}</span>
+                    <span className="stat-value">{cliente.pedidosAtivos || 0} pedidos ativos</span>
+                    <span className="stat-label">Total: R$ {(cliente.totalGasto || 0).toFixed(2).replace('.', ',')}</span>
                   </div>
                 </div>
               </div>

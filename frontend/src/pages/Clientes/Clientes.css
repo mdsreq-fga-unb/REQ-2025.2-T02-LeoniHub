@@ -249,6 +249,28 @@
   margin: 0 0 1.5rem 0;
 }
 
+.loading-state,
+.error-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.loading-state p {
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.error-state .error-message {
+  color: #dc2626;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.error-state .btn-primary {
+  display: inline-flex;
+  margin: 0 auto;
+}
+
 @media (max-width: 768px) {
   .page-header {
     flex-direction: column;
