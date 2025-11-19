@@ -1,61 +1,99 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-import * as authService from '../services/authService';
-
+// Criar o Context
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
 
   // Estados compartilhados
   const [user, setUser] = useState(null);
-  const [lojaId, setLojaId] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Verificar se já está logado ao carregar a página
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
   // Função para verificar autenticação existente
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const savedLojaId = localStorage.getItem('lojaId');
       const savedUser = localStorage.getItem('user');
 
-      if (token && savedLojaId && savedUser) {
-        setUser(JSON.parse(savedUser));
-        setLojaId(savedLojaId);
+      if (token && savedUser) {
+        // Validar token no backend
+        const response = await fetch('http://localhost:5000/auth/session', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            setUser(data.data.user);
+          } else {
+            // Token inválido, limpar dados
+            localStorage.removeItem('token');
+            localStorage.removeItem('refresh_token');
+            localStorage.removeItem('user');
+            setUser(null);
+          }
+        } else {
+          // Token inválido ou expirado
+          localStorage.removeItem('token');
+          localStorage.removeItem('refresh_token');
+          localStorage.removeItem('user');
+          setUser(null);
+        }
       }
     } catch (error) {
       console.error('Erro ao verificar autenticação:', error);
       // Se houver erro, limpar dados
-      logout();
+      localStorage.removeItem('token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('user');
+      setUser(null);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
- // Função de LOGIN 
-  const login = async (lojaId, email, password) => {
+  // Verificar se já está logado ao carregar a página
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  // Função de LOGIN
+  const login = async (email, password) => {
     try {
       setLoading(true);
 
-      const data = await authService.login(lojaId, email, password); // Chama Service
+      const response = await fetch(`http://localhost:5000/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-      // Caso o Service não retorne "error" --> Roda o restante do código
-      localStorage.setItem('token', data.data.session.access_token);
-      localStorage.setItem('refresh_token', data.data.session.refresh_token);
-      localStorage.setItem('user', JSON.stringify(data.data.user));
-      localStorage.setItem('lojaId', lojaId);
+      const data = await response.json();
 
-      // Define usuário
-      setUser(data.data.user);
-      setLojaId(lojaId);
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao fazer login');
+      }
 
-      return { success: true, data: data.data };
-    } 
-    catch (error) {
+      if (data.success) {
+        // Salvar dados no localStorage
+        localStorage.setItem('token', data.data.session.access_token);
+        localStorage.setItem('refresh_token', data.data.session.refresh_token);
+        localStorage.setItem('user', JSON.stringify(data.data.user));
+
+        // Atualizar estados
+        setUser(data.data.user);
+
+        return { success: true, data: data.data };
+      }
+
+      return { success: false, error: data.error };
+    } catch (error) {
       console.error('Erro no login:', error);
       return { success: false, error: error.message };
     } 
@@ -64,25 +102,27 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-// Função de CADASTRO
-  const signup = async (lojaId, email, password, nome, cpf) => {
+  // Função de CADASTRO
+  const signup = async (email, password, nome, cpf) => {
     try {
       setLoading(true);
 
-      // CHAMA O SERVIÇO
-      const data = await authService.signup(lojaId, email, password, nome, cpf);
+      const response = await fetch(`http://localhost:5000/auth/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password, nome, cpf }),
+      });
 
-      // ATUALIZA O ESTADO
-      localStorage.setItem('user', JSON.stringify(data.data.user));
-      localStorage.setItem('lojaId', lojaId);
+      const data = await response.json();
 
-      setUser(data.data.user);
-      setLojaId(lojaId);
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao criar conta');
+      }
 
-      return { success: true, data: data.data };
-
-    } 
-    catch (error) {
+      return { success: data.success, message: data.message, data: data.data };
+    } catch (error) {
       console.error('Erro no cadastro:', error);
       return { success: false, error: error.message };
     } 
@@ -92,14 +132,25 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Função de RECUPERAR a senha
-  const forgotPassword = async (email, lojaId) => {
+  const forgotPassword = async (email) => {
     try {
       setLoading(true);
       
-      // CHAMA SERVICE
-      const data = await authService.forgotPassword(email, lojaId); 
+      const response = await fetch('http://localhost:5000/auth/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
 
-      return { success: data.success, message: data.message };
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao enviar email de recuperação');
+      }
+
+      return { success: data.success, message: data.data.message };
     } 
     catch (error) {
       console.error(`Erro na recuperação de senha:${error}`);
@@ -111,14 +162,25 @@ export const AuthProvider = ({ children }) => {
   };
     
   // Função de MUDAR a senha
-  const changePassword = async (token, newPassword, newPasswordConfirmation ,lojaId) => {
+  const changePassword = async (token, newPassword, newPasswordConfirmation) => {
     try {
       setLoading(true);
   
-      // CHAMA SERVICE
-      const data = await authService.changePassword(token, newPassword, newPasswordConfirmation, lojaId); 
+      const response = await fetch('http://localhost:5000/auth/change-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token, newPassword, newPasswordConfirmation }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao alterar senha');
+      }
       
-      return { success: true, message: data.message };
+      return { success: data.success, message: data.message };
     } 
     catch (error) {
       console.error(`Erro na troca de senha: ${error}`);
@@ -131,29 +193,35 @@ export const AuthProvider = ({ children }) => {
 
   // Função de LOGOUT
   const logout = async () => {
-    const token = localStorage.getItem('token');
-    const savedLojaId = localStorage.getItem('lojaId');
+    try {
+      const token = localStorage.getItem('token');
 
-    if (token && savedLojaId) {
-      await authService.logout(token, savedLojaId); // Chama Service
+      // Tentar fazer logout no backend
+      if (token) {
+        await fetch(`http://localhost:5000/auth/logout`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+    } finally {
+      // Limpar dados locais (sempre executa, mesmo se der erro)
+      localStorage.removeItem('token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('user');
+      
+      setUser(null);
     }
-    
-    // Limpa dados locais
-    localStorage.removeItem('token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('lojaId');
-    
-    // Desloga Usuário
-    setUser(null);
-    setLojaId(null);
   };
 
 
   // Valores que serão compartilhados com toda aplicação
   const value = {
     user,                              // Dados do usuário logado
-    lojaId,                            // ID da loja atual (ClosetChic ou Leonni)
     loading,                           // Estado de carregamento
     isAuthenticated: !!user,           // Se está autenticado (true/false)
     login,                             // Função para fazer login

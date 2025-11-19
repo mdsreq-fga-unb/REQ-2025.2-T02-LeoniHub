@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './UpdatePassword.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 
 export default function UpdatePassword() {
 
-  // O 'email' não é mais necessário aqui
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
-  const [token, setToken] = useState(null); // Estado para guardar o token
+  const [token, setToken] = useState(null);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   
-  const { lojaId } = useParams();  
-  const { loading, changePassword } = useAuth(); // Importe o resetPassword do seu contexto
+  const { loading, changePassword } = useAuth();
 
   // Este hook roda assim que a página carrega
   useEffect(() => {
@@ -52,7 +50,7 @@ export default function UpdatePassword() {
     }
 
     // Chamar função de resetPassword com o TOKEN
-    const result = await changePassword( token, newPassword, newPasswordConfirmation, lojaId );
+    const result = await changePassword(token, newPassword, newPasswordConfirmation);
 
     if (result.success) {
       setSuccessMessage(result.message || 'Senha alterada com sucesso!');
@@ -64,7 +62,7 @@ export default function UpdatePassword() {
   return (
     <div className={styles.body}>
         <div className={styles.header}>
-            <h1 className={styles.mainTitle}>Alterar Senha - {lojaId}</h1>
+            <h1 className={styles.mainTitle}>Alterar Senha</h1>
         </div>
 
         <div className={styles.formularioCard}>
