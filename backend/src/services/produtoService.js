@@ -101,9 +101,23 @@ async function removerProduto( codigo ) {
 
 }
 
+async function listarProdutos() {
+
+    const {data , error} = await supabaseSchema
+        .from('produtos')
+        .select()
+
+    if (error || data.length == 0) {
+        throw new Error('Nenhum Produto encontrado.');
+    }
+    
+    return data;
+}
+
 // Exportamos um objeto com todas as funções do model
 export const produtoService = {
     criarProduto,
     atualizarProduto,
     removerProduto,
+    listarProdutos,
 };

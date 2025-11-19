@@ -2,16 +2,13 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 import * as produtoService from '../services/produtoService';
 
-const produtoContext = createContext({});
+const ProdutoContext = createContext({});
 
-export const ProductProvider = ({ children }) => {
+export const ProdutoProvider = ({ children }) => {
 
-    // Estados compartilhados
     const [loading, setLoading] = useState(true);
 
-
-    // Função de CRIAR PRODUTO
-    const createProduto = async (nome, estado, tamanho, descricao) => {
+    const criarProduto = async (nome, estado, tamanho, descricao) => {
 
         try{
             setLoading(true) ;
@@ -28,4 +25,81 @@ export const ProductProvider = ({ children }) => {
         }
 
     }
-}
+
+    const atualizarProduto = async (codigo, nome, estado, tamanho, descricao) => {
+        try{
+            setLoading(true) ;
+
+            const data = await produtoService.atualizarProduto(nome, estado, tamanho, descricao) ;
+
+            return { success: true, data: data.data };
+        }
+        catch(error){
+            return { success: false, error: error.message };
+        }
+        finally{
+            setLoading(false) ;
+        }
+    }
+
+    const removerProduto = async (codigo) => {
+        try{
+            setLoading(true) ;
+
+            const data = await produtoService.removerProduto(codigo) ;
+
+            return { success: true, data: data.data };
+        }
+        catch(error){
+            return { success: false, error: error.message };
+        }
+        finally{
+            setLoading(false) ;
+        }
+    }
+
+    const listarProdutos = async () => {
+        try{
+            setLoading(true) ;
+
+            const produtos = await produtoService.listarProdutos() ;
+
+            console.log("PRODUTOS:" , produtos);
+
+            return ( produtos ); 
+        }
+        catch(error){
+            return { success: false, error: error.message };
+        }
+        finally{
+            setLoading(false) ;
+        }
+    }
+
+    // Valores que serão compartilhados com toda aplicação
+        const value = {
+            criarProduto,
+            atualizarProduto,
+            removerProduto,
+            listarProdutos,
+        };
+    
+        return (
+            <ProdutoContext.Provider value={value}>
+                {children}
+            </ProdutoContext.Provider>
+        );
+};
+    
+export const useProduto = () => {
+    const context = useContext(ProdutoContext);
+    
+    if (!context) {
+    throw new Error('useProduto deve ser usado dentro de um ProdutoProvider');
+    }
+    
+    return context;
+};
+
+export default ProdutoContext;
+    

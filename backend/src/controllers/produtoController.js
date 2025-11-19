@@ -80,7 +80,6 @@ export const atualizarProduto = async (req, res) => {
     }
 }
 
-
 export const removerProduto = async (req, res) => {
     
     try {
@@ -105,6 +104,17 @@ export const removerProduto = async (req, res) => {
             return res.status(400).json({ message: error.message });
         }
 
+        console.error('Erro no controller updateProduto:', error);
+        return res.status(500).json({ message: 'Erro interno do servidor.' });
+    }
+}
+
+export const listarProdutos = async (req, res) => {
+    
+    try {
+        return res.status(200).json( await produtoService.listarProdutos() );
+    } 
+    catch (error) {
         console.error('Erro no controller updateProduto:', error);
         return res.status(500).json({ message: 'Erro interno do servidor.' });
     }

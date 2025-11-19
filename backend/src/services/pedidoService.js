@@ -95,7 +95,7 @@ export default class PedidoService{
 
     async listarPedidos(query){
 
-        let selectQuery=this.schema.from(this.database).select()
+        let selectQuery = this.schema.from(this.database).select()
 
         if(query.produto_id){
            selectQuery= selectQuery.eq("produto_id", query.produto_id)
