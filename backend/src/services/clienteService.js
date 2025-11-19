@@ -1,4 +1,4 @@
-import { supabase } from '../config/db.js';
+import { supabaseAdmin as supabase } from '../config/db.js';
 
 // Listar todos os clientes
 export const getAllClientes = async () => {
