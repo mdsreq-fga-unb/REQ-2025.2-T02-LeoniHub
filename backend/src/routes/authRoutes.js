@@ -11,15 +11,13 @@ import {
 
 const router = express.Router();
 
-// Rotas de autenticação -- POST
-router.post('/:lojaId/login', login);
-router.post('/:lojaId/signup', signup);
-router.post('/:lojaId/logout', logout);
-router.post('/:lojaId/forgotPassword', forgotPassword);
-router.post('/:lojaId/changePassword', changePassword);
-
-// Rotas de autenticação -- GET
-router.get('/:lojaId/session', getSession);
-router.get('/:lojaId/me', getMe);
+// Rotas de autenticação
+router.post('/login', login);
+router.post('/signup', signup);
+router.post('/logout', logout);
+router.post('/forgot-password', forgotPassword);
+router.post('/change-password', changePassword);
+router.get('/session', getSession);
+router.get('/me', getMe);
 
 export default router;

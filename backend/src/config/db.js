@@ -1,19 +1,23 @@
-import { supabaseClosetChic } from './closetChic.js';
-import { supabaseLeonni } from './leonni.js';
+import { createClient } from '@supabase/supabase-js';
 
-export const getSupabaseClient = (lojaId) => {
-  switch (lojaId) {
-    case 'ClosetChic':
-    case '1':
-      if (!supabaseClosetChic) throw new Error('ClosetChic não configurada');
-      return supabaseClosetChic;
-    case 'Leonni':
-    case '2':
-      if (!supabaseLeonni) throw new Error('Leonni não configurada. Configure SUPABASE_LEONNI_URL e SUPABASE_LEONNI_ANON_KEY no .env');
-      return supabaseLeonni;
-    default:
-      throw new Error(`Loja inválida: ${lojaId}. Use: ClosetChic ou Leonni`);
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Variáveis de ambiente do Supabase não configuradas');
+}
+
+export const supabase = createClient(supabaseUrl, supabaseKey);
+
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+if (!supabaseServiceKey) {
+  throw new Error('SUPABASE_SERVICE_KEY não configurada');
+}
+
+export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
+  db: {
+    schema: 'Leoni-Hub'
   }
-};
+});
 
-export { supabaseClosetChic, supabaseLeonni };
+export default supabase;

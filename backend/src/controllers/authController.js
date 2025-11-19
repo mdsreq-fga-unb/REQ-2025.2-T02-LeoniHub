@@ -1,23 +1,10 @@
-import { getSupabaseClient } from '../config/db.js';
-import { createClient } from '@supabase/supabase-js';
-
-import * as authService from '../services/authService.js'
-
-const supabaseUrl = 'https://khgmbtfxojurshfdhldu.supabase.co';
-const supabaseServiceKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoZ21idGZ4b2p1cnNoZmRobGR1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MTIzNjg5OCwiZXhwIjoyMDc2ODEyODk4fQ.J44ILd9RA1EBBe4mwFUyfwzrH1_m0666NaS63btNnu0';
-
-const supabaseSchema = createClient(supabaseUrl, supabaseServiceKey, {
-  db: {
-    schema: 'Leoni-Hub'
-  }
-});
+import { supabase, supabaseAdmin } from '../config/db.js';
 
 
 // POST - Login do usuário
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const { lojaId } = req.params;
     
     // Validação
     if (!email || !password) {
@@ -27,8 +14,19 @@ export const login = async (req, res) => {
       });
     }
     
-    const data = await authService.login(email, password, lojaId) ;
-
+    // Faz login no Supabase
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+    
+    if (error) {
+      return res.status(401).json({
+        success: false,
+        error: 'Email ou senha inválidos'
+      });
+    }
+    
     // Retorna token e informações do usuário
     res.status(200).json({
       success: true,
@@ -44,8 +42,7 @@ export const login = async (req, res) => {
           access_token: data.session.access_token,
           refresh_token: data.session.refresh_token,
           expires_at: data.session.expires_at
-        },
-        lojaId: lojaId
+        }
       }
     });
   } 
@@ -61,7 +58,6 @@ export const login = async (req, res) => {
 export const signup = async (req, res) => {
   try {
     const { email, password, nome, cpf } = req.body;
-    const { lojaId } = req.params;
     
     // Validação
     if (!email || !password || !nome || !cpf) {
@@ -71,14 +67,51 @@ export const signup = async (req, res) => {
       });
     }
     
-    const user = await authService.signup(nome, cpf, email, password, lojaId) ;
+    if (password.length < 6) {
+      return res.status(400).json({
+        success: false,
+        error: 'A senha deve ter no mínimo 6 caracteres'
+      });
+    }
+    
+    // Criar usuário PADRÃO do Supabase
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          nome: nome || email.split('@')[0]
+        }
+      }
+    });
+    
+    if (error) { // Se usuário já existe
+      return res.status(400).json({
+        success: false,
+        error: error.message
+      });
+    }
 
+    // Registra informações Extras do Funcionário no Supabase --> Table Funcionarios
+    const { error: profileError } = await supabaseAdmin
+      .from('funcionarios')
+      .insert({
+        id: data.user.id,
+        Nome: nome,
+        CPF: cpf,
+        Email: email
+      });
+
+    if (profileError) {
+      return res.status(500).json({ success: false, error: profileError.message });
+    }
+    
     res.status(201).json({
       success: true,
       message: 'Usuário criado com sucesso! Verifique seu e-mail para confirmar.',
       data: {
-        user: user,
-        lojaId: lojaId
+        user: data.user,   
+        session: data.session
       }
     })
   }
@@ -106,48 +139,75 @@ export const signup = async (req, res) => {
 
 // POST - Função de RECUPERAR SENHA
 export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
 
-  const { email } = req.body;
-  const { lojaId } = req.params;
-
-
-    try {
-      
-
-      if (!email) {
-        return res.status(400).json({ success: false, error: 'O campo de e-mail é obrigatório.' });
-      }
-
-      await authService.forgotPassword(email, lojaId)
-
-      return res.status(200).json({ 
-        success: true, 
-        data: { message: 'Email de recuperação enviado com sucesso.' }
-      });
-    } 
-    catch (error) {
-        console.error(`Erro inesperado no servidor: ${error.message}`);
-        return res.status(500).json({ success: false, error: 'Erro interno do servidor.'});
+    if (!email) {
+      return res.status(400).json({ success: false, error: 'O campo de e-mail é obrigatório.' });
     }
+
+    // Enviar email de recuperação usando Supabase
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/update-password`,
+    });
+
+    if (error) {
+      return res.status(400).json({ success: false, error: error.message });
+    }
+
+    return res.status(200).json({ 
+      success: true, 
+      data: { message: 'Email de recuperação enviado com sucesso.' }
+    });
+  } 
+  catch (error) {
+    console.error(`Erro inesperado no servidor: ${error.message}`);
+    return res.status(500).json({ success: false, error: 'Erro interno do servidor.'});
+  }
 };
 
 // POST - Função de ATUALIZAR a senha
 export const changePassword = async (req, res) => {
   try {
     const { token, newPassword, newPasswordConfirmation } = req.body;
-    const { lojaId } = req.params;
 
     // Verifica Campos Obrigatórios
     if (!token || !newPassword) {
       return res.status(400).json({ success: false, error: 'Token e nova senha são obrigatórios.' });
     }
 
-    // CHAMA SERVICE
-    await authService.changePassword(token, newPassword, newPasswordConfirmation, lojaId) ;
+    // Verificar se as senhas conferem
+    if (newPassword !== newPasswordConfirmation) {
+      return res.status(400).json({ success: false, error: 'As senhas não conferem.' });
+    }
+
+    // Criar um cliente Supabase com o token de recuperação
+    const { createClient } = await import('@supabase/supabase-js');
+    const supabaseWithToken = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_ANON_KEY,
+      {
+        global: {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      }
+    );
+
+    // Atualizar senha usando o cliente com token
+    const { error } = await supabaseWithToken.auth.updateUser({
+      password: newPassword
+    });
+
+    if (error) {
+      return res.status(400).json({ success: false, error: error.message });
+    }
 
     return res.status(200).json({ success: true, message: 'Senha atualizada com sucesso!' });
   } 
   catch (error) {
+    console.error('Erro ao atualizar senha:', error);
     return res.status(500).json({ success: false, error: error.message });
   }
 };
@@ -155,9 +215,6 @@ export const changePassword = async (req, res) => {
 // POST - Logout
 export const logout = async (req, res) => {
   try {
-    const { lojaId } = req.params;
-    const supabase = getSupabaseClient(lojaId);
-    
     const { error } = await supabase.auth.signOut();
     
     if (error) throw error;
@@ -178,7 +235,6 @@ export const logout = async (req, res) => {
 // GET - Verificar sessão/obter usuário atual
 export const getSession = async (req, res) => {
   try {
-    const { lojaId } = req.params;
     const authHeader = req.headers.authorization;
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -189,7 +245,6 @@ export const getSession = async (req, res) => {
     }
     
     const token = authHeader.split(' ')[1];
-    const supabase = getSupabaseClient(lojaId);
     
     // Verificar token
     const { data: { user }, error } = await supabase.auth.getUser(token);
@@ -209,8 +264,7 @@ export const getSession = async (req, res) => {
           email: user.email,
           role: user.role,
           user_metadata: user.user_metadata
-        },
-        lojaId
+        }
       }
     });
     
@@ -225,7 +279,6 @@ export const getSession = async (req, res) => {
 // GET - Obter usuário atual (alternativa simplificada)
 export const getMe = async (req, res) => {
   try {
-    const { lojaId } = req.params;
     const authHeader = req.headers.authorization;
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -236,7 +289,6 @@ export const getMe = async (req, res) => {
     }
     
     const token = authHeader.split(' ')[1];
-    const supabase = getSupabaseClient(lojaId);
     
     const { data: { user }, error } = await supabase.auth.getUser(token);
     
