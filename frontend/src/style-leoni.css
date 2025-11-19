@@ -397,23 +397,22 @@ tbody tr:last-child td {
 }
 
 .btn-back {
-  background: linear-gradient(135deg, #6c757d, #5a6268);
+  background: #14b8a6;
   color: white;
   padding: 10px 16px;
   border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: background-color 0.2s;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: 14px;
+  border: none;
 }
 
 .btn-back:hover {
-  background: linear-gradient(135deg, #5a6268, #495057);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background-color: #0d9488;
 }
 
 /* ==========================================================================
