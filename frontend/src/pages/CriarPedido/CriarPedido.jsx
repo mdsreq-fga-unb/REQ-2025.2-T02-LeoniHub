@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CriarPedido.module.css';
 import { useNavigate } from 'react-router-dom';
+
 import { useProduto } from '../../contexts/ProdutoContext';
 import { usePedido } from '../../contexts/PedidoContext';
 
@@ -22,7 +23,7 @@ export default function CriarPedido() {
   // Campos do formulário
   const [cliente, setCliente] = useState('');
   const [produto, setProduto] = useState('');
-  const [dataRetirada, setDataRetirada] = useState('');
+  const [dataAluguel, setDataAluguel] = useState('');
   const [dataDevolucao, setDataDevolucao] = useState('');
   const [valorTotal, setValorTotal] = useState('');
   const [formaPagamento, setFormaPagamento] = useState('PIX');
@@ -40,9 +41,9 @@ export default function CriarPedido() {
   const validaCampos = () => {
     if (!cliente) return 'Selecione um cliente';
     if (!produto) return 'Selecione um produto';
-    if (!dataRetirada) return 'Informe a data de retirada';
+    if (!dataAluguel) return 'Informe a data de retirada';
     if (!dataDevolucao) return 'Informe a data de devolução';
-    if (new Date(dataDevolucao) < new Date(dataRetirada)) return 'Data de devolução anterior à retirada';
+    if (new Date(dataDevolucao) < new Date(dataAluguel)) return 'Data de devolução anterior à retirada';
     if (!valorTotal || Number.isNaN(Number(valorTotal))) return 'Informe um valor total válido';
     return null;
   };
@@ -60,7 +61,7 @@ export default function CriarPedido() {
     const pedidoData = {
       cliente_cpf_cnpj: cliente,
       valor: parseFloat(valorTotal),
-      data_aluguel: dataRetirada,
+      data_aluguel: dataAluguel,
       data_devolucao: dataDevolucao,
       status: "AGUARDANDO_ASSINATURA",
       status_assinatura: "PENDENTE",
@@ -69,16 +70,13 @@ export default function CriarPedido() {
       produto_id: produto,
     };
 
-    console.log(produto) ;
-    console.log(cliente) ;
-
     // Chama Context
     const result = await criarPedido(pedidoData);
     
     if (result.success) {
       setCliente('');
       setProduto('');
-      setDataRetirada('');
+      setDataAluguel('');
       setDataDevolucao('');
       setValorTotal('');
       setFormaPagamento('PIX'); 
@@ -103,6 +101,7 @@ export default function CriarPedido() {
         const produtos = await listarProdutos() ;
         setProdutos(produtos); 
 
+        console.log('Produtos Carregados:', produtos);
       } 
       catch (e) {
         console.error('Erro ao carregar dados iniciais:', e);
@@ -162,8 +161,8 @@ export default function CriarPedido() {
               <label>Data de Retirada</label>
               <input 
                 type="date" 
-                value={dataRetirada} 
-                onChange={(e) => setDataRetirada(e.target.value)} 
+                value={dataAluguel} 
+                onChange={(e) => setDataAluguel(e.target.value)} 
                 disabled={isFormDisabled}
               />
 
