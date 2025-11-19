@@ -7,7 +7,11 @@ if (!supabaseUrl || !supabaseKey) {
   throw new Error('Variáveis de ambiente do Supabase não configuradas');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+export const supabase = createClient(supabaseUrl, supabaseKey, {
+  db: {
+    schema: 'Leoni-Hub'
+  }
+});
 
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
 if (!supabaseServiceKey) {

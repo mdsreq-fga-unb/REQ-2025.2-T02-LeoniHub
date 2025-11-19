@@ -140,8 +140,23 @@
   transition: background-color 0.2s;
 }
 
-.btn-save:hover {
+.btn-save:hover:not(:disabled) {
   background-color: #0d9488;
+}
+
+.btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-banner {
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
 }
 
 @media (max-width: 768px) {
