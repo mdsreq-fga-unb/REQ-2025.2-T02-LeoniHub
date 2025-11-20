@@ -54,7 +54,7 @@ export default class pedidoController{
             return res.status(200).send(result)
         }
         catch (error) {
-            if(error.message.includes("O id do pedido eh obrigatorio para fazer alteracao")){
+            if(error.message.includes("O 'id' do pedido é obrigatorio para realizar alterações")){
                 return res.status(400).json({error:error.message})
             }
             return res.status(500).json({ error: error.message });

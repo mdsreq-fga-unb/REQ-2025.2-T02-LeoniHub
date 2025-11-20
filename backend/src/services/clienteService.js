@@ -1,8 +1,8 @@
-import { supabaseAdmin as supabase } from '../config/db.js';
+import {supabaseSchema} from "../config/db.js";
 
 // Listar todos os clientes
 export const getAllClientes = async () => {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseSchema
     .from('clientes')
     .select('*')
     .order('nome', { ascending: true });
@@ -16,7 +16,7 @@ export const getAllClientes = async () => {
 
 // Buscar cliente por ID
 export const getClienteById = async (id) => {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseSchema
     .from('clientes')
     .select('*')
     .eq('id', id)
@@ -34,7 +34,7 @@ export const getClienteById = async (id) => {
 
 // Verificar se CPF já existe
 export const checkCpfExists = async (cpf, excludeId = null) => {
-  let query = supabase
+  let query = supabaseSchema
     .from('clientes')
     .select('id')
     .eq('cpf_cnpj', cpf);
@@ -62,7 +62,7 @@ export const createCliente = async (clienteData) => {
     throw new Error('Já existe um cliente cadastrado com este CPF');
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseSchema
     .from('clientes')
     .insert([
       {
@@ -105,7 +105,7 @@ export const updateCliente = async (id, clienteData) => {
     throw new Error('CPF já está sendo usado por outro cliente');
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseSchema
     .from('clientes')
     .update({
       nome,
@@ -135,7 +135,7 @@ export const deleteCliente = async (id) => {
   await getClienteById(id);
 
   // Verificar se há pedidos vinculados
-  const { data: pedidos } = await supabase
+  const { data: pedidos } = await supabaseSchema
     .from('pedidos')
     .select('id')
     .eq('cliente_id', id)
@@ -145,7 +145,7 @@ export const deleteCliente = async (id) => {
     throw new Error('Não é possível excluir cliente com pedidos vinculados');
   }
 
-  const { error } = await supabase
+  const { error } = await supabaseSchema
     .from('clientes')
     .delete()
     .eq('id', id);

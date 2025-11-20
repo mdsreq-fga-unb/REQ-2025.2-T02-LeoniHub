@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import * as authService from '../services/authService'
+
 
 // Criar o Context
 const AuthContext = createContext({});
@@ -30,6 +32,10 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
  // Função de LOGIN 
   const login = async ( email, password) => {
     try {
@@ -45,7 +51,8 @@ export const AuthProvider = ({ children }) => {
       // Define usuário
       setUser(data.data.user);
 
-      if (data.success) {
+      if (data.success && data.data) {
+        
         // Salvar dados no localStorage
         localStorage.setItem('token', data.data.session.access_token);
         localStorage.setItem('refresh_token', data.data.session.refresh_token);
@@ -97,7 +104,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       
       // CHAMA SERVICE
-      const data = await authService.forgotPassword(email ); 
+      const response = await authService.forgotPassword(email ); 
 
       const data = await response.json();
 

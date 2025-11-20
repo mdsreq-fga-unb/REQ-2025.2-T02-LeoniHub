@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 app.use('/auth', authRoutes);
 app.use('/clientes', clienteRoutes);
 app.use('/produto', produtoRoutes);
-app.use('/pedido', pedidoRoutes);
+app.use('/pedidos', pedidoRoutes);
 
 // Rota 404
 app.use((req, res) => {

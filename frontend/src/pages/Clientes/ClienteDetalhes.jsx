@@ -23,14 +23,16 @@ export default function ClienteDetalhes() {
       
       const response = await getClienteById(id);
       setCliente(response.data);
-    } catch (err) {
+    } 
+    catch (err) {
       console.error('Erro ao carregar cliente:', err);
       setError(err.message || 'Erro ao carregar dados do cliente');
       
       if (err.message.includes('Token')) {
         navigate('/login');
       }
-    } finally {
+    } 
+    finally {
       setLoading(false);
     }
   };
@@ -41,7 +43,8 @@ export default function ClienteDetalhes() {
         await deleteCliente(id);
         alert('Cliente excluído com sucesso!');
         navigate('/clientes');
-      } catch (err) {
+      } 
+      catch (err) {
         console.error('Erro ao excluir cliente:', err);
         alert(err.message || 'Erro ao excluir cliente. Tente novamente.');
         
@@ -52,7 +55,6 @@ export default function ClienteDetalhes() {
     }
   };
 
-  // Dados mockados de pedidos - futuramente virá da API
   const pedidos = [];
 
   return (

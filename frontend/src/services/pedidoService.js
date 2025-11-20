@@ -5,7 +5,7 @@ export const criarPedido = (pedidoData) => {
     const serializedBody = JSON.stringify(pedidoData);
     console.log("Body Enviado:", serializedBody);
     
-    return API.apiFetch(`pedido/criarPedido`, {
+    return API.apiFetch(`pedidos/criarPedido`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify( pedidoData ),
@@ -13,7 +13,7 @@ export const criarPedido = (pedidoData) => {
 }
 
 export const listarPedidos = () => {
-    return API.apiFetch(`pedido/`, {
+    return API.apiFetch(`pedidos/`, {
         method: 'GET',
     });
 }

@@ -10,7 +10,7 @@ export default class PedidoService{
 
 
         if(novoPedido.produto_id == null || this.produto_id == ""){
-            throw  new Error("id do produto nao pode ser nulo ou vazio");        }
+            throw  new Error("O 'id' do produto não pode ser nulo ou vazio");        }
 
         const { data: produto, error: produtoError } = await this.schema
             .from("produtos")
@@ -82,7 +82,7 @@ export default class PedidoService{
         })
 
         if (error){
-            console.error("Erro ao criar pedido:", error.message);
+            console.error(`Erro ao criar pedido: ${error.message}`);
             throw new Error("Nao foi possivel criar o pedido");
         } 
         else{

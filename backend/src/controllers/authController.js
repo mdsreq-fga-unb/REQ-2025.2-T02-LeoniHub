@@ -18,7 +18,6 @@ export const login = async (req, res) => {
     }
     
     const data = await authService.login(email, password) ;
-    const data = await authService.login(email, password) ;
 
     // Retorna token e informações do usuário
     res.status(200).json({
@@ -96,31 +95,25 @@ export const signup = async (req, res) => {
 export const forgotPassword = async (req, res) => {
 
   const { email } = req.body;
+  
+  try {
+    
 
-
-    try {
-      
-
-      if (!email) {
-        return res.status(400).json({ success: false, error: 'O campo de e-mail é obrigatório.' });
-      }
-
-      await authService.forgotPassword(email)
-      await authService.forgotPassword(email)
-
-      return res.status(200).json({ 
-        success: true, 
-        data: { message: 'Email de recuperação enviado com sucesso.' }
-      });
-    } 
-    catch (error) {
-        console.error(`Erro inesperado no servidor: ${error.message}`);
-        return res.status(500).json({ success: false, error: 'Erro interno do servidor.'});
+    if (!email) {
+      return res.status(400).json({ success: false, error: 'O campo de e-mail é obrigatório.' });
     }
+
+    await authService.forgotPassword(email)
+    await authService.forgotPassword(email)
+
+    return res.status(200).json({ 
+      success: true, 
+      data: { message: 'Email de recuperação enviado com sucesso.' }
+    });
   } 
   catch (error) {
-    console.error(`Erro inesperado no servidor: ${error.message}`);
-    return res.status(500).json({ success: false, error: 'Erro interno do servidor.'});
+      console.error(`Erro inesperado no servidor: ${error.message}`);
+      return res.status(500).json({ success: false, error: 'Erro interno do servidor.'});
   }
 };
 

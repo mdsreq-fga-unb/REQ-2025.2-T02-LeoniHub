@@ -74,7 +74,8 @@ export default function NovoCliente() {
         
         alert('Cliente criado com sucesso!');
         navigate('/clientes');
-      } catch (error) {
+      } 
+      catch (error) {
         console.error('Erro ao criar cliente:', error);
         setErrorMessage(error.message || 'Erro ao criar cliente. Tente novamente.');
         

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styles from './CriarPedido.module.css';
 import { useNavigate } from 'react-router-dom';
 
-import { useProduto } from '../../contexts/ProdutoContext';
-import { usePedido } from '../../contexts/PedidoContext';
+import { listarProdutos } from '../../services/produtoService';
+import { criarPedido } from '../../services/pedidoService';
 
 // MOCK: SIMULAÇÃO DA FUNÇÃO DE CLIENTES
 const useCliente = () => ({
@@ -32,9 +32,8 @@ export default function CriarPedido() {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [loadingDados, setLoadingDados] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const { criarPedido, loading } = usePedido();
-  const { listarProdutos } = useProduto();
   const { listarClientes } = useCliente(); // ESTÁ NO MOCK (TEMPORARIO)
 
 
@@ -69,11 +68,11 @@ export default function CriarPedido() {
       link_assinatura_externa: "TESTE",
       produto_id: produto,
     };
-
-    // Chama Context
-    const result = await criarPedido(pedidoData);
     
-    if (result.success) {
+    try{
+      // Chama Service
+      await criarPedido(pedidoData);
+    
       setCliente('');
       setProduto('');
       setDataAluguel('');
@@ -84,10 +83,11 @@ export default function CriarPedido() {
       setSuccessMessage('Pedido criado com sucesso!');
       console.log('Pedido criado:', pedidoData);
     } 
-    else {
-      setError(result.error || 'Erro ao criar pedido');
+    catch(error){
+      console.log(error);
+      setError('Erro ao Criar Pedido');
     }
-
+    
   };
 
   useEffect(() => {
@@ -152,7 +152,7 @@ export default function CriarPedido() {
               >
                 <option value="">Selecione um Produto</option>
                 {produtos.map(p => (
-                    <option key={p.codigo} value={p.codigo}>
+                    <option key={p.id} value={p.id}>
                       {p.descricao}
                     </option>
                 ))}
