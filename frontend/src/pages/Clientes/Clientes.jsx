@@ -22,12 +22,14 @@ export default function Clientes() {
       setError(null);
       const response = await getAllClientes();
       setClientes(response.data || []);
+
     } catch (err) {
       console.error('Erro ao carregar clientes:', err);
       setError(err.message || 'Erro ao carregar clientes');
       if (err.message.includes('Token')) {
         navigate('/login');
       }
+      
     } finally {
       setLoading(false);
     }

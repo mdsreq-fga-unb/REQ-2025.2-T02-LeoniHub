@@ -4,14 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { listarProdutos } from '../../services/produtoService';
 import { criarPedido } from '../../services/pedidoService';
-
-// MOCK: SIMULAÇÃO DA FUNÇÃO DE CLIENTES
-const useCliente = () => ({
-    listarClientes: async () => [
-        { id: '1', nome: 'João da Silva' , cpf:'05323378166'},
-        { id: '2', nome: 'Maria Souza' , cpf: '06256329155'},
-    ]
-});
+import { getClienteById, getAllClientes } from '../../services/clienteService';
 
 export default function CriarPedido() {
   const navigate = useNavigate();
@@ -34,8 +27,31 @@ export default function CriarPedido() {
   const [loadingDados, setLoadingDados] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const { listarClientes } = useCliente(); // ESTÁ NO MOCK (TEMPORARIO)
+  useEffect(() => {
+      const carregarDadosIniciais = async () => {
+        setLoadingDados(true);
+        setError('');
+        try {
 
+          const clientesResponse = await getAllClientes();
+          setClientes(clientesResponse.data || []); 
+
+          const produtos = await listarProdutos() ;
+          setProdutos(produtos); 
+          console.log('Produtos Carregados:', produtos);
+          
+        }
+        catch (e) {
+          console.error('Erro ao carregar dados iniciais:', e);
+          setError('Erro ao carregar clientes e produtos. Tente novamente');
+        } 
+        finally {
+          setLoadingDados(false);
+        }
+      };
+
+    carregarDadosIniciais();
+  }, []);
 
   const validaCampos = () => {
     if (!cliente) return 'Selecione um cliente';
@@ -57,8 +73,11 @@ export default function CriarPedido() {
       return;
     }
 
+    let clienteObjeto = (await getClienteById(cliente)).data ;
+
+    // Objeto para Pedido
     const pedidoData = {
-      cliente_cpf_cnpj: cliente,
+      cliente_cpf_cnpj: clienteObjeto.cpf_cnpj,
       valor: parseFloat(valorTotal),
       data_aluguel: dataAluguel,
       data_devolucao: dataDevolucao,
@@ -70,7 +89,7 @@ export default function CriarPedido() {
     };
     
     try{
-      // Chama Service
+      // Chama Service 
       await criarPedido(pedidoData);
     
       setCliente('');
@@ -89,31 +108,6 @@ export default function CriarPedido() {
     }
     
   };
-
-  useEffect(() => {
-    const carregarDadosIniciais = async () => {
-      setLoadingDados(true);
-      setError('');
-      try {
-
-        setClientes(await listarClientes()); 
-
-        const produtos = await listarProdutos() ;
-        setProdutos(produtos); 
-
-        console.log('Produtos Carregados:', produtos);
-      } 
-      catch (e) {
-        console.error('Erro ao carregar dados iniciais:', e);
-        setError('Erro ao carregar clientes e produtos. Tente novamente');
-      } 
-      finally {
-        setLoadingDados(false);
-      }
-    };
-
-    carregarDadosIniciais();
-  }, []);
 
   const isFormDisabled = loading || loadingDados;
 
@@ -138,7 +132,7 @@ export default function CriarPedido() {
               >
                 <option value="">Selecione um Cliente</option>
                 {clientes.map(c => (
-                    <option key={c.id} value={c.cpf}>
+                    <option key={c.id} value={c.id}>
                         {c.nome}
                     </option>
                 ))}
@@ -213,4 +207,4 @@ export default function CriarPedido() {
       </div>
     </div>
   );
-}
+};
