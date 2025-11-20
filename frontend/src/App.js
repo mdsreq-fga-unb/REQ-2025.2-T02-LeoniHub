@@ -20,6 +20,7 @@ import ClienteDetalhes from './pages/Clientes/ClienteDetalhes';
 import EditarCliente from './pages/Clientes/EditarCliente';
 
 import CriarPedido from './pages/Pedidos/CriarPedido'; 
+import Pedidos from './pages/Pedidos/Pedidos'; 
 
 
 
@@ -45,6 +46,7 @@ function App() {
             <Route path='/clientes/:id/editar' element={<EditarCliente />} />
 
             <Route path="/pedidos/criar" element={<CriarPedido />} />  
+            <Route path="/pedidos/" element={<Pedidos/>} />  
           </Route>
 
         </Routes>

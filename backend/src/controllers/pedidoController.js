@@ -39,10 +39,10 @@ export default class pedidoController{
 
     listarPedidos = async (req,res)=>{
         try {
-            return res.status(200).json( await this.service.listarPedidos(req.query)).send()
+            return res.status(200).json( await this.service.listarPedidos(req.query))
         }
         catch (error) {
-            return res.status(400).json({ error: error.message }).send();
+            return res.status(400).json({ error: error.message });
         }
 
     }
