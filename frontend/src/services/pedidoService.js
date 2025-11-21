@@ -17,3 +17,9 @@ export const listarPedidos = () => {
         method: 'GET',
     });
 }
+
+export const listarPedidosPorProduto = (produtoId) => {
+    return API.apiFetch(`pedidos/produto/${produtoId}`, {
+        method: 'GET',
+    });
+}

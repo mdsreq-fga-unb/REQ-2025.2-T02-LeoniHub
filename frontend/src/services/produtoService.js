@@ -1,31 +1,49 @@
-import * as API from '../utils/helper'
+import * as API from '../utils/helper';
 
-export const criarProduto = ( nome, estado, tamanho, descricao) => {
-    return API.apiFetch(`produto/criarProduto`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, estado, tamanho, descricao }),
-    });
-}
+// Listar todos os produtos
+export const getAllProdutos = () => {
+  return API.apiFetch('produto/', {
+    method: 'GET',
+  });
+};
 
-export const atualizarProduto = ( codigo, nome, estado, tamanho, descricao) => {
-    return API.apiFetch(`produto/atualizarProduto/${codigo}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, estado, tamanho, descricao }),
-    });
-}
+// Buscar produto por ID
+export const getProdutoById = (id) => {
+  return API.apiFetch(`produto/${id}`, {
+    method: 'GET',
+  });
+};
 
-export const removerProduto = ( codigo ) => {
-    return API.apiFetch(`produto/removerProduto/${codigo}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({}),
-    });
-}
+// Criar novo produto
+export const createProduto = (produtoData) => {
+  return API.apiFetch('produto/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(produtoData),
+  });
+};
 
-export const listarProdutos = () => {
-    return API.apiFetch(`produto/`, {
-        method: 'GET',
-    });
-}
+// Atualizar produto
+export const updateProduto = (id, produtoData) => {
+  return API.apiFetch(`produto/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(produtoData),
+  });
+};
+
+// Deletar produto
+export const deleteProduto = (id) => {
+  return API.apiFetch(`produto/${id}`, {
+    method: 'DELETE',
+  });
+};
+
+// Atualizar quantidade do produto
+export const updateQuantidade = (id, quantidade) => {
+  return API.apiFetch(`produto/${id}/quantidade`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ quantidade }),
+  });
+};

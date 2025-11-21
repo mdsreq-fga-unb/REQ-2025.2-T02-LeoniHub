@@ -1,121 +1,162 @@
-import { produtoService } from '../services/produtoService.js';
+import * as produtoService from '../services/produtoService.js';
 
-export const criarProduto = async (req, res) => {
+// Listar todos os produtos
+export const getAllProdutos = async (req, res) => {
+  try {
+    const data = await produtoService.getAllProdutos();
+    return res.status(200).json({ 
+      success: true, 
+      data 
+    });
+  } catch (error) {
+    console.error('Erro no getAllProdutos:', error);
+    return res.status(500).json({ 
+      success: false, 
+      error: error.message || 'Erro interno do servidor' 
+    });
+  }
+};
 
-    try {
-
-        const { codigo, tamanho, estado, descricao, quantidade, fotos } = req.body;
-
-        // Verifica Campos Obrigatórios
-        if (!codigo || !tamanho || !estado || !descricao) {
-            return res.status(400).json({
-                message: 'Campos obrigatórios não preenchidos. É necessário: código, tamanho, estado e descrição.' 
-            });
-        }
-
-        const produtoData = { // Monta o Produto --> MODELO DO PRODUTO
-            codigo,
-            tamanho,
-            estado,
-            descricao,
-            quantidade,
-            ...(fotos && { fotos }), // Adiciona 'fotos' ao objeto apenas se não for nulo/undefined
-        };
-
-        // Chama o Service para criar o produto no banco
-        const novoProduto = await produtoService.criarProduto(produtoData);
-
-        return res.status(201).json(novoProduto);
-    } 
-    catch (error) {
-
-        // Código Duplicado
-        if (error.message.includes('Já existe um produto')) {
-            return res.status(409).json({ message: error.message });
-        }
-
-        // Outros Erros
-        return res.status(500).json({ message: `Erro no controller createProduto: ${error}` });
-    }
-}
-
-export const atualizarProduto = async (req, res) => {
+// Buscar produto por ID
+export const getProdutoById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await produtoService.getProdutoById(id);
     
-    try {
-        const { codigo } = req.params;
-        const { tamanho, estado, descricao, quantidade, fotos } = req.body;
-
-        const dadosParaAtualizar = {
-        ...(tamanho !== undefined && { tamanho }),
-        ...(estado !== undefined && { estado }),
-        ...(descricao !== undefined && { descricao }),
-        ...(quantidade !== undefined && { quantidade }),
-        ...(fotos !== undefined && { fotos }),
-        };
-
-        // Validação para garantir que pelo menos um campo foi enviado
-        if (Object.keys(dadosParaAtualizar).length === 0) {
-        return res.status(400).json({
-            message: 'Nenhum dado válido para atualização foi fornecido.'
-        });
-        }
-
-        // CHAMA SERVICE
-        const produtoAtualizado = await produtoService.atualizarProduto(codigo, dadosParaAtualizar);
-
-        return res.status(200).json(produtoAtualizado);
-    } 
-    catch (error) {
-
-        if (error.message.includes('emprestado')) { 
-            return res.status(403).json({ message: error.message });
-        }
-
-        if (error.message.includes('Produto não encontrado')) {
-            return res.status(404).json({ message: error.message });
-        }
-
-        console.error('Erro no controller updateProduto:', error);
-        return res.status(500).json({ message: 'Erro interno do servidor.' });
-    }
-}
-
-export const removerProduto = async (req, res) => {
+    return res.status(200).json({ 
+      success: true, 
+      data 
+    });
+  } catch (error) {
+    console.error('Erro no getProdutoById:', error);
     
-    try {
-        const { codigo } = req.params;
-
-        // CHAMA SERVICE
-        await produtoService.removerProduto(codigo);
-
-        return res.status(200).json({ message: 'Produto removido com sucesso!' });
-    } 
-    catch (error) {
-
-        if (error.message.includes('emprestado')) { 
-            return res.status(403).json({ message: error.message });
-        }
-
-        if (error.message.includes('Produto não encontrado')) {
-            return res.status(404).json({ message: error.message });
-        }
-
-        if (error.message === ('Não é possível remover um produto que está no estoque')) {
-            return res.status(400).json({ message: error.message });
-        }
-
-        console.error('Erro no controller updateProduto:', error);
-        return res.status(500).json({ message: 'Erro interno do servidor.' });
+    if (error.message === 'Produto não encontrado') {
+      return res.status(404).json({ 
+        success: false, 
+        error: error.message 
+      });
     }
-}
-
-export const listarProdutos = async (req, res) => {
     
-    try {
-        return res.status(200).json( await produtoService.listarProdutos() );
-    } 
-    catch (error) {
-        console.error('Erro no controller updateProduto:', error);
-        return res.status(500).json({ message: 'Erro interno do servidor.' });
+    return res.status(500).json({ 
+      success: false, 
+      error: error.message || 'Erro interno do servidor' 
+    });
+  }
+};
+
+// Criar novo produto
+export const createProduto = async (req, res) => {
+  try {
+    const data = await produtoService.createProduto(req.body);
+    
+    return res.status(201).json({ 
+      success: true, 
+      data,
+      message: 'Produto criado com sucesso' 
+    });
+  } catch (error) {
+    console.error('Erro no createProduto:', error);
+    
+    const statusCode = error.message.includes('obrigatórios') || 
+                       error.message.includes('já existe') ? 400 : 500;
+    
+    return res.status(statusCode).json({ 
+      success: false, 
+      error: error.message || 'Erro interno do servidor' 
+    });
+  }
+};
+
+// Atualizar produto
+export const updateProduto = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await produtoService.updateProduto(id, req.body);
+    
+    return res.status(200).json({ 
+      success: true, 
+      data,
+      message: 'Produto atualizado com sucesso' 
+    });
+  } catch (error) {
+    console.error('Erro no updateProduto:', error);
+    
+    let statusCode = 500;
+    if (error.message === 'Produto não encontrado') {
+      statusCode = 404;
+    } else if (error.message.includes('obrigatórios') || 
+               error.message.includes('já está sendo usado')) {
+      statusCode = 400;
     }
-}
+    
+    return res.status(statusCode).json({ 
+      success: false, 
+      error: error.message || 'Erro interno do servidor' 
+    });
+  }
+};
+
+// Deletar produto
+export const deleteProduto = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await produtoService.deleteProduto(id);
+    
+    return res.status(200).json({ 
+      success: true, 
+      data,
+      message: 'Produto deletado com sucesso' 
+    });
+  } catch (error) {
+    console.error('Erro no deleteProduto:', error);
+    
+    if (error.message === 'Produto não encontrado') {
+      return res.status(404).json({ 
+        success: false, 
+        error: error.message 
+      });
+    }
+    
+    return res.status(500).json({ 
+      success: false, 
+      error: error.message || 'Erro interno do servidor' 
+    });
+  }
+};
+
+// Atualizar quantidade
+export const updateQuantidade = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { quantidade } = req.body;
+    
+    if (quantidade === undefined || quantidade === null) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Quantidade é obrigatória' 
+      });
+    }
+    
+    const data = await produtoService.updateQuantidade(id, quantidade);
+    
+    return res.status(200).json({ 
+      success: true, 
+      data,
+      message: 'Quantidade atualizada com sucesso' 
+    });
+  } catch (error) {
+    console.error('Erro no updateQuantidade:', error);
+    
+    if (error.message === 'Produto não encontrado') {
+      return res.status(404).json({ 
+        success: false, 
+        error: error.message 
+      });
+    }
+    
+    return res.status(500).json({ 
+      success: false, 
+      error: error.message || 'Erro interno do servidor' 
+    });
+  }
+};

@@ -1,69 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Search, Filter, Package } from 'lucide-react';
+import { Plus, Search, Filter, Package, AlertCircle } from 'lucide-react';
+import * as produtoService from '../../services/produtoService';
 import './Produtos.css';
 
 export default function Produtos() {
   const navigate = useNavigate();
   
-  const [produtos] = useState([
-    {
-      id: 1,
-      codigo: 'PROD001',
-      descricao: 'Terno Preto Linha Luxo',
-      cor: 'Preto',
-      tamanho: '42',
-      quantidade: 5,
-      valor: 399.00,
-      status: 'disponivel'
-    },
-    {
-      id: 2,
-      codigo: 'PROD002',
-      descricao: 'Terno Bege Linha Clássica',
-      cor: 'Bege',
-      tamanho: '44',
-      quantidade: 2,
-      valor: 299.00,
-      status: 'alugado'
-    },
-    {
-      id: 3,
-      codigo: 'ACESS001',
-      descricao: 'Cinto Com Fivela',
-      cor: 'Marrom',
-      tamanho: 'Único',
-      quantidade: 8,
-      valor: 80.00,
-      status: 'disponivel'
-    },
-    {
-      id: 4,
-      codigo: 'PROD003',
-      descricao: 'Terno Azul Marinho Linha Luxo',
-      cor: 'Azul Marinho',
-      tamanho: '46',
-      quantidade: 1,
-      valor: 399.00,
-      status: 'Limpeza'
-    }
-  ]);
-
+  const [produtos, setProdutos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Carregar produtos ao montar o componente
+  useEffect(() => {
+    loadProdutos();
+  }, []);
+
+  const loadProdutos = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await produtoService.getAllProdutos();
+      
+      if (response.success) {
+        setProdutos(response.data || []);
+      } else {
+        setError(response.error || 'Erro ao carregar produtos');
+      }
+    } catch (err) {
+      console.error('Erro ao carregar produtos:', err);
+      setError('Erro ao carregar produtos. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredProdutos = produtos.filter(produto =>
     produto.codigo.toLowerCase().includes(searchTerm.toLowerCase()) ||
     produto.descricao.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const getStatusBadge = (status) => {
-    const badges = {
-      disponivel: { label: 'Disponível', class: 'status-disponivel' },
-      alugado: { label: 'Alugado', class: 'status-alugado' },
-      manutencao: { label: 'Limpeza', class: 'status-manutencao' }
-    };
-    return badges[status] || badges.disponivel;
-  };
+  if (loading) {
+    return (
+      <div className="produtos-page">
+        <div style={{ textAlign: 'center', padding: '3rem' }}>
+          <p>Carregando produtos...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="produtos-page">
+        <div style={{ textAlign: 'center', padding: '3rem', color: '#dc2626' }}>
+          <AlertCircle size={48} style={{ marginBottom: '1rem' }} />
+          <p>{error}</p>
+          <button 
+            onClick={loadProdutos}
+            style={{ 
+              marginTop: '1rem',
+              padding: '0.5rem 1rem',
+              backgroundColor: '#14b8a6',
+              color: 'white',
+              border: 'none',
+              borderRadius: '0.5rem',
+              cursor: 'pointer'
+            }}
+          >
+            Tentar Novamente
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="produtos-page">
@@ -99,16 +110,12 @@ export default function Produtos() {
 
       <div className="produtos-grid">
         {filteredProdutos.map((produto) => {
-          const statusBadge = getStatusBadge(produto.status);
           return (
             <div key={produto.id} className="produto-card">
               <div className="card-header-produto">
                 <div className="produto-icon">
                   <Package size={32} />
                 </div>
-                <span className={`status-badge ${statusBadge.class}`}>
-                  {statusBadge.label}
-                </span>
               </div>
 
               <div className="produto-info">
@@ -119,15 +126,15 @@ export default function Produtos() {
               <div className="produto-details">
                 <div className="detail-row">
                   <span className="detail-label">Cor:</span>
-                  <span className="detail-value">{produto.cor}</span>
+                  <span className="detail-value">{produto.cor || '-'}</span>
                 </div>
                 <div className="detail-row">
                   <span className="detail-label">Tamanho:</span>
-                  <span className="detail-value">{produto.tamanho}</span>
+                  <span className="detail-value">{produto.tamanho || '-'}</span>
                 </div>
                 <div className="detail-row">
                   <span className="detail-label">Valor:</span>
-                  <span className="detail-value-price">R$ {produto.valor.toFixed(2)}</span>
+                  <span className="detail-value-price">R$ {produto.valor?.toFixed(2) || '0.00'}</span>
                 </div>
                 <div className="detail-row">
                   <span className="detail-label">Quantidade:</span>

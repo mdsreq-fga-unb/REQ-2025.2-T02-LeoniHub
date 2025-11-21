@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import * as produtoService from '../../services/produtoService';
 import './ProdutoForm.css';
 
 export default function EditarProduto() {
@@ -16,28 +17,40 @@ export default function EditarProduto() {
     valor: ''
   });
 
-  // Carregar dados do produto - substituir por chamada API
-  useEffect(() => {
-    // Mock data - buscar produto por ID
-    const produtoMock = {
-      id: id,
-      codigo: 'PROD001',
-      descricao: 'Terno Preto Linha Luxo',
-      cor: 'Preto',
-      tamanho: '42',
-      quantidade: 5,
-      valor: 399.00
-    };
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
 
-    setFormData({
-      codigo: produtoMock.codigo,
-      descricao: produtoMock.descricao,
-      cor: produtoMock.cor,
-      tamanho: produtoMock.tamanho,
-      quantidade: produtoMock.quantidade.toString(),
-      valor: produtoMock.valor.toString()
-    });
+  useEffect(() => {
+    loadProduto();
   }, [id]);
+
+  const loadProduto = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await produtoService.getProdutoById(id);
+      
+      if (response.success && response.data) {
+        const produto = response.data;
+        setFormData({
+          codigo: produto.codigo || '',
+          descricao: produto.descricao || '',
+          cor: produto.cor || '',
+          tamanho: produto.tamanho || '',
+          quantidade: produto.quantidade?.toString() || '0',
+          valor: produto.valor?.toString() || ''
+        });
+      } else {
+        setError(response.error || 'Erro ao carregar produto');
+      }
+    } catch (err) {
+      console.error('Erro ao carregar produto:', err);
+      setError('Erro ao carregar produto. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,17 +60,76 @@ export default function EditarProduto() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!formData.codigo || !formData.descricao || !formData.quantidade || !formData.valor) {
-      alert('Por favor, preencha todos os campos obrigatórios');
+    if (!formData.codigo || !formData.descricao || !formData.valor) {
+      alert('Por favor, preencha todos os campos obrigatórios (código, descrição e valor)');
       return;
     }
 
-    console.log('Dados atualizados do produto:', formData);
-    navigate(`/produtos/${id}`);
+    try {
+      setSaving(true);
+      setError(null);
+      
+      const produtoData = {
+        ...formData,
+        quantidade: parseInt(formData.quantidade) || 0,
+        valor: parseFloat(formData.valor)
+      };
+
+      const response = await produtoService.updateProduto(id, produtoData);
+      
+      if (response.success) {
+        alert('Produto atualizado com sucesso!');
+        navigate(`/produtos/${id}`);
+      } else {
+        setError(response.error || 'Erro ao atualizar produto');
+        alert(response.error || 'Erro ao atualizar produto');
+      }
+    } catch (err) {
+      console.error('Erro ao atualizar produto:', err);
+      const errorMsg = 'Erro ao atualizar produto. Tente novamente.';
+      setError(errorMsg);
+      alert(errorMsg);
+    } finally {
+      setSaving(false);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="produto-form-page">
+        <div style={{ textAlign: 'center', padding: '3rem' }}>
+          <p>Carregando produto...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error && !formData.codigo) {
+    return (
+      <div className="produto-form-page">
+        <div style={{ textAlign: 'center', padding: '3rem', color: '#dc2626' }}>
+          <p>{error}</p>
+          <button 
+            onClick={() => navigate('/produtos')}
+            style={{ 
+              marginTop: '1rem',
+              padding: '0.5rem 1rem',
+              backgroundColor: '#14b8a6',
+              color: 'white',
+              border: 'none',
+              borderRadius: '0.5rem',
+              cursor: 'pointer'
+            }}
+          >
+            Voltar para Produtos
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="produto-form-page">
@@ -165,8 +237,9 @@ export default function EditarProduto() {
             <button
               type="submit"
               className="btn-save"
+              disabled={saving}
             >
-              Salvar Alterações
+              {saving ? 'Salvando...' : 'Salvar Alterações'}
             </button>
           </div>
         </form>

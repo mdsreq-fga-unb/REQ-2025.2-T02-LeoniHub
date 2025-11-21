@@ -103,6 +103,9 @@ export default class PedidoService{
         if(query.id){
             selectQuery= selectQuery.eq("id", query.id)
         }
+        if(query.produto_id){
+            selectQuery= selectQuery.eq("produto_id", query.produto_id)
+        }
         const {data, error} = await selectQuery
         if(error){
             throw Error(error.message);

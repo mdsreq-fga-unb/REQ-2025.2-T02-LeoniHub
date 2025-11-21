@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './CriarPedido.module.css';
 import { useNavigate } from 'react-router-dom';
 
-import { listarProdutos } from '../../services/produtoService';
+import { getAllProdutos } from '../../services/produtoService';
 import { criarPedido } from '../../services/pedidoService';
 import { getClienteById, getAllClientes } from '../../services/clienteService';
 
@@ -36,9 +36,9 @@ export default function CriarPedido() {
           const clientesResponse = await getAllClientes();
           setClientes(clientesResponse.data || []); 
 
-          const produtos = await listarProdutos() ;
-          setProdutos(produtos); 
-          console.log('Produtos Carregados:', produtos);
+          const produtosResponse = await getAllProdutos();
+          setProdutos(produtosResponse.data || []); 
+          console.log('Produtos Carregados:', produtosResponse.data);
           
         }
         catch (e) {
@@ -66,10 +66,12 @@ export default function CriarPedido() {
   const handleCriarPedido = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     const err = validaCampos();
     if (err) {
       setError(err);
+      setLoading(false);
       return;
     }
 
@@ -105,6 +107,8 @@ export default function CriarPedido() {
     catch(error){
       console.log(error);
       setError('Erro ao Criar Pedido');
+    } finally {
+      setLoading(false);
     }
     
   };

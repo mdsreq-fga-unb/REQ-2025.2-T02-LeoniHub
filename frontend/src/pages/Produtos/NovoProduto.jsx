@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import * as produtoService from '../../services/produtoService';
 import './ProdutoForm.css';
 
 export default function NovoProduto() {
@@ -11,9 +12,11 @@ export default function NovoProduto() {
     descricao: '',
     cor: '',
     tamanho: '',
-    quantidade: '',
+    quantidade: '0',
     valor: ''
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,16 +26,38 @@ export default function NovoProduto() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!formData.codigo || !formData.descricao || !formData.quantidade || !formData.valor) {
-      alert('Por favor, preencha todos os campos obrigatórios');
+    if (!formData.codigo || !formData.descricao || !formData.valor) {
+      alert('Por favor, preencha todos os campos obrigatórios (código, descrição e valor)');
       return;
     }
 
-    console.log('Dados do produto:', formData);
-    navigate('/produtos');
+    try {
+      setLoading(true);
+      
+      const produtoData = {
+        ...formData,
+        quantidade: parseInt(formData.quantidade) || 0,
+        valor: parseFloat(formData.valor)
+      };
+
+      const response = await produtoService.createProduto(produtoData);
+      
+      if (response.success) {
+        alert('Produto criado com sucesso!');
+        navigate('/produtos');
+      } else {
+        alert(response.error || 'Erro ao criar produto');
+      }
+    } catch (err) {
+      console.error('Erro ao criar produto:', err);
+      const errorMsg = 'Erro ao criar produto. Tente novamente.';
+      alert(errorMsg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -141,8 +166,9 @@ export default function NovoProduto() {
             <button
               type="submit"
               className="btn-save"
+              disabled={loading}
             >
-              Salvar Produto
+              {loading ? 'Salvando...' : 'Salvar Produto'}
             </button>
           </div>
         </form>

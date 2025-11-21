@@ -47,6 +47,23 @@ export default class pedidoController{
 
     }
 
+    listarPedidosPorProduto = async (req,res)=>{
+        try {
+            const { produto_id } = req.params;
+            const pedidos = await this.service.listarPedidos({ produto_id });
+            return res.status(200).json({ 
+                success: true, 
+                data: pedidos 
+            });
+        }
+        catch (error) {
+            return res.status(400).json({ 
+                success: false, 
+                error: error.message 
+            });
+        }
+    }
+
     atualizarPedido = async (req,res) =>{
         try {
             let novoPedido  = new PedidoInputDto(req.body)

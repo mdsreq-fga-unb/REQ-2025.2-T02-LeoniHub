@@ -49,4 +49,7 @@ router.post('/excluirPedido', controller.excluirPedido);
 
 router.get("", controller.listarPedidos);
 
+// ROTA -- LISTAR PEDIDOS POR PRODUTO
+router.get("/produto/:produto_id", controller.listarPedidosPorProduto);
+
 export default router;
