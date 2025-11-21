@@ -19,6 +19,11 @@ import NovoCliente from './pages/Clientes/NovoCliente';
 import ClienteDetalhes from './pages/Clientes/ClienteDetalhes';
 import EditarCliente from './pages/Clientes/EditarCliente';
 
+import Produtos from './pages/Produtos/Produtos';
+import NovoProduto from './pages/Produtos/NovoProduto';
+import ProdutoDetalhes from './pages/Produtos/ProdutoDetalhes';
+import EditarProduto from './pages/Produtos/EditarProduto';
+
 import CriarPedido from './pages/Pedidos/CriarPedido'; 
 import Pedidos from './pages/Pedidos/Pedidos'; 
 
@@ -44,6 +49,11 @@ function App() {
             <Route path='/clientes/novo' element={<NovoCliente />} />
             <Route path='/clientes/:id' element={<ClienteDetalhes />} />
             <Route path='/clientes/:id/editar' element={<EditarCliente />} />
+
+            <Route path='/produtos' element={<Produtos />} />
+            <Route path='/produtos/novo' element={<NovoProduto />} />
+            <Route path='/produtos/:id' element={<ProdutoDetalhes />} />
+            <Route path='/produtos/:id/editar' element={<EditarProduto />} />
 
             <Route path="/pedidos/criar" element={<CriarPedido />} />  
             <Route path="/pedidos/" element={<Pedidos/>} />  
