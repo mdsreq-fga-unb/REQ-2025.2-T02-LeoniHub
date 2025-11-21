@@ -9,38 +9,42 @@ export default function Produtos() {
   const [produtos] = useState([
     {
       id: 1,
-      nome: 'Terno Preto',
-      categoria: 'Terno',
-      tipo: 'Linha luxo',
-      valorDia: 399.00,
-      estoque: 5,
+      codigo: 'PROD001',
+      descricao: 'Terno Preto Linha Luxo',
+      cor: 'Preto',
+      tamanho: '42',
+      quantidade: 5,
+      valor: 399.00,
       status: 'disponivel'
     },
     {
       id: 2,
-      nome: 'Terno Bege',
-      categoria: 'Terno',
-      tipo: 'Linha Classica',
-      valorDia: 299.00,
-      estoque: 2,
+      codigo: 'PROD002',
+      descricao: 'Terno Bege Linha Clássica',
+      cor: 'Bege',
+      tamanho: '44',
+      quantidade: 2,
+      valor: 299.00,
       status: 'alugado'
     },
     {
       id: 3,
-      nome: 'Cinto Com Fivela',
-      categoria: 'Acessorio',
-      tipo: 'Cinto',
-      valorDia: 80.00,
-      estoque: 8,
+      codigo: 'ACESS001',
+      descricao: 'Cinto Com Fivela',
+      cor: 'Marrom',
+      tamanho: 'Único',
+      quantidade: 8,
+      valor: 80.00,
       status: 'disponivel'
     },
     {
       id: 4,
-      nome: 'Terno Azul Marinho',
-      categoria: 'Terno',
-      tipo: 'Linha Luxo',
-      valorDia: 399.00,
-      estoque: 1,
+      codigo: 'PROD003',
+      descricao: 'Terno Azul Marinho Linha Luxo',
+      cor: 'Azul Marinho',
+      tamanho: '46',
+      quantidade: 1,
+      valor: 399.00,
       status: 'Limpeza'
     }
   ]);
@@ -48,15 +52,15 @@ export default function Produtos() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredProdutos = produtos.filter(produto =>
-    produto.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    produto.categoria.toLowerCase().includes(searchTerm.toLowerCase())
+    produto.codigo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    produto.descricao.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const getStatusBadge = (status) => {
     const badges = {
       disponivel: { label: 'Disponível', class: 'status-disponivel' },
       alugado: { label: 'Alugado', class: 'status-alugado' },
-      manutencao: { label: 'Manutenção', class: 'status-manutencao' }
+      manutencao: { label: 'Limpeza', class: 'status-manutencao' }
     };
     return badges[status] || badges.disponivel;
   };
@@ -108,19 +112,27 @@ export default function Produtos() {
               </div>
 
               <div className="produto-info">
-                <h3>{produto.nome}</h3>
-                <p className="produto-categoria">{produto.categoria}</p>
+                <h3>{produto.descricao}</h3>
+                <p className="produto-categoria">Código: {produto.codigo}</p>
               </div>
 
               <div className="produto-details">
                 <div className="detail-row">
-                  <span className="detail-label">Valor/dia:</span>
-                  <span className="detail-value-price">R$ {produto.valorDia.toFixed(2)}</span>
+                  <span className="detail-label">Cor:</span>
+                  <span className="detail-value">{produto.cor}</span>
                 </div>
                 <div className="detail-row">
-                  <span className="detail-label">Estoque:</span>
-                  <span className={`detail-value ${produto.estoque <= 2 ? 'estoque-baixo' : 'estoque-ok'}`}>
-                    {produto.estoque} unidades
+                  <span className="detail-label">Tamanho:</span>
+                  <span className="detail-value">{produto.tamanho}</span>
+                </div>
+                <div className="detail-row">
+                  <span className="detail-label">Valor:</span>
+                  <span className="detail-value-price">R$ {produto.valor.toFixed(2)}</span>
+                </div>
+                <div className="detail-row">
+                  <span className="detail-label">Quantidade:</span>
+                  <span className={`detail-value ${produto.quantidade <= 2 ? 'estoque-baixo' : 'estoque-ok'}`}>
+                    {produto.quantidade} unidades
                   </span>
                 </div>
               </div>
