@@ -14,11 +14,22 @@ export const AuthProvider = ({ children }) => {
   // Função para verificar autenticação existente
   const checkAuth = useCallback(async () => {
     try {
+      setLoading(true);
       const token = localStorage.getItem('token');
       const savedUser = localStorage.getItem('user');
 
       if (token && savedUser) {
-        setUser(JSON.parse(savedUser));
+        // Validar se o token ainda é válido (opcional)
+        try {
+          const parsedUser = JSON.parse(savedUser);
+          setUser(parsedUser);
+        } catch (parseError) {
+          console.error('Erro ao fazer parse do usuário:', parseError);
+          logout();
+        }
+      } else {
+        // Se não houver token ou usuário, limpar tudo
+        setUser(null);
       }
 
     } 
@@ -144,11 +155,17 @@ export const AuthProvider = ({ children }) => {
 
   // Função de LOGOUT
   const logout = async () => {
+    console.log('Logout executado - Limpando dados de autenticação');
+    
     // Pegar o token ANTES de limpar
     const token = localStorage.getItem('token');
 
-    if (token) {
-      await authService.logout(token); // Chama Service
+    try {
+      if (token) {
+        await authService.logout(token); // Chama Service
+      }
+    } catch (error) {
+      console.error('Erro ao fazer logout no servidor:', error);
     }
     
     // Limpar TODOS os dados locais PRIMEIRO
@@ -156,7 +173,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user');
     
+    // Atualizar estado
     setUser(null);
+    
+    // Redirecionar para login
+    window.location.href = '/login';
   };
 
 
