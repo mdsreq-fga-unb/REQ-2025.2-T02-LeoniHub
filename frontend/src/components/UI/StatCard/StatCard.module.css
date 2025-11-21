@@ -1,0 +1,21 @@
+.statCard {
+    background: linear-gradient(180deg, #ffffff, #fbfeff);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(17, 35, 40, 0.06);
+    border: 1px solid rgba(23, 123, 129, 0.06);
+    text-align: left;
+}
+
+.statLabel {
+    font-size: 12px;
+    color: #6b7280;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.statValue {
+    font-size: 28px;
+    font-weight: 800;
+    color: #153a44;
+}
