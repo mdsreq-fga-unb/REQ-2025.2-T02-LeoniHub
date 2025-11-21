@@ -16,7 +16,6 @@ import EditarCliente from './pages/Clientes/EditarCliente';
 import Produtos from './pages/Produtos/Produtos';
 import NovoProduto from './pages/Produtos/NovoProduto';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
-import ProductPage from './pages/ProductPage/ProductPage';
 
 
 
@@ -36,7 +35,6 @@ function App() {
           {/* --- Grupo de Rotas COM Navbar e Footer --- */}
           <Route element={<MainLayout />}>
             <Route path='/dashboard' element={<DashboardPage />} />
-            <Route path='/products' element={<ProductPage />} />
             
             <Route path='/clientes' element={<Clientes />} />
             <Route path='/clientes/novo' element={<NovoCliente />} />

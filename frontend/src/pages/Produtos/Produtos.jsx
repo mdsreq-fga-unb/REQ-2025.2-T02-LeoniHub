@@ -9,39 +9,39 @@ export default function Produtos() {
   const [produtos] = useState([
     {
       id: 1,
-      nome: 'Furadeira Elétrica',
-      categoria: 'Ferramentas Elétricas',
-      tipo: 'individual',
-      valorDia: 45.00,
+      nome: 'Terno Preto',
+      categoria: 'Terno',
+      tipo: 'Linha luxo',
+      valorDia: 399.00,
       estoque: 5,
       status: 'disponivel'
     },
     {
       id: 2,
-      nome: 'Betoneira 150L',
-      categoria: 'Equipamentos de Construção',
-      tipo: 'individual',
-      valorDia: 120.00,
+      nome: 'Terno Bege',
+      categoria: 'Terno',
+      tipo: 'Linha Classica',
+      valorDia: 299.00,
       estoque: 2,
       status: 'alugado'
     },
     {
       id: 3,
-      nome: 'Andaime 2m',
-      categoria: 'Estruturas',
-      tipo: 'individual',
+      nome: 'Cinto Com Fivela',
+      categoria: 'Acessorio',
+      tipo: 'Cinto',
       valorDia: 80.00,
       estoque: 8,
       status: 'disponivel'
     },
     {
       id: 4,
-      nome: 'Compressor de Ar',
-      categoria: 'Ferramentas Pneumáticas',
-      tipo: 'individual',
-      valorDia: 90.00,
+      nome: 'Terno Azul Marinho',
+      categoria: 'Terno',
+      tipo: 'Linha Luxo',
+      valorDia: 399.00,
       estoque: 1,
-      status: 'manutencao'
+      status: 'Limpeza'
     }
   ]);
 
