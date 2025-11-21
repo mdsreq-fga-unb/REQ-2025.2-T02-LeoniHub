@@ -15,6 +15,8 @@ import ClienteDetalhes from './pages/Clientes/ClienteDetalhes';
 import EditarCliente from './pages/Clientes/EditarCliente';
 import Produtos from './pages/Produtos/Produtos';
 import NovoProduto from './pages/Produtos/NovoProduto';
+import ProdutoDetalhes from './pages/Produtos/ProdutoDetalhes';
+import EditarProduto from './pages/Produtos/EditarProduto';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 
 
@@ -43,6 +45,8 @@ function App() {
             
             <Route path='/produtos' element={<Produtos />} />
             <Route path='/produtos/novo' element={<NovoProduto />} />
+            <Route path='/produtos/:id' element={<ProdutoDetalhes />} />
+            <Route path='/produtos/:id/editar' element={<EditarProduto />} />
           </Route>
           
         </Routes>
