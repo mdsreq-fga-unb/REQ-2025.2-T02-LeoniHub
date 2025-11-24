@@ -34,7 +34,7 @@ Campos Necessários:
     data_aluguel
 */
 
-router.post('/atualizarPedido', controller.atualizarPedido);
+router.put('/atualizarPedido', controller.atualizarPedido);
 
 // ROTA -- EXCLUIR PEDIDO
 router.post('/excluirPedido', controller.excluirPedido);
@@ -51,5 +51,8 @@ router.get("", controller.listarPedidos);
 
 // ROTA -- LISTAR PEDIDOS POR PRODUTO
 router.get("/produto/:produto_id", controller.listarPedidosPorProduto);
+
+// ROTA -- LISTAR PEDIDO POR ID
+router.get("/:id", controller.getPedidoById);
 
 export default router;

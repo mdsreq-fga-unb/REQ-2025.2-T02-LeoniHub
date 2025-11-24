@@ -114,6 +114,20 @@ export default class PedidoService{
 
     }
 
+    async getPedidoById(id){
+        const { data, error } = await supabaseSchema
+            .from('pedidos')
+            .select('*')
+            .eq('id', id)
+            .single();
+
+        if (error) {
+            throw new Error('Erro ao buscar cliente: ' + error.message);
+        }
+
+        return data;
+    };
+
     async atualizarPedido(pedido){
 
         if(!pedido.id){

@@ -17,12 +17,12 @@ export default class pedidoController{
         }
         catch (error) {
 
-            if (error.message.includes('Erro ao buscar cliente por CPF:')){
-                return res.status(400).json({"message":"Erro ao tentar buscar o cliente por CPF","error":`${error.message}` });
+            if (error.message.includes('Erro ao buscar Produto por CPF:')){
+                return res.status(400).json({"message":"Erro ao tentar buscar o Produto por CPF","error":`${error.message}` });
             }
 
-            if (error.message.includes('Erro ao buscar cliente por CODIGO:')){
-                return res.status(400).json({"message":"Erro ao tentar buscar o cliente por codigo","error":`${error.message}` });
+            if (error.message.includes('Erro ao buscar Produto por CODIGO:')){
+                return res.status(400).json({"message":"Erro ao tentar buscar o Produto por codigo","error":`${error.message}` });
             }
 
             if (error.message.includes('Erro ao buscar produto pelo produto_id:')){
@@ -63,6 +63,32 @@ export default class pedidoController{
             });
         }
     }
+
+    getPedidoById = async (req, res) => {
+      try {
+        const { id } = req.params;
+        const data = await this.service.getPedidoById(id);
+        
+        return res.status(200).json({ 
+          success: true, 
+          data 
+        });
+      } catch (error) {
+        console.error('Erro no getPedidoById:', error);
+        
+        if (error.message === 'Pedido não encontrado') {
+          return res.status(404).json({ 
+            success: false, 
+            error: error.message 
+          });
+        }
+        
+        return res.status(500).json({ 
+          success: false, 
+          error: error.message || 'Erro interno do servidor' 
+        });
+      }
+    };
 
     atualizarPedido = async (req,res) =>{
         try {
