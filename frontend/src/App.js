@@ -27,7 +27,7 @@ import EditarProduto from './pages/Produtos/EditarProduto';
 import CriarPedido from './pages/Pedidos/CriarPedido'; 
 import Pedidos from './pages/Pedidos/Pedidos'; 
 
-
+import Agenda from './pages/Agenda/Agenda'; 
 
 function App() {
   return (
@@ -57,6 +57,8 @@ function App() {
 
             <Route path="/pedidos/criar" element={<CriarPedido />} />  
             <Route path="/pedidos/" element={<Pedidos/>} />  
+
+            <Route path="/agenda/" element={<Agenda/>} />  
           </Route>
 
         </Routes>

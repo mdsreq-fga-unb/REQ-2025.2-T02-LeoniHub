@@ -1,0 +1,90 @@
+.calendario-page {
+  padding: 2rem;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header-section h1 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+/* Legenda de Status */
+.legenda {
+  display: flex;
+  gap: 15px;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.dot.agendado { background-color: #1abc9c; }
+.dot.ativo { background-color: #27ae60; }
+.dot.atrasado { background-color: #e74c3c; }
+
+/* Container do Calendário (O Card Branco) */
+.calendario-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* Customizações do React Big Calendar */
+.rbc-calendar {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.rbc-toolbar button {
+  color: #555;
+  border: 1px solid #ddd;
+  font-size: 0.9rem;
+}
+
+.rbc-toolbar button:active, 
+.rbc-toolbar button.rbc-active {
+  background-color: #1abc9c !important; /* Cor do seu tema */
+  color: white !important;
+  border-color: #1abc9c !important;
+  box-shadow: none !important;
+}
+
+.rbc-toolbar button:hover {
+  background-color: #f0f0f0;
+}
+
+.rbc-event {
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 2px 5px;
+}
+
+.rbc-header {
+  padding: 10px 0;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.rbc-today {
+  background-color: rgba(26, 188, 156, 0.1); /* Destaque sutil para o dia atual */
+}
