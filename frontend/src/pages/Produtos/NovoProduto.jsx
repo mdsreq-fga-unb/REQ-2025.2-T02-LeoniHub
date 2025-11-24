@@ -67,7 +67,7 @@ export default function NovoProduto() {
           className="btn-back"
           onClick={() => navigate('/produtos')}
         >
-          <ArrowLeft size={20} />
+          <ArrowLeft size={18} />
           Voltar
         </button>
         <h1>Novo Produto</h1>
@@ -75,11 +75,13 @@ export default function NovoProduto() {
 
       <div className="form-container">
         <form onSubmit={handleSubmit}>
-          {/* Informações do Produto */}
+          
           <div className="form-section">
             <h3>Informações do Produto</h3>
+            
             <div className="form-grid">
-              <div className="form-group">
+              
+              <div className="form-group span-4"> 
                 <label>Código *</label>
                 <input
                   type="text"
@@ -88,44 +90,45 @@ export default function NovoProduto() {
                   onChange={handleChange}
                   placeholder="Ex: PROD001"
                   required
+                  style={{ maxWidth: '300px' }} 
                 />
               </div>
 
-              <div className="form-group full-width">
+              <div className="form-group span-4">
                 <label>Descrição do Produto *</label>
                 <textarea
                   name="descricao"
                   value={formData.descricao}
                   onChange={handleChange}
                   placeholder="Descrição detalhada do produto..."
-                  rows="3"
+                  rows="4"
                   required
                 />
               </div>
 
-              <div className="form-group">
+              <div className="form-group span-1">
                 <label>Cor</label>
                 <input
                   type="text"
                   name="cor"
                   value={formData.cor}
                   onChange={handleChange}
-                  placeholder="Ex: Preto, Azul Marinho"
+                  placeholder="Ex: Preto"
                 />
               </div>
 
-              <div className="form-group">
+              <div className="form-group span-1">
                 <label>Tamanho</label>
                 <input
                   type="text"
                   name="tamanho"
                   value={formData.tamanho}
                   onChange={handleChange}
-                  placeholder="Ex: P, M, G, 42, 48"
+                  placeholder="Ex: P, M, G"
                 />
               </div>
 
-              <div className="form-group">
+              <div className="form-group span-1">
                 <label>Quantidade *</label>
                 <input
                   type="number"
@@ -138,7 +141,7 @@ export default function NovoProduto() {
                 />
               </div>
 
-              <div className="form-group">
+              <div className="form-group span-1">
                 <label>Valor (R$) *</label>
                 <input
                   type="number"
@@ -153,6 +156,8 @@ export default function NovoProduto() {
               </div>
             </div>
           </div>
+
+          <div className="form-divider"></div>
 
           {/* Botões */}
           <div className="form-actions">

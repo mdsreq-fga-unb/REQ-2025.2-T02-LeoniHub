@@ -153,6 +153,39 @@ export default function Pedidos() {
                       {pedido.status || 'STATUS DESCONHECIDO'}
                     </span>
                   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  
                   {/* Informações principais do pedido */}
                   <p className="cliente-contact">
                     Cliente: {pedido.cliente_id || 'Não Especificado'}
