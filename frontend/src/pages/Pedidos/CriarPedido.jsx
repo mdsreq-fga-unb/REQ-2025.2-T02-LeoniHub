@@ -151,7 +151,7 @@ export default function CriarPedido() {
                 <option value="">Selecione um Produto</option>
                 {produtos.map(p => (
                     <option key={p.id} value={p.id}>
-                      {p.descricao}
+                      {p.codigo}
                     </option>
                 ))}
               </select>

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import styles from './RegisterPage.module.css';
-import leoniLogo from '../../assets/img/leoni_logo.png';
+import leoniLogo from '../../assets/img/leonni_logo.jpeg';
 
 function RegisterPage() {
 

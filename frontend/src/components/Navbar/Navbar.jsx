@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './Navbar.module.css';
-import logo from '../../assets/img/leoni_logo.png';
+import logo from '../../assets/img/leonni_logo.jpeg';
 import icEstoque from '../../assets/icons/estoque.svg';
 import icPedidos from '../../assets/icons/pedidos.svg';
 import icClientes from '../../assets/icons/clientes.svg';
@@ -18,7 +18,6 @@ const Navbar = () => {
     try {
       await logout();
     } catch (err) {
-      // ignore logout errors but continue navigation
       console.warn('logout failed', err);
     }
     navigate('/login/Leonni');
@@ -27,9 +26,9 @@ const Navbar = () => {
   return (
     <nav className="sidebar">
       <div className="header-row">
-        <img className="logo-img" src={logo} alt="Leoni Logo" />
+        <img className="logo-img" src={logo} alt="Leonni Logo" />
         <div>
-          <strong className={styles.title}>Leoni Hub</strong>
+          <strong className={styles.title}>Leonni Hub</strong>
           <div style={{ fontSize: 14, color: 'rgba(189, 188, 188, 0.85)' }}>
             Gestão de Aluguéis
           </div>

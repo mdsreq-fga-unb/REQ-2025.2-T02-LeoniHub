@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Package, BarChart3, Users, ShoppingCart, Calendar, DollarSign, UserCheck, Truck, LogOut } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import leoniLogo from '../../assets/img/leoni_logo.png';
+import leoniLogo from '../../assets/img/leonni_logo.jpeg';
 import './MainLayout.css';
 
 export function MainLayout() {

@@ -98,6 +98,7 @@
   height: 90px;
   margin-bottom: 10px;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  border-radius: 20px;
 }
 
 /* Estilos para o título */

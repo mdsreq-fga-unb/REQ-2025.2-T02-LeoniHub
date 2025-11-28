@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Search, Filter, Box } from 'lucide-react';
 import { listarPedidos } from '../../services/pedidoService'; 
+import { getClienteById } from '../../services/clienteService';
 
 import './Pedidos.css'; 
 
@@ -26,6 +27,7 @@ export default function Pedidos() {
   const navigate = useNavigate();
   
   const [pedidos, setPedidos] = useState([]);
+  const [nomesClientes, setNomesClientes] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -39,11 +41,28 @@ export default function Pedidos() {
       setLoading(true);
       setError(null);
       
-      const response = await listarPedidos(); 
-      
+      const response = await listarPedidos(); // Busca todos os pedidos no service
       const pedidosArray = response.data || response || [];
-      
       setPedidos(pedidosArray);
+
+      // Lógica para mapear os nomes dos cliente
+      const idsUnicos = [...new Set(pedidosArray.map(p => p.cliente_id))];
+      const mapaNomes = {};
+
+      await Promise.all(idsUnicos.map(async (id) => {
+        if (!id) return;
+        try {
+          const clienteResponse = await getClienteById(id);
+          const nome = clienteResponse.data?.nome || clienteResponse.nome || 'Nome não encontrado';
+          mapaNomes[id] = nome;
+        } 
+        catch (error) {
+          console.error(`Erro ao buscar cliente ${id}`, error);
+          mapaNomes[id] = 'Erro ao carregar nome';
+        }
+      }));
+
+      setNomesClientes(mapaNomes);  
 
       console.log("Pedidos", pedidosArray)
     } 
@@ -152,43 +171,10 @@ export default function Pedidos() {
                     <span className={`status-badge ${getStatusBadge(pedido.status)}`}>
                       {pedido.status || 'STATUS DESCONHECIDO'}
                     </span>
-                  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                  
+                  </div>                  
                   {/* Informações principais do pedido */}
                   <p className="cliente-contact">
-                    Cliente: {pedido.cliente_id || 'Não Especificado'}
+                    Cliente: {nomesClientes[pedido.cliente_id] || 'Não Especificado'}
                   </p>
                   <p className="cliente-contact">
                     Retirada: {pedido.data_aluguel} | Devolução: {pedido.data_devolucao}
