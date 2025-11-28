@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Upload, X, Image as ImageIcon } from 'lucide-react';
 import * as produtoService from '../../services/produtoService';
 import './ProdutoForm.css';
 
 export default function NovoProduto() {
   const navigate = useNavigate();
   
+  const [imagemArquivo, setImagemArquivo] = useState(null);
+  const [preview, setPreview] = useState('');
+
   const [formData, setFormData] = useState({
     codigo: '',
     descricao: '',
@@ -17,6 +20,21 @@ export default function NovoProduto() {
   });
 
   const [loading, setLoading] = useState(false);
+
+  // --- Lógica de Imagem ---
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImagemArquivo(file);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const removeImage = () => {
+    setImagemArquivo(null);
+    setPreview('');
+  };
+  // ------------------------
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,13 +55,21 @@ export default function NovoProduto() {
     try {
       setLoading(true);
       
-      const produtoData = {
-        ...formData,
-        quantidade: parseInt(formData.quantidade) || 0,
-        valor: parseFloat(formData.valor)
-      };
+      const dataToSend = new FormData();
 
-      const response = await produtoService.createProduto(produtoData);
+      dataToSend.append('codigo', formData.codigo);
+      dataToSend.append('descricao', formData.descricao);
+      dataToSend.append('cor', formData.cor);
+      dataToSend.append('tamanho', formData.tamanho);
+      dataToSend.append('quantidade', formData.quantidade);
+      dataToSend.append('valor', formData.valor);
+
+      if (imagemArquivo) {
+        dataToSend.append('imagem', imagemArquivo); 
+      }
+      // ---------------------------------------------------------
+
+      const response = await produtoService.createProduto(dataToSend);
       
       if (response.success) {
         alert('Produto criado com sucesso!');
@@ -76,6 +102,32 @@ export default function NovoProduto() {
       <div className="form-container">
         <form onSubmit={handleSubmit}>
           
+          {/* --- SEÇÃO DE IMAGEM --- */}
+          <div className="form-section">
+            <h3>Imagem do Produto</h3>
+            <div className="image-upload-container">
+                {!preview ? (
+                    <label className="image-upload-box">
+                        <Upload size={32} className="upload-icon" />
+                        <span>Clique para enviar uma foto</span>
+                        <input 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handleImageChange}
+                            hidden 
+                        />
+                    </label>
+                ) : (
+                    <div className="image-preview-box">
+                        <img src={preview} alt="Preview do produto" />
+                        <button type="button" onClick={removeImage} className="btn-remove-image" title="Remover foto">
+                            <X size={16} />
+                        </button>
+                    </div>
+                )}
+            </div>
+          </div>
+
           <div className="form-section">
             <h3>Informações do Produto</h3>
             

@@ -270,11 +270,9 @@ export default function EditarPedido() {
                 value={formData.status}
                 onChange={handleChange}
               >
-                <option value="AGUARDANDO_ASSINATURA">Aguardando Assinatura</option>
-                <option value="ATIVO">Ativo / Em Andamento</option>
-                <option value="CONCLUIDO">Concluído</option>
-                <option value="CANCELADO">Cancelado</option>
-                <option value="ATRASADO">Atrasado</option>
+                <option value="PREPARACAO">Preparação</option>
+                <option value="RETIRADA">Retirada</option>
+                <option value="DEVOLUCAO">Devolução</option>
               </select>
             </div>
 

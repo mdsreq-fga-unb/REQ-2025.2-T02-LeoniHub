@@ -83,7 +83,7 @@ export default function CriarPedido() {
       valor: parseFloat(valorTotal),
       data_aluguel: dataAluguel,
       data_devolucao: dataDevolucao,
-      status: "AGUARDANDO_ASSINATURA",
+      status: "PREPARACAO",
       status_assinatura: "PENDENTE",
       assinatura_base64: "TESTE",
       link_assinatura_externa: "TESTE",

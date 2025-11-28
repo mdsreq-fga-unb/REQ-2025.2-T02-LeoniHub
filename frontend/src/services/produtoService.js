@@ -1,5 +1,8 @@
 import * as API from '../utils/helper';
 
+
+const BASE_URL = 'http://localhost:3001';
+
 // Listar todos os produtos
 export const getAllProdutos = () => {
   return API.apiFetch('produto/', {
@@ -14,8 +17,31 @@ export const getProdutoById = (id) => {
   });
 };
 
-// Criar novo produto
-export const createProduto = (produtoData) => {
+
+// Criar Produto
+export const createProduto = async (produtoData) => {
+  if (produtoData instanceof FormData) {
+    
+    const token = localStorage.getItem('token'); // Autenticação 
+    
+    const response = await fetch(`${BASE_URL}/produto/novo`, { // Fetch nativo por causa dos headers (Estava dando conflito)
+      method: 'POST',
+      headers: {
+        ...(token && { 'Authorization': `Bearer ${token}` })
+      },
+      body: produtoData
+    });
+
+    const data = await response.json();
+    
+    if (!response.ok) {
+        return { success: false, error: data.error || 'Erro na requisição' };
+    }
+    
+    return { success: true, data: data.data };
+  }
+
+  // Caso não tenha foto -> Faz do jeito original
   return API.apiFetch('produto/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -23,12 +49,17 @@ export const createProduto = (produtoData) => {
   });
 };
 
+
 // Atualizar produto
 export const updateProduto = (id, produtoData) => {
-  return API.apiFetch(`produto/${id}`, {
+  const isFormData = produtoData instanceof FormData;
+  
+  const headers = isFormData ? { 'Content-Type': undefined } : { 'Content-Type': 'application/json' };
+
+  return API.apiFetch(`produto/${id}`, { 
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(produtoData),
+    headers: headers,
+    body: isFormData ? produtoData : JSON.stringify(produtoData), // Enviamos com Headers por causa da foto
   });
 };
 

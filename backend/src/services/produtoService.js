@@ -49,13 +49,15 @@ export const checkCodigoExists = async (codigo, excludeId = null) => {
 
 // Criar novo produto
 export const createProduto = async (produtoData) => {
+  
   const { 
     codigo, 
     descricao, 
     cor, 
     tamanho, 
     quantidade, 
-    valor
+    valor,
+    foto
   } = produtoData;
 
   // Validação de campos obrigatórios
@@ -78,7 +80,8 @@ export const createProduto = async (produtoData) => {
         cor: cor || null,
         tamanho: tamanho || null,
         quantidade: quantidade || 0,
-        valor: parseFloat(valor)
+        valor: parseFloat(valor),
+        foto: foto || null
       }
     ])
     .select()
@@ -99,7 +102,8 @@ export const updateProduto = async (id, produtoData) => {
     cor, 
     tamanho, 
     quantidade, 
-    valor
+    valor,
+    foto
   } = produtoData;
 
   // Validação de campos obrigatórios
@@ -124,7 +128,8 @@ export const updateProduto = async (id, produtoData) => {
       cor: cor || null,
       tamanho: tamanho || null,
       quantidade: quantidade || 0,
-      valor: parseFloat(valor)
+      valor: parseFloat(valor),
+      foto: foto || null
     })
     .eq('id', id)
     .select()
@@ -171,4 +176,26 @@ export const updateQuantidade = async (id, quantidade) => {
   }
 
   return data;
+};
+
+// Upload da imagem do produto
+export const uploadImagem = async (file, nomeArquivo) => {
+  const caminho = `produtos/${Date.now()}-${nomeArquivo}`;
+
+  const { data, error } = await supabaseSchema.storage
+    .from('imagens-produtos')
+    .upload(caminho, file.buffer, {
+      contentType: file.mimetype,
+      upsert: false
+    });
+
+  if (error) {
+    throw new Error('Erro ao fazer upload da imagem: ' + error.message);
+  }
+
+  const { data: publicData } = supabaseSchema.storage
+    .from('imagens-produtos')
+    .getPublicUrl(caminho);
+
+  return publicData.publicUrl;
 };

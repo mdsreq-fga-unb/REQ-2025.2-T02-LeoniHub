@@ -46,8 +46,22 @@ export const getProdutoById = async (req, res) => {
 
 // Criar novo produto
 export const createProduto = async (req, res) => {
+
   try {
-    const data = await produtoService.createProduto(req.body);
+
+    // Verificação da foto
+    let fotoUrl = null;
+
+    if (req.file) {
+      fotoUrl = await produtoService.uploadImagem(req.file, req.file.originalname);
+    }
+
+    const produtoData = {
+      ...req.body,
+      foto: fotoUrl
+    };
+
+    const data = await produtoService.createProduto(produtoData);
     
     return res.status(201).json({ 
       success: true, 
@@ -70,8 +84,24 @@ export const createProduto = async (req, res) => {
 // Atualizar produto
 export const updateProduto = async (req, res) => {
   try {
+
     const { id } = req.params;
-    const data = await produtoService.updateProduto(id, req.body);
+    let fotoUrl = null;
+
+    if (req.file) {
+      fotoUrl = await produtoService.uploadImagem(req.file, req.file.originalname);
+    }
+
+    const produtoData = {
+      ...req.body
+    };
+
+    // Só adiciona a propriedade foto se fizemos um upload novo
+    if (fotoUrl) {
+      produtoData.foto = fotoUrl;
+    }
+
+    const data = await produtoService.updateProduto(id, produtoData);
     
     return res.status(200).json({ 
       success: true, 
@@ -160,3 +190,4 @@ export const updateQuantidade = async (req, res) => {
     });
   }
 };
+
