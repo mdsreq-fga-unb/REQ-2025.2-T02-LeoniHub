@@ -30,11 +30,11 @@ const todosRequisitos = [
 ];
 
 const objetivosEspecificos = {
-  'OE1': 'Simplificar o fluxo de caixa, facilitando o uso do sistema para os atendentes e otimizando o tempo de atendimento.',
-  'OE2': 'Garantir a integridade e atualização em tempo real do estoque (disponível, alugado, devolvido), evitando inconsistências.',
-  'OE3': 'Disponibilizar relatórios e dashboards claros para gestores, visando decisões estratégicas e acompanhamento de resultados.',
-  'OE4': 'Armazenamento seguro de contratos fechados pelos clientes, estando em conformidade com a LGPD, evitando vazamento de dados.',
-  'OE5': 'Implementação de funcionalidade de cargos para maior controle das informações do sistema, gestão de funcionários e segurança de dados.'
+  'OE1': 'Aumentar a eficiência operacional no fluxo de atendimento e locação.',
+  'OE2': 'Aumentar a precisão do controle do estoque em tempo real.',
+  'OE3': 'Apoiar a tomada de decisão com dados estratégicos e financeiros confiáveis.',
+  'OE4': 'Garantir a segurança dos dados dos clientes e garantir a conformidade com a LGPD.',
+  'OE5': 'Assegurar o controle de acesso às informações e agilizar a administração de permissões. '
 };
 
 export default function TabelaRequisitos() {

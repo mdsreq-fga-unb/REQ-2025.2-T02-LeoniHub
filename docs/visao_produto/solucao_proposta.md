@@ -10,17 +10,17 @@ sidebar_position: 2
 
 ### Objetivo Geral
 
-Facilitar o dia a dia das lojas simplificando o acesso de estoque, busca de produtos e assinatura de contratos por meio de um sistema digital prático e intuitivo.
+Desenvolver uma plataforma para a marca Leoni que substitua o sistema legado, eliminando gargalos operacionais através de um controle de estoque em tempo real e garantindo a escalabilidade e eficiência no atendimento.
 
 ### Objetivos Específicos e Indicadores
 
-| Código | Objetivo Específico | Indicador de Sucesso |
-| :--- | :--- | :--- |
-| **OE1** | Aumentar a eficiência operacional no fluxo de compra. | Redução do tempo para fechamento das compras em 20%. |
-| **OE2** | Aumentar a precisão do controle do estoque em tempo real. | Redução em ≥ 80% dos erros de disponibilidade ou falhas no registro de estoque. |
-| **OE3** | Apoiar a tomada de decisão estratégica dos gestores com os dados coletados. | Satisfação ≥ 70% dos gestores com os dados fornecidos. |
-| **OE4** | Garantir a segurança dos dados dos clientes e garantir a conformidade com a LGPD. | Ausência de vazamentos de dados e conformidade com auditorias de segurança. |
-| **OE5** | Estabelecer um controle de acesso às informações do sistema e otimizar sua administração. | Redução de Incidentes de Acesso e Otimização do Tempo de Administração de Permissões. |
+| Código  | Objetivo Específico                                                                     | Indicador de Sucesso                                                                  |
+| :------ | :-------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------ |
+| **OE1** | Aumentar a eficiência operacional no fluxo de atendimento e locação.                    | Redução do tempo para fechamento dos contratos em 20%.                                |
+| **OE2** | Aumentar a precisão do controle do estoque em tempo real.                               | Redução em ≥ 80% dos erros de disponibilidade ou falhas no registro de estoque.       |
+| **OE3** | Apoiar a tomada de decisão com dados estratégicos e financeiros confiáveis.             | Satisfação ≥ 70% dos gestores e eliminação de divergências no fechamento de caixa.    |
+| **OE4** | Garantir a segurança dos dados dos clientes e garantir a conformidade com a LGPD.       | Ausência de vazamentos de dados e conformidade com auditorias de segurança.           |
+| **OE5** | Assegurar o controle de acesso às informações e agilizar a administração de permissões. | Redução de incidentes de acesso indevido e otimização do tempo de gestão de usuários. |
 
 ## 2.2 Características da Solução
 
@@ -38,6 +38,18 @@ Entre as principais características estão:
 - **Isolamento de dados:** informações de clientes, produtos e pedidos não são compartilhadas entre as lojas.
 - **Autonomia operacional:** cada loja pode gerir seus relatórios, cadastros e controles financeiros de maneira independente.
 - **Perfis de acesso diferenciados**, garantindo que cada funcionário use apenas as funções necessárias para sua rotina.
+
+### Mapeamento de Problemas x Soluções
+
+A tabela a seguir apresenta o mapeamento entre os problemas identificados no cenário atual e as características da solução proposta:
+
+| Problema Identificado (Cenário Atual)                                                                | Característica da Solução Mapeada                                                                                                                                                  |
+| :--------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Falta de controle de estoque:** Inconsistências sobre o que está disponível, alugado ou devolvido. | **Gestão de Estoque em Tempo Real:** Controle rigoroso de status do item (disponível, alugado, em manutenção) para evitar conflitos de agenda. **[OE2]**                           |
+| **Gargalo Operacional:** Sistema atual não suporta o volume e a complexidade de duas marcas.         | **Arquitetura Multi-loja (Isolamento de Dados):** Plataforma única que gerencia Closet Chic e Leoni separadamente, garantindo autonomia operacional. **[OE1]** **[OE3]** **[OE5]** |
+| **Retrabalho Manual:** Necessidade de conferências físicas e processos manuais repetitivos.          | **Contratos Digitais e Automação:** Geração automática de contratos e registro digital de provas, retiradas e devoluções. **[OE2]**                                                |
+| **Falta de Visão Estratégica:** Relatórios limitados e insegurança no fechamento de caixa.           | **Dashboards e Relatórios Financeiros:** Painéis com indicadores em tempo real (faturamento, pedidos ativos) para apoio à decisão. **[OE3]** **[OE5]**                             |
+| **Usabilidade Ruim:** Sistema pouco intuitivo que gera lentidão no atendimento.                      | **Interface Intuitiva e Agenda Integrada:** Design focado na experiência do usuário (UX) para agilizar o fluxo de atendimento e consulta. **[OE1]**                                |
 
 ## 2.3 Tecnologias a Serem Utilizadas
 
