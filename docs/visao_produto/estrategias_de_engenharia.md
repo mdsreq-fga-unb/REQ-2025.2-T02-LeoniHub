@@ -45,7 +45,7 @@ O quadro, a seguir, apresenta algumas características que podem ser relacionada
 
     O Scrum XP oferece "alta flexibilidade". O modelo é projetado para acomodar mudanças. Novos requisitos e alterações podem ser incluídos no backlog e priorizados para os próximos sprints".
 
-    **Justificativa para o Leoni Hub:** Dado que a equipe "nunca confeccionou um sistema de gerenciamento de estoque" e precisa "atender duas marcas diferentes" (Closet Chic e Leoni) com identidades distintas, é provável que os requisitos evoluam à medida que a equipe e os stakeholders entendam melhor as necessidades complexas. A flexibilidade do Scrum XP permite incorporar essas mudanças de forma eficiente, garantindo que o sistema se adapte perfeitamente ao crescimento e às particularidades de ambas as marcas.
+    **Justificativa para o Leoni Hub:** Dado que a equipe "nunca confeccionou um sistema de gerenciamento de estoque", é provável que os requisitos evoluam à medida que a equipe e os stakeholders entendam melhor as necessidades complexas. A flexibilidade do Scrum XP permite incorporar essas mudanças de forma eficiente, garantindo que o sistema se adapte perfeitamente ao crescimento e às particularidades de ambas as marcas.
 
 3.  **Colaboração Intensa e Contínua com o Cliente:**
 

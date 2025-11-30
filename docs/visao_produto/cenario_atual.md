@@ -8,15 +8,19 @@ sidebar_position: 1
 
 ## 1.1 Introdução ao Negócio e Contexto
 
-A **Closet Chic Compartilhado** é uma loja de moda especializada em aluguel de roupas femininas, onde o foco principal são vestidos de festa e acessórios femininos. A empresa tem se consolidado no mercado há três anos. A empresa está passando por uma expansão, uma nova loja, a Leoni, que tem maior foco no aluguel de ternos e acessórios masculinos, oferecendo soluções para atender eventos sociais e formais.
+> **Observação (nov/2025):** Versões anteriores deste documento mencionavam duas marcas (Closet Chic e Leonni). O escopo atual do projeto contempla somente a operação da Leonni.
+
+A **Leonni**  é uma loja especializada no aluguel de ternos, smokings e acessórios masculinos para eventos sociais e formais. A empresa se destaca por oferecer peças de alta qualidade e um atendimento personalizado, atendendo clientes que buscam elegância, praticidade e segurança na escolha de roupas para ocasiões especiais.
+
+Com a consolidação no mercado e o aumento da demanda, a Leonni identifica a necessidade de modernizar seus processos internos, centralizar informações e otimizar o fluxo de atendimento.
 
 ## 1.2 Identificação da Oportunidade ou Problema
 
-Devido ao crescimento da loja, a necessidade de acabar com os problemas principais do software atual surgiram, a "Clariai", solução atual de software da empresa, tornou-se um gargalo operacional, incapaz de suportar o volume de uma única marca, e muito menos a complexidade de duas. Essa limitação tecnológica representa hoje o principal obstáculo para a expansão e o sucesso contínuo do negócio.
+Devido ao crescimento da loja, a necessidade de acabar com os problemas principais do software atual surgiram, a "Clariai", solução atual de software da empresa, tornou-se um gargalo operacional. Essa limitação tecnológica representa hoje o principal obstáculo para a expansão e o sucesso contínuo do negócio.
 
 As falhas do sistema se manifestam diariamente e em múltiplas frentes. A ausência de um controle de status confiável do inventário (disponível, alugado, devolvido) gera inconsistências e arrisca a confiança do cliente. A equipe é forçada a um ciclo de **retrabalho e conferências manuais**, operando em uma plataforma pouco intuitiva e com relatórios limitados que impedem qualquer análise estratégica. Esses fatores acumulados criam uma operação lenta, propensa a erros e desalinhada com a agilidade que o mercado exige.
 
-O resultado é um cenário em que a empresa, mesmo em plena expansão, não consegue atender à demanda com eficiência. Essa condição **compromete a experiência de compra**, gera insegurança no fechamento de caixa e, mais criticamente, **ameaça o lançamento bem-sucedido da Leonni**. A criação de um novo sistema próprio surge, portanto, não apenas como uma solução para os problemas atuais, mas como um passo estratégico fundamental para unificar as marcas, garantir a escalabilidade e transformar uma fraqueza operacional em um diferencial competitivo.
+O resultado é um cenário em que a empresa, mesmo em plena expansão, não consegue atender à demanda com eficiência. Essa condição **compromete a experiência de compra** e gera insegurança no fechamento de caixa. A criação de um novo sistema próprio surge, portanto, não apenas como uma solução para os problemas atuais, mas como um passo estratégico fundamental para garantir a escalabilidade e transformar uma fraqueza operacional em um diferencial competitivo.
 
 A Figura, a seguir, apresenta o diagrama de Ishikawa contendo as causas do problema
 
@@ -24,10 +28,12 @@ A Figura, a seguir, apresenta o diagrama de Ishikawa contendo as causas do probl
 
 ## 1.3 Desafios do Projeto
 
+> **Observação (nov/2025):** O desafio de atender duas lojas diferentes (mencionado em versões anteriores) foi alterado; o MVP atende exclusivamente a Leonni.
+
 O projeto enfrenta alguns desafios importantes:
 
 - **Transição de sistema:** substituir o software atual sem prejudicar o funcionamento da loja durante o período de adaptação.
-- **Atender duas lojas diferentes:** garantir que Closet Chic e Leonni possam trabalhar dentro da mesma plataforma, mas com identidades diferentes em seus cadastros e relatórios.
+- **Padronização operacional:** garantir que todos os processos da loja (locações, retiradas, devoluções, pagamentos) funcionem de forma consistente, integrados a agenda.
 - **Facilidade de uso:** criar uma solução simples e intuitiva para que funcionários consigam utilizá-la no dia a dia, mesmo com diferentes níveis de familiaridade com tecnologia.
 
 ## 1.4 Segmentação de Clientes

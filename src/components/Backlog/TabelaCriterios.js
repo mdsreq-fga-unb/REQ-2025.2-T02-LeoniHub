@@ -131,7 +131,7 @@ export const todasHistorias = [
   },
   {
     id: 'US09',
-    declaracao: 'Como administrador, quero exibir o histórico completo de aluguéis e contratos vinculados a cada cliente, para ter uma visão detalhada do relacionamento.',
+    declaracao: 'Como administrador, quero exibir o histórico completo de aluguéis vinculados a cada cliente, para ter uma visão detalhada do relacionamento.',
     feature: 'F03',
     moscow: 'Must Have',
     mvp: '✅',
@@ -142,70 +142,15 @@ export const todasHistorias = [
       'Deve existir campos ( Nome ou CPF do cliente ) para a busca.',
       'Deve existir um botão ("BUSCAR") para realizar a busca.',
       'O histórico deve ser organizado por tempo ( Mais recente mais em cima, mais antigo mais embaixo ).',
-      'Os contratos vinculados a cada cliente só devem ficar disponíveis na consulta por 1 ANO.',
       'Deve existir um botão ("CONSULTAR") ao lado dos pedidos/aluguéis, para acessar detalhadamente o pedido/aluguel realizado.'
     ]
   },
 
-  // F04: Contratos Digitais e Assinaturas
-  {
-    id: 'US10',
-    declaracao: 'Como administrador, quero gerar contratos digitais vinculados ao pedido e ao cliente, para formalizar as transações.',
-    feature: 'F04',
-    moscow: 'Must Have',
-    mvp: '✅',
-    criteriosDeAceitacao: [
-      'A geração do contrato deve ser consistente, garantindo 100% de aceitação nos testes.',
-      'Os contratos devem ser armazenados.'
-    ],
-    regrasDeNegocio: [
-      'A geração do contrato só deve acontecer na criação de um pedido.',
-      'O contrato deve mostrar qual cliente e quais os produtos alugados/comprados.',
-      'A assinatura do contrato é OBRIGATÓRIA.',
-      'A assinatura pode ser realizada através do serviço disponibilizado pela plataforma OU por meio externos (Ex.: Gov.br ou Adobe Reader).',
-      'Um botão escrito ("BAIXAR") deve existir para a situação de assinatura digital.'
-    ]
-  },
-  {
-    id: 'US11',
-    declaracao: 'Como signatário do contrato, eu quero aplicar minha assinatura digitalmente ao documento, para que eu possa agilizar o processo de formalização e manter o registro seguro.',
-    feature: 'F04',
-    moscow: 'Must Have',
-    mvp: '✅',
-    criteriosDeAceitacao: [
-      'Deve ser possível a escrita da assinatura através do próprio contrato.'
-    ],
-    regrasDeNegocio: [
-      'Deve existir um campo chamado ("ASSINAR") no contrato de um pedido não finalizado.',
-      'Um campo para a escrita da assinatura deve aparecer após a interação com botão ("ASSINAR").',
-      'Um botão escrito ("CONFIRMAR") deve existir para o cliente confirmar sua assinatura.',
-      'Após a confirmação da assinatura deve aparecer uma mensagem escrita ("Assinatura realizada com sucesso!").'
-    ]
-  },
-  {
-    id: 'US12',
-    declaracao: 'Como administrador, quero armazenar contratos de forma segura e organizada, para garantir a integridade e acessibilidade dos documentos.',
-    feature: 'F04',
-    moscow: 'Must Have',
-    mvp: '✅',
-    criteriosDeAceitacao: [],
-    regrasDeNegocio: []
-  },
-  {
-    id: 'US13',
-    declaracao: 'Como administrador, quero buscar e recuperar contratos, para acessar documentos específicos quando necessário.',
-    feature: 'F04',
-    moscow: 'Must Have',
-    mvp: '✅',
-    criteriosDeAceitacao: [],
-    regrasDeNegocio: []
-  },
-
-  // F05: Agenda Integrada e Notificações
+  // F04: Agenda Integrada e Notificações
   {
     id: 'US14',
     declaracao: 'Como administrador, eu quero consultar a agenda/calendário com todos os compromissos de provas, retiradas e devoluções, para que eu possa planejar o dia e gerenciar a disponibilidade do estoque.',
-    feature: 'F05',
+    feature: 'F04',
     moscow: 'Could Have',
     mvp: '❌',
     criteriosDeAceitacao: [],
@@ -214,18 +159,18 @@ export const todasHistorias = [
   {
     id: 'US15',
     declaracao: 'Como administrador, eu quero enviar notificações automáticas aos clientes e atendentes sobre compromissos futuros (provas, retiradas, devoluções), para que a chance de esquecimento seja minimizada.',
-    feature: 'F05',
+    feature: 'F04',
     moscow: 'Could Have',
     mvp: '❌',
     criteriosDeAceitacao: [],
     regrasDeNegocio: []
   },
 
-  // F06: Dashboard e Relatórios
+  // F05: Dashboard e Relatórios
   {
     id: 'US16',
     declaracao: 'Como administrador, quero exibir o faturamento do mês em formato visual, para acompanhar o desempenho financeiro.',
-    feature: 'F06',
+    feature: 'F05',
     moscow: 'Could Have',
     mvp: '❌',
     criteriosDeAceitacao: [],
@@ -234,7 +179,7 @@ export const todasHistorias = [
   {
     id: 'US17',
     declaracao: 'Como administrador, quero exibir a quantidade de pedidos ativos, para monitorar a demanda atual.',
-    feature: 'F06',
+    feature: 'F05',
     moscow: 'Should Have',
     mvp: '❌',
     criteriosDeAceitacao: [],
@@ -243,7 +188,7 @@ export const todasHistorias = [
   {
     id: 'US18',
     declaracao: 'Como administrador, quero exibir os próximos agendamentos, para planejar as operações futuras.',
-    feature: 'F06',
+    feature: 'F05',
     moscow: 'Could Have',
     mvp: '❌',
     criteriosDeAceitacao: [],
@@ -252,18 +197,18 @@ export const todasHistorias = [
   {
     id: 'US19',
     declaracao: 'Como administrador, quero exibir os produtos mais alugados no período, para identificar tendências e popularidade.',
-    feature: 'F06',
+    feature: 'F05',
     moscow: 'Could Have',
     mvp: '❌',
     criteriosDeAceitacao: [],
     regrasDeNegocio: []
   },
 
-  // F07: Autenticação e Controle de Acesso
+  // F06: Autenticação e Controle de Acesso
   {
     id: 'US20',
     declaracao: 'Como usuário, quero ter uma tela de login para autenticação, para acessar o sistema de forma segura.',
-    feature: 'F07',
+    feature: 'F06',
     moscow: 'Must Have',
     mvp: '✅',
     criteriosDeAceitacao: [],
@@ -272,7 +217,7 @@ export const todasHistorias = [
   {
     id: 'US21',
     declaracao: 'Como administrador, quero criar perfis de acesso diferenciados (ex.: Atendente e Gestor), para gerenciar permissões.',
-    feature: 'F07',
+    feature: 'F06',
     moscow: 'Must Have',
     mvp: '❌',
     criteriosDeAceitacao: [],
@@ -304,7 +249,7 @@ function TabelaUS() {
         <div>
           <strong>Filtrar por Feature:</strong>
           <div className="layout-buttons-map">
-            {['Todos', 'F01', 'F02', 'F03', 'F04', 'F05', 'F06', 'F07'].map(feature => (
+            {['Todos', 'F01', 'F02', 'F03', 'F04', 'F05', 'F06'].map(feature => (
               <button
                 className="button-map"
                 key={feature}

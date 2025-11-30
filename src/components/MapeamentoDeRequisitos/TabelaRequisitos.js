@@ -16,17 +16,17 @@ const todosRequisitos = [
   { id: 'RF-3.1', nome: 'Cadastro de Clientes (com CPF/CNPJ)', objetivo: 'OE4', rnf: 'RNF-6.1' },
   { id: 'RF-3.3', nome: 'Histórico de Aluguéis do Cliente', objetivo: 'OE5', rnf: 'RNF-6.1, RNF-6.2' },
 
-  // RF-04 - Contratos Digitais (OE4: Segurança e Conformidade)
-  { id: 'RF-4.1', nome: 'Geração de Contratos Digitais', objetivo: 'OE4', rnf: 'RNF-6.1' },
-  { id: 'RF-4.3', nome: 'Busca e Recuperação de Contratos', objetivo: 'OE4', rnf: 'RNF-6.1, RNF-2.3' },
+  // RF-04 - Agenda Integrada (OE1: Simplificação do Fluxo)
+  { id: 'RF-4.1', nome: 'Consulta de Agenda (Provas, Retiradas, Devoluções)', objetivo: 'OE1', rnf: 'RNF-1.1, RNF-3.1' },
+  { id: 'RF-4.2', nome: 'Notificações de Compromissos Futuros', objetivo: 'OE1', rnf: 'RNF-1.1' },
 
-  // RF-06 - Dashboard/Relatórios (OE3: Decisões Estratégicas)
-  { id: 'RF-6.1', nome: 'Consulta de Faturamento (Dashboard)', objetivo: 'OE3', rnf: 'RNF-3.2, RNF-1.1' },
-  { id: 'RF-6.4', nome: 'Consulta de Produtos Mais Alugados', objetivo: 'OE3', rnf: 'RNF-3.2' },
+  // RF-05 - Dashboard/Relatórios (OE3: Decisões Estratégicas)
+  { id: 'RF-5.1', nome: 'Consulta de Faturamento (Dashboard)', objetivo: 'OE3', rnf: 'RNF-3.2, RNF-1.1' },
+  { id: 'RF-5.4', nome: 'Consulta de Produtos Mais Alugados', objetivo: 'OE3', rnf: 'RNF-3.2' },
 
-  // RF-07 - Autenticação (OE5: Segurança e Acesso)
-  { id: 'RF-7.1', nome: 'Tela de Login e Registro', objetivo: 'OE5', rnf: 'RNF-6.1' },
-  { id: 'RF-7.2', nome: 'Criação de Perfis de Acesso (Cargos)', objetivo: 'OE5', rnf: 'RNF-6.1, RNF-6.2' },
+  // RF-06 - Autenticação (OE5: Segurança e Acesso)
+  { id: 'RF-6.1', nome: 'Tela de Login e Registro', objetivo: 'OE5', rnf: 'RNF-6.1' },
+  { id: 'RF-6.2', nome: 'Criação de Perfis de Acesso (Cargos)', objetivo: 'OE5', rnf: 'RNF-6.1, RNF-6.2' },
 ];
 
 const objetivosEspecificos = {
