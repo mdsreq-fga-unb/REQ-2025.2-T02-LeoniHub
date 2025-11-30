@@ -10,8 +10,22 @@ Esta seção contém os protótipos desenvolvidos para o sistema Leoni Hub.
 
 ## Protótipos de Interface
 
-(Adicione aqui os links ou imagens dos protótipos)
+### Login
 
-## Wireframes
+![Protótipo - Tela de Login](../../static/img/Protitipo-Login.png)
 
-(Adicione aqui os wireframes do sistema)
+### Dashboard
+
+![Protótipo - Dashboard](../../static/img/Protitipo-Dashboard.png)
+
+### Cadastro de Cliente
+
+![Protótipo - Cadastro de Cliente](../../static/img/Protitipo-Cadastro-cliente.png)
+
+### Cadastro de Produto
+
+![Protótipo - Cadastro de Produto](../../static/img/Protitipo-Cadastro-produto.png)
+
+### Criar Pedido
+
+![Protótipo - Criar Pedido](../../static/img/Protitipo-Criar-pedido.png)

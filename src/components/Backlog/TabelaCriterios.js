@@ -131,15 +131,15 @@ export const todasHistorias = [
   },
   {
     id: 'US09',
-    declaracao: 'Como administrador, quero exibir o histórico completo de aluguéis vinculados a cada cliente, para ter uma visão detalhada do relacionamento.',
-    feature: 'F03',
+    declaracao: 'Como administrador, quero exibir o histórico completo de aluguéis vinculados a cada produto, para ter uma visão detalhada do uso.',
+    feature: 'F01',
     moscow: 'Must Have',
     mvp: '✅',
     criteriosDeAceitacao: [
-      'TODOS os aluguéis referentes ao cliente devem aparecer na consulta 100% das vezes.'
+      'TODOS os aluguéis referentes ao produto devem aparecer na consulta 100% das vezes.'
     ],
     regrasDeNegocio: [
-      'Deve existir campos ( Nome ou CPF do cliente ) para a busca.',
+      'Deve existir campos ( Código do produto ) para a busca.',
       'Deve existir um botão ("BUSCAR") para realizar a busca.',
       'O histórico deve ser organizado por tempo ( Mais recente mais em cima, mais antigo mais embaixo ).',
       'Deve existir um botão ("CONSULTAR") ao lado dos pedidos/aluguéis, para acessar detalhadamente o pedido/aluguel realizado.'
