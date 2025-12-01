@@ -31,7 +31,7 @@ A **Definition of Ready (DoR)** estabelece os critérios mínimos que uma User S
 A **Definition of Done (DoD)** estabelece os critérios que uma funcionalidade deve atender para ser considerada completa e pronta para entrega da sprint. O objetivo é garantir que a entrega da sprint esteja em conformidade com os requisitos técnicos e as necessidades práticas das lojas Closet Chic e Leoni, assegurando confiabilidade no uso diário.
 
 ### **1. Código e Testes Concluídos**
-- Testes unitários e de integração foram criados e estão passando (Porcentagem definida na US).
+- Testes realizados manualmente estão passando sem nenhuma falha (Todos os casos de teste criados vieram a partir das Histórias de Usuário ou Definidos com o Cliente).
 - O código foi revisado e aprovado por outro membro da equipe (Code Review).
 - O código foi integrado à branch principal (main/developer) sem erros.
 

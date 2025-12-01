@@ -4,7 +4,7 @@ sidebar_label: "Backlog do Produto"
 sidebar_position: 8
 ---
 
-> **Observação (nov/2025):** A feature F04 (Contratos Digitais e Assinaturas) foi removida do escopo. As features foram renumeradas: F05→F04, F06→F05, F07→F06. As user stories US10-US13 foram removidas.
+> **Observação (nov/2025):** A feature F04 (Contratos Digitais e Assinaturas) foi removida do escopo. As features foram renumeradas: F05→F04, F06→F05, F07→F06. As user stories US11-US14 foram removidas.
 
 ## Features
 

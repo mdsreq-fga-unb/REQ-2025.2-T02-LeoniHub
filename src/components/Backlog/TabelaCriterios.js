@@ -53,7 +53,7 @@ export const todasHistorias = [
   // F02: Gestão de Pedidos
   {
     id: 'US04',
-    declaracao: 'Como administrador, eu quero criar um novo pedido com todos os dados do cliente e o seu código, dados do produto (incluindo o código), valores e datas de compromisso, para que o aluguel seja formalizado no eu sistema.',
+    declaracao: 'Como administrador, eu quero criar um novo pedido com o código e nome do cliente, dados do produto, valores e datas de compromisso, para que o aluguel seja formalizado no sistema.',
     feature: 'F02',
     moscow: 'Must Have',
     mvp: '✅',
@@ -148,12 +148,19 @@ export const todasHistorias = [
 
   // F04: Agenda Integrada e Notificações
   {
-    id: 'US14',
-    declaracao: 'Como administrador, eu quero consultar a agenda/calendário com todos os compromissos de provas, retiradas e devoluções, para que eu possa planejar o dia e gerenciar a disponibilidade do estoque.',
+    id: 'US10',
+    declaracao: 'Como Funcionário eu quero visualizar um calendário interativo com as datas de retirada e devolução dos pedidos, para que eu possa me planejar operacionalmente, sabendo exatamente quais produtos precisam ser separados para entrega e quais devem ser recebidos e conferidos no dia.',
     feature: 'F04',
-    moscow: 'Could Have',
-    mvp: '❌',
-    criteriosDeAceitacao: [],
+    moscow: 'Should Have',
+    mvp: '✅',
+    criteriosDeAceitacao: [
+      'Visualização Mensal: O sistema deve exibir um calendário mensal onde seja possível identificar visualmente os pedidos agendados.',
+      'Distinção de Eventos: Deve haver uma distinção visual clara (ícones ou cores) entre eventos de "Retirada" (saída de produtos) e "Devolução" (retorno de produtos).',
+      'Listas de Dia e Semana: Ao mudar a visualização para "Semana" ou "Dia", o sistema deve exibir os eventos em formato de lista (e não grade de horário), facilitando a leitura rápida das tarefas do período.',
+      'Navegação Temporal: O usuário deve conseguir navegar facilmente entre meses, semanas e dias (botões Anterior/Próximo/Hoje).',
+      'Detalhes do Pedido: Ao clicar em um evento no calendário, o usuário deve ser redirecionado para a tela de Detalhes do Pedido correspondente.',
+      'Feedback de Vazio: Se não houver eventos no período selecionado (especialmente nas listas de dia/semana), o sistema deve exibir uma mensagem amigável ("Nenhum evento neste período").', 
+  ],
     regrasDeNegocio: []
   },
   {
@@ -211,7 +218,11 @@ export const todasHistorias = [
     feature: 'F06',
     moscow: 'Must Have',
     mvp: '✅',
-    criteriosDeAceitacao: [],
+    criteriosDeAceitacao: [
+      'Campos: Deve conter campos para E-mail e Senha.',
+      'Não permitir submissão com campos vazios.',
+      'Exibir mensagem genérica "Usuário ou senha inválidos" em caso de erro (segurança).'
+      ],
     regrasDeNegocio: []
   },
   {

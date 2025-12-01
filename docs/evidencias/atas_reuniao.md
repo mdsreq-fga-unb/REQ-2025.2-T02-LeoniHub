@@ -64,11 +64,11 @@ Esta seção contém o registro de todas as reuniões realizadas com o cliente d
 - Validada a estrutura inicial do banco de dados (tabelas clientes e produtos)
 - Cliente testou a tela de login e aprovou a interface
 - Sugestão de adicionar campos CEP, cidade e estado no cadastro de clientes (implementado posteriormente)
-- Cliente confirmou que notificações automáticas e agenda não são prioridade para o MVP
+- Cliente confirmou que notificações automáticas e relatórios não são prioridade para o MVP
 
 ### Decisões
 - Backlog aprovado com histórias de usuário incluindo contratos digitais (F04)
-- Features priorizadas: F01 (Produtos), F02 (Pedidos), F03 (Clientes), F04 (Contratos), F07 (Autenticação)
+- Features priorizadas: F01 (Produtos), F02 (Pedidos), F03 (Clientes), F04 (Agenda), F07 (Autenticação)
 - Arquitetura multi-loja confirmada para atender Closet Chic e Leonni
 - Acordado que dashboard e relatórios serão implementados se houver tempo na Sprint 4
 
@@ -122,13 +122,12 @@ Esta seção contém o registro de todas as reuniões realizadas com o cliente d
 ### Discussões
 - Cliente aprovou o fluxo de criação de pedidos, considerando intuitivo e rápido
 - Validação da vinculação automática entre cliente, produto e pedido funcionando corretamente
-- Cancelamento de pedidos testado e aprovado
+- Atualização de pedidos testado e aprovado
 - Cliente solicitou melhorias na exibição do histórico de pedidos do cliente
-- Discussão sobre a necessidade de registrar datas de prova, coleta e devolução 
+- Discussão sobre a necessidade de registrar datas de coleta e devolução 
 
 ### Decisões
 - Melhorar visualização do histórico de pedidos (organizar por data decrescente)
-- Adicionar indicador visual de pedidos ativos vs. finalizados
 - Confirmar que o controle de estoque está atualizando corretamente o status dos produtos
 - Cliente aprovou seguir para a sprint final com foco em estoque e relatórios básicos
 
@@ -148,20 +147,20 @@ Esta seção contém o registro de todas as reuniões realizadas com o cliente d
 
 ### Pauta
 1. Demonstração do controle de estoque completo
-2. Apresentação dos relatórios básicos implementados
+2. Apresentação da Agenda Integrada
 3. Teste do fluxo completo do sistema
 4. Validação final para implantação
 
 ### Discussões
 - Cliente validou o controle de estoque em tempo real, destacando como principal melhoria
-- Relatórios básicos (total de clientes, pedidos ativos) aprovados
+- Agenda Integrada (Acompanhamento de Pedidos visual por Dias/Semanas/Mês) aprovado
 - Equipe testou fluxo completo: cadastro → pedido → alteração de status → consulta
 - Cliente relatou satisfação com a performance e usabilidade geral
-- Discussão sobre próximas funcionalidades desejadas (dashboard completo, agenda integrada)
+- Discussão sobre próximas funcionalidades desejadas (dashboard completo, relatórios de vendas)
 
 ### Decisões
 - Sistema homologado e aprovado para uso em produção
-- Acordado que funcionalidades adicionais (dashboard, agenda) serão escopo da versão 2.0
+- Acordado que funcionalidades adicionais (dashboard, relatórios) serão escopo da versão 2.0
 
 ### Próximos Passos
 - Equipe: preparar ambiente de produção e realizar deploy final
