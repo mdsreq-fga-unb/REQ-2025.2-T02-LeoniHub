@@ -145,7 +145,11 @@ export const updateProduto = async (id, produtoData) => {
 // Deletar produto
 export const deleteProduto = async (id) => {
   // Verificar se produto existe
-  await getProdutoById(id);
+  const produto = await getProdutoById(id);
+  
+  if(produto.quantidade > 0){
+    throw new Error('Não é possível deletar um produto que tem ao menos 1 unidade: ');
+  }
 
   const { error } = await supabaseSchema
     .from('produtos')
@@ -153,6 +157,12 @@ export const deleteProduto = async (id) => {
     .eq('id', id);
 
   if (error) {
+
+    // O código 23503 --> Remover produto que está em outra tabela
+    if (error.code === '23503' || error.message.includes('foreign key constraint')) {
+      throw new Error('Não é possível excluir este produto pois ele já faz parte de pedidos realizados. Considere desativá-lo ou deixar o estoque zerado.');
+    }
+
     throw new Error('Erro ao deletar produto: ' + error.message);
   }
 

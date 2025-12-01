@@ -112,10 +112,19 @@ export default function Produtos() {
         {filteredProdutos.map((produto) => {
           return (
             <div key={produto.id} className="produto-card">
+
               <div className="card-header-produto">
-                <div className="produto-icon">
-                  <Package size={32} />
-                </div>
+                {produto.foto ? (
+                  <img 
+                    src={produto.foto} 
+                    alt={produto.descricao} 
+                    className="produto-imagem"
+                  />
+                ) : (
+                  <div className="produto-imagem">
+                    <Package size={32} />
+                  </div>
+                )}
               </div>
 
               <div className="produto-info">

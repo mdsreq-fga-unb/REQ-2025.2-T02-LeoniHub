@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Upload, X, Image as ImageIcon } from 'lucide-react';
 import * as produtoService from '../../services/produtoService';
 import './ProdutoForm.css';
 
@@ -17,6 +17,8 @@ export default function EditarProduto() {
     valor: ''
   });
 
+  const [novaImagem, setNovaImagem] = useState(null);
+  const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
@@ -41,6 +43,11 @@ export default function EditarProduto() {
           quantidade: produto.quantidade?.toString() || '0',
           valor: produto.valor?.toString() || ''
         });
+
+        if (produto.foto) {
+          setPreview(produto.foto);
+        }
+
       } else {
         setError(response.error || 'Erro ao carregar produto');
       }
@@ -52,6 +59,20 @@ export default function EditarProduto() {
     }
   };
 
+  // --- Lógica de Imagem ---
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setNovaImagem(file); // Guarda o arquivo para enviar depois
+      setPreview(URL.createObjectURL(file)); // Mostra preview
+    }
+  };
+
+  const removeNewImage = () => {
+    setNovaImagem(null);
+    loadProduto();
+  };
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -72,13 +93,21 @@ export default function EditarProduto() {
       setSaving(true);
       setError(null);
       
-      const produtoData = {
-        ...formData,
-        quantidade: parseInt(formData.quantidade) || 0,
-        valor: parseFloat(formData.valor)
-      };
+      const dataToSend = new FormData();
 
-      const response = await produtoService.updateProduto(id, produtoData);
+      // Campos a serem atualizados
+      dataToSend.append('codigo', formData.codigo);
+      dataToSend.append('descricao', formData.descricao);
+      dataToSend.append('cor', formData.cor);
+      dataToSend.append('tamanho', formData.tamanho);
+      dataToSend.append('quantidade', formData.quantidade);
+      dataToSend.append('valor', formData.valor);
+
+      if (novaImagem) {
+        dataToSend.append('imagem', novaImagem);
+      }
+
+      const response = await produtoService.updateProduto(id, dataToSend);
       
       if (response.success) {
         alert('Produto atualizado com sucesso!');
@@ -146,6 +175,44 @@ export default function EditarProduto() {
 
       <div className="form-container">
         <form onSubmit={handleSubmit}>
+
+          {/* CAMPO DA IMAGEM */}
+          <div className="form-section">
+            <h3>Imagem do Produto</h3>
+            <div className="image-upload-container">
+                {!preview ? (
+                    <label className="image-upload-box">
+                        <Upload size={32} className="upload-icon" />
+                        <span>Clique para alterar a foto</span>
+                        <input 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handleImageChange}
+                            hidden 
+                        />
+                    </label>
+                ) : (
+                    <div className="image-preview-box">
+                        <img src={preview} alt="Preview do produto" />
+                        <label className="btn-change-image" title="Trocar foto">
+                            <Upload size={16} color="white"/>
+                            <input 
+                                type="file" 
+                                accept="image/*" 
+                                onChange={handleImageChange}
+                                hidden 
+                            />
+                        </label>
+                    </div>
+                )}
+            </div>
+            {!novaImagem && preview && (
+                <p style={{fontSize: '0.8rem', color: '#666', marginTop: '-10px'}}>
+                   * A foto atual será mantida se você não selecionar uma nova.
+                </p>
+            )}
+          </div>
+
           {/* Informações do Produto */}
           <div className="form-section">
             <h3>Informações do Produto</h3>

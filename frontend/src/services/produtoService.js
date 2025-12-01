@@ -51,15 +51,33 @@ export const createProduto = async (produtoData) => {
 
 
 // Atualizar produto
-export const updateProduto = (id, produtoData) => {
-  const isFormData = produtoData instanceof FormData;
-  
-  const headers = isFormData ? { 'Content-Type': undefined } : { 'Content-Type': 'application/json' };
+export const updateProduto = async (id, produtoData) => {
 
-  return API.apiFetch(`produto/${id}`, { 
+  if (produtoData instanceof FormData) {
+    const token = localStorage.getItem('token');
+    
+    const response = await fetch(`${BASE_URL}/produto/${id}`, {
+      method: 'PUT',
+      headers: {
+        ...(token && { 'Authorization': `Bearer ${token}` })
+      },
+      body: produtoData
+    });
+
+    const data = await response.json();
+    
+    if (!response.ok) {
+        return { success: false, error: data.error || 'Erro na requisição' };
+    }
+    
+    return { success: true, data: data.data };
+  }
+
+  // Caso não tenha foto -> Faz do jeito original
+  return API.apiFetch(`produto/${id}`, {
     method: 'PUT',
-    headers: headers,
-    body: isFormData ? produtoData : JSON.stringify(produtoData), // Enviamos com Headers por causa da foto
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(produtoData),
   });
 };
 

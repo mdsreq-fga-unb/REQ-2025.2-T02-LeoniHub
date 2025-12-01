@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Edit2, Package, AlertCircle, Calendar, User, DollarSign } from 'lucide-react';
+import { ArrowLeft, Edit2, Package, AlertCircle, Calendar, User, DollarSign, Trash2 } from 'lucide-react';
 import * as produtoService from '../../services/produtoService';
 import * as pedidoService from '../../services/pedidoService';
 import './ProdutoDetalhes.css';
@@ -38,6 +38,24 @@ export default function ProdutoDetalhes() {
       setLoading(false);
     }
   };
+
+   const handleDelete = async () => {
+      if (window.confirm('Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita.')) {
+        try {
+          await produtoService.deleteProduto(id);
+          alert('Produto excluído com sucesso!');
+          navigate('/produtos');
+        } 
+        catch (err) {
+          console.error('Erro ao excluir produto:', err);
+          alert(err.message || 'Erro ao excluir produto. Tente novamente.');
+          
+          if (err.message.includes('Token')) {
+            navigate('/login');
+          }
+        }
+      }
+    };
 
   const loadPedidos = async () => {
     try {
@@ -108,6 +126,8 @@ export default function ProdutoDetalhes() {
   return (
     <div className="produto-detalhes-page">
       <div className="detalhes-header">
+
+
         <button 
           className="btn-back"
           onClick={() => navigate('/produtos')}
@@ -115,46 +135,59 @@ export default function ProdutoDetalhes() {
           <ArrowLeft size={20} />
           Voltar
         </button>
-        <button 
-          className="btn-edit"
-          onClick={() => navigate(`/produtos/${id}/editar`)}
-        >
-          <Edit2 size={20} />
-          Editar
-        </button>
+
+        <div className="header-actions">
+          <button 
+            className="btn-delete"
+            onClick={handleDelete}
+          >
+            <Trash2 className="icon" />
+            Excluir
+          </button>
+
+          <button 
+            className="btn-edit"
+            onClick={() => navigate(`/produtos/${id}/editar`)}
+          >
+            <Edit2 size={20} />
+            Editar
+          </button>
+        </div>
       </div>
 
       <div className="detalhes-content">
         <div className="produto-card-detalhes">
           <div className="card-header-detalhes">
             <div className="produto-icon-large">
-              <Package size={48} />
+              <img src={produto.foto} alt={produto.descricao} className="produto-imagem"/>
             </div>
           </div>
 
-          <div className="produto-info-detalhes">
-            <h1>{produto.descricao}</h1>
-            <p className="produto-codigo">Código: {produto.codigo}</p>
-          </div>
+          <div>
+            <div className="produto-info-detalhes">
+              <h1>{produto.descricao}</h1>
+              <p className="produto-codigo">Código: {produto.codigo}</p>
+            </div>
 
-          <div className="info-grid">
-            <div className="info-item">
-              <span className="info-label">Cor</span>
-              <span className="info-value">{produto.cor || '-'}</span>
-            </div>
-            <div className="info-item">
-              <span className="info-label">Tamanho</span>
-              <span className="info-value">{produto.tamanho || '-'}</span>
-            </div>
-            <div className="info-item">
-              <span className="info-label">Valor</span>
-              <span className="info-value-destaque">R$ {produto.valor?.toFixed(2) || '0.00'}</span>
-            </div>
-            <div className="info-item">
-              <span className="info-label">Quantidade</span>
-              <span className={`info-value ${produto.quantidade <= 2 ? 'quantidade-baixa' : 'quantidade-ok'}`}>
-                {produto.quantidade} unidades
-              </span>
+            <div className="info-grid">
+              <div className="info-item">
+                <span className="info-label">Cor</span>
+                <span className="info-value">{produto.cor || '-'}</span>
+              </div>
+              <div className="info-item">
+                <span className="info-label">Tamanho</span>
+                <span className="info-value">{produto.tamanho || '-'}</span>
+              </div>
+              <div className="info-item">
+                <span className="info-label">Valor</span>
+                <span className="info-value-destaque">R$ {produto.valor?.toFixed(2) || '0.00'}</span>
+              </div>
+              <div className="info-item">
+                <span className="info-label">Quantidade</span>
+                <span className={`info-value ${produto.quantidade <= 2 ? 'quantidade-baixa' : 'quantidade-ok'}`}>
+                  {produto.quantidade} unidades
+                </span>
+              </div>
             </div>
           </div>
         </div>
