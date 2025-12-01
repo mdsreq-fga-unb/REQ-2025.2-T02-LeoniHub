@@ -36,10 +36,19 @@ export default function Produtos() {
     }
   };
 
-  const filteredProdutos = produtos.filter(produto =>
-    produto.codigo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    produto.descricao.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProdutos = produtos.filter(produto => {
+    const term = searchTerm.toLowerCase();
+
+    return (
+      (produto.codigo || '').toLowerCase().includes(term) ||
+      
+      (produto.descricao || '').toLowerCase().includes(term) || 
+      
+      (produto.cor || '').toLowerCase().includes(term) ||
+
+      (produto.tamanho || '').toLowerCase().includes(term)
+    );
+  });
 
   if (loading) {
     return (
@@ -92,6 +101,7 @@ export default function Produtos() {
         </button>
       </div>
 
+      
       <div className="search-bar">
         <div className="search-input-wrapper">
           <Search className="search-icon" />
@@ -102,12 +112,14 @@ export default function Produtos() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
+        {/*
         <button className="btn-filter">
           <Filter className="icon" />
           Filtros
         </button>
-      </div>
-
+        */}
+        </div>
+      
       <div className="produtos-grid">
         {filteredProdutos.map((produto) => {
           return (

@@ -16,9 +16,6 @@ export function MainLayout() {
     { title: "Produtos", url: "/produtos", icon: Package },
     { title: "Pedidos", url: "/pedidos", icon: ShoppingCart },
     { title: "Agenda", url: "/agenda", icon: Calendar },
-    { title: "Financeiro", url: "/financeiro", icon: DollarSign },
-    { title: "Funcionários", url: "/funcionarios", icon: UserCheck },
-    { title: "Fornecedores", url: "/fornecedores", icon: Truck },
   ];
 
   const isActive = (path) => {

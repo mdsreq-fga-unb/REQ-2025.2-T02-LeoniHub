@@ -118,10 +118,12 @@ export default function Pedidos() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
+        {/*
         <button className="btn-filter">
           <Filter className="icon" />
           Filtros
         </button>
+        */}
       </div>
 
       <div className="clientes-card">
