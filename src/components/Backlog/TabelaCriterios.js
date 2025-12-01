@@ -8,7 +8,7 @@ export const todasHistorias = [
   // F01: Gestão de Produtos e Estoque
   {
     id: 'US01',
-    declaracao: 'Como administrador, quero cadastrar produtos, incluindo fotos, código, tamanho, estado e descrição, para poder adicionar novos itens ao sistema.',
+    declaracao: 'Como administrador, quero cadastrar produtos, incluindo fotos, código, tamanho, cor e descrição, para poder adicionar novos itens ao sistema.',
     feature: 'F01',
     moscow: 'Must Have',
     mvp: '✅',
@@ -17,7 +17,7 @@ export const todasHistorias = [
       'A visualização do produto cadastrado deve estar disponível.'
     ],
     regrasDeNegocio: [
-      'O produto deve ser cadastrado apenas após o preenchimento dos campos: código, tamanho, estado e descrição.',
+      'O produto deve ser cadastrado apenas após o preenchimento dos campos: código, tamanho, cor e descrição.',
       'Um produto NUNCA deve ter o mesmo código que outro.'
     ]
   },
@@ -117,7 +117,7 @@ export const todasHistorias = [
   },
   {
     id: 'US08',
-    declaracao: 'Como administrador, quero consultar clientes por nome, CPF ou telefone, para localizar rapidamente as informações de um cliente.',
+    declaracao: 'Como administrador, quero consultar clientes por nome ou telefone, para localizar rapidamente as informações de um cliente.',
     feature: 'F03',
     moscow: 'Must Have',
     mvp: '✅',
@@ -125,7 +125,7 @@ export const todasHistorias = [
       'Todos os clientes devem ser consultados sem erros ou inconsistência (Aparecem 100% das vezes).'
     ],
     regrasDeNegocio: [
-      'Deve existir um botão e campos que aplicam filtros na consulta (nome , CPF/CNPJ, estado e cidade).',
+      'Deve existir um botão e campos que aplicam filtros na consulta (nome, estado e cidade).',
       'Deve existir um botão ("EDITAR") para editar as informações do cliente.'
     ]
   },
