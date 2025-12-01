@@ -7,10 +7,8 @@ export default class PedidoInputDto {
     data_aluguel;
     data_devolucao;
     status;
-    status_assinatura;
-    assinatura_base64;
-    link_assinatura_externa;
     produto_id;
+    descricao;
 
     /**
      * @param {object} data
@@ -23,9 +21,8 @@ export default class PedidoInputDto {
         this.data_aluguel = data.data_aluguel;
         this.data_devolucao = data.data_devolucao;
         this.status = data.status;
-        this.status_assinatura = data.status_assinatura;
-        this.assinatura_base64 = data.assinatura_base64;
-        this.link_assinatura_externa = data.link_assinatura_externa;
         this.produto_id = data.produto_id;
+        this.descricao = data.descricao;
+        
     }
 }

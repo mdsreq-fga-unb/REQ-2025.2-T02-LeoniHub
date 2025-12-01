@@ -20,6 +20,7 @@ export default function CriarPedido() {
   const [dataDevolucao, setDataDevolucao] = useState('');
   const [valorTotal, setValorTotal] = useState('');
   const [formaPagamento, setFormaPagamento] = useState('PIX');
+  const [descricao, setDescricao] = useState('');
 
 
   const [error, setError] = useState('');
@@ -84,10 +85,8 @@ export default function CriarPedido() {
       data_aluguel: dataAluguel,
       data_devolucao: dataDevolucao,
       status: "PREPARACAO",
-      status_assinatura: "PENDENTE",
-      assinatura_base64: "TESTE",
-      link_assinatura_externa: "TESTE",
       produto_id: produto,
+      descricao: descricao,
     };
     
     try{
@@ -193,6 +192,17 @@ export default function CriarPedido() {
                 <option>Cartão de Débito</option>
                 <option>Dinheiro</option>
               </select>
+
+              <label>Descrição do Pedido</label>
+              <textarea 
+                id="descricao"
+                name="descricao"
+                value={descricao} 
+                onChange={(e) => setDescricao(e.target.value)} 
+                placeholder="Detalhes adicionais..."
+                disabled={isFormDisabled}
+                rows={4}
+              />
 
               <div className={styles.buttons}>
 

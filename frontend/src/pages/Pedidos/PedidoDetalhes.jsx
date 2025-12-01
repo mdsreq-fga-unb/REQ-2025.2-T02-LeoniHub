@@ -19,9 +19,7 @@ export default function EditarPedido() {
     data_aluguel: '',
     data_devolucao: '',
     status: '',
-    status_assinatura: '',
-    link_assinatura_externa: '',
-    assinatura_base64: ''
+    descricao: '',
   });
 
   const [errors, setErrors] = useState({});
@@ -56,10 +54,8 @@ export default function EditarPedido() {
         valor: data.valor || '',
         data_aluguel: formatarDataParaInput(data.data_aluguel),
         data_devolucao: formatarDataParaInput(data.data_devolucao),
-        status: data.status || 'AGUARDANDO_ASSINATURA',
-        status_assinatura: data.status_assinatura || 'PENDENTE',
-        link_assinatura_externa: data.link_assinatura_externa || '',
-        assinatura_base64: data.assinatura_base64 || ''
+        status: data.status,
+        descricao: data.descricao,
       });
 
     } catch (error) {
@@ -273,37 +269,21 @@ export default function EditarPedido() {
                 <option value="PREPARACAO">Preparação</option>
                 <option value="RETIRADA">Retirada</option>
                 <option value="DEVOLUCAO">Devolução</option>
+                <option value="CONCLUIDO">Concluído</option>
               </select>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="status_assinatura">Status Assinatura</label>
-              <select
-                id="status_assinatura"
-                name="status_assinatura"
-                value={formData.status_assinatura}
-                onChange={handleChange}
-              >
-                <option value="PENDENTE">Pendente</option>
-                <option value="ASSINADO">Assinado</option>
-              </select>
-            </div>
-
-            {/* Link Externo */}
             <div className="form-group full-width">
-              <label htmlFor="link_assinatura_externa">Link de Assinatura Externa</label>
-              <input
-                type="url"
-                id="link_assinatura_externa"
-                name="link_assinatura_externa"
-                value={formData.link_assinatura_externa}
-                onChange={handleChange}
-                placeholder="https://..."
-              />
+              <label htmlFor="descricao">Descrição do Pedido</label>
+                <textarea 
+                  id="descricao"
+                  name="descricao"
+                  value={formData.descricao || ''} 
+                  onChange={handleChange} 
+                  placeholder="Detalhes adicionais..."
+                  rows={4}
+                />
             </div>
-
-            {/* Base64 oculto ou readonly */}
-            <input type="hidden" name="assinatura_base64" value={formData.assinatura_base64} />
 
           </div>
 

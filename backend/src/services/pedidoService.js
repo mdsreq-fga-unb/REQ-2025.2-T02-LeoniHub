@@ -72,13 +72,11 @@ export default class PedidoService{
         from(this.database).insert({
             "cliente_id": idCliente.id,
             "produto_id": novoPedido.produto_id,
-            "assinatura_base64": novoPedido.assinatura_base64,
             "data_aluguel": novoPedido.data_aluguel,
             "data_devolucao": novoPedido.data_devolucao,
-            "link_assinatura_externa": novoPedido.link_assinatura_externa,
             "status": novoPedido.status,
-            "status_assinatura": novoPedido.status_assinatura,
-            "valor": novoPedido.valor
+            "valor": novoPedido.valor,
+            "descricao": novoPedido.descricao
         })
 
         if (error){
@@ -139,11 +137,9 @@ export default class PedidoService{
             valor: pedido.valor,
             data_devolucao: pedido.data_devolucao,
             status: pedido.status,
-            status_assinatura: pedido.status_assinatura,
-            assinatura_base64: pedido.assinatura_base64,
-            link_assinatura_externa:pedido.link_assinatura_externa,
             produto_id: pedido.produto_id,
-            data_aluguel: pedido.data_aluguel
+            data_aluguel: pedido.data_aluguel,
+            descricao: pedido.descricao
         }).eq("id",pedido.id).select()
         if (error){
             console.error("Erro ao buscar pedido:", error.message);
