@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Edit2, Mail, Phone, FileText, Calendar, DollarSign, Trash2 } from 'lucide-react';
+import { notifySuccess, notifyError, confirmAction } from '../../utils/alerts';
 import { getClienteById, deleteCliente } from '../../services/clienteService';
 import './ClienteDetalhes.css';
 
@@ -38,15 +39,20 @@ export default function ClienteDetalhes() {
   };
 
   const handleDelete = async () => {
-    if (window.confirm('Tem certeza que deseja excluir este cliente? Esta ação não pode ser desfeita.')) {
+    const confirmado = await confirmAction(
+      'Deletar Cliente?', 
+      'Essa ação não pode ser desfeita.'
+    );
+    if (confirmado) {
       try {
         await deleteCliente(id);
-        alert('Cliente excluído com sucesso!');
+        
+        await notifySuccess('Cliente excluído com sucesso!');
         navigate('/clientes');
       } 
       catch (err) {
         console.error('Erro ao excluir cliente:', err);
-        alert(err.message || 'Erro ao excluir cliente. Tente novamente.');
+        notifyError(err.message || 'Erro ao excluir cliente. Tente novamente.');
         
         if (err.message.includes('Token')) {
           navigate('/login');

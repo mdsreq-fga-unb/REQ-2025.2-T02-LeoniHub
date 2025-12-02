@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAllProdutos } from '../../services/produtoService';
 import { criarPedido } from '../../services/pedidoService';
 import { getClienteById, getAllClientes } from '../../services/clienteService';
+import { notifySuccess, notifyError, confirmAction } from '../../utils/alerts';
 
 export default function CriarPedido() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ export default function CriarPedido() {
         }
         catch (e) {
           console.error('Erro ao carregar dados iniciais:', e);
-          setError('Erro ao carregar clientes e produtos. Tente novamente');
+          notifyError('Erro ao carregar clientes e produtos. Tente novamente');
         } 
         finally {
           setLoadingDados(false);
@@ -100,12 +101,13 @@ export default function CriarPedido() {
       setValorTotal('');
       setFormaPagamento('PIX'); 
 
-      setSuccessMessage('Pedido criado com sucesso!');
+      await notifySuccess('Pedido criado com sucesso!');
       console.log('Pedido criado:', pedidoData);
+      navigate('/pedidos');
     } 
     catch(error){
       console.log(error);
-      setError('Erro ao Criar Pedido');
+      await notifyError('Erro ao Criar Pedido');
     } finally {
       setLoading(false);
     }

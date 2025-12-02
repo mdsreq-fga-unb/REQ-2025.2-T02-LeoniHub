@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { notifyError, confirmAction } from '../../utils/alerts';
 import { getClienteById, updateCliente } from '../../services/clienteService';
 import './ClienteForm.css';
 
@@ -27,6 +28,7 @@ export default function EditarCliente() {
   useEffect(() => {
     loadClienteData();
   }, [id]);
+
 
   const loadClienteData = async () => {
     try {
@@ -104,18 +106,25 @@ export default function EditarCliente() {
         setLoading(true);
         setErrorMessage('');
         
+        const confirmado = await confirmAction(
+          'Alterar Cliente?', 
+          'Essa ação não pode ser desfeita.'
+        );
+        if (!confirmado) return; 
+
         await updateCliente(id, formData);
         
-        alert('Cliente atualizado com sucesso!');
         navigate(`/clientes/${id}`);
-      } catch (error) {
+      } 
+      catch (error) {
         console.error('Erro ao atualizar cliente:', error);
-        setErrorMessage(error.message || 'Erro ao atualizar cliente. Tente novamente.');
+        notifyError(error.message);
         
         if (error.message.includes('Token')) {
           navigate('/login');
         }
-      } finally {
+      } 
+      finally {
         setLoading(false);
       }
     }

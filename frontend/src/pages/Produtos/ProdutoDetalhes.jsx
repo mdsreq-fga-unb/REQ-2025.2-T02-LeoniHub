@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Edit2, Package, AlertCircle, Calendar, User, DollarSign, Trash2 } from 'lucide-react';
+import { notifySuccess, notifyError, confirmAction } from '../../utils/alerts';
 import * as produtoService from '../../services/produtoService';
 import * as pedidoService from '../../services/pedidoService';
 import './ProdutoDetalhes.css';
@@ -40,15 +41,19 @@ export default function ProdutoDetalhes() {
   };
 
    const handleDelete = async () => {
-      if (window.confirm('Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita.')) {
+      const confirmado = await confirmAction(
+        'Deletar Produto?', 
+        'Você perderá o histórico deste item.'
+      );
+      if (confirmado) {
         try {
           await produtoService.deleteProduto(id);
-          alert('Produto excluído com sucesso!');
+          await notifySuccess('Produto excluído com sucesso!');
           navigate('/produtos');
         } 
         catch (err) {
           console.error('Erro ao excluir produto:', err);
-          alert(err.message || 'Erro ao excluir produto. Tente novamente.');
+          notifyError(err.message || 'Erro ao excluir produto. Tente novamente.');
           
           if (err.message.includes('Token')) {
             navigate('/login');

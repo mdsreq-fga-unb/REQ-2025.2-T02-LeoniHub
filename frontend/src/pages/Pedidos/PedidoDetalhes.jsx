@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-
+import { notifySuccess, notifyError, confirmAction } from '../../utils/alerts';
 import { getClienteById } from '../../services/clienteService';
 import { getProdutoById } from '../../services/produtoService';
 import { atualizarPedido, getPedidoById } from '../../services/pedidoService'; 
@@ -123,6 +123,12 @@ export default function EditarPedido() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    const confirmado = await confirmAction(
+      'Alterar Pedido?', 
+      'Essa ação não pode ser desfeita.'
+    );
+    if (!confirmado) return;
+
     if (validateForm()) {
       try {
         setLoading(true);
@@ -140,7 +146,7 @@ export default function EditarPedido() {
 
         await atualizarPedido(payload);
         
-        alert('Pedido atualizado com sucesso!');
+        notifySuccess('Pedido atualizado com sucesso!');
         navigate(`/pedidos/`); 
       } catch (error) {
         console.error('Erro ao atualizar pedido:', error);

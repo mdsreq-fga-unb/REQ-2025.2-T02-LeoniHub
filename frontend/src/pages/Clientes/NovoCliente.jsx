@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { createCliente } from '../../services/clienteService';
+import { notifySuccess, notifyError, confirmAction } from '../../utils/alerts';
 import './ClienteForm.css';
 
 export default function NovoCliente() {
@@ -72,7 +73,7 @@ export default function NovoCliente() {
         
         await createCliente(formData);
         
-        alert('Cliente criado com sucesso!');
+        await notifySuccess('Cliente criado com sucesso!');
         navigate('/clientes');
       } 
       catch (error) {

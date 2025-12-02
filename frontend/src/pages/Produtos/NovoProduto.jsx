@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Upload, X, Image as ImageIcon } from 'lucide-react';
 import * as produtoService from '../../services/produtoService';
+import { notifySuccess, notifyError, confirmAction } from '../../utils/alerts';
 import './ProdutoForm.css';
 
 export default function NovoProduto() {
@@ -48,7 +49,7 @@ export default function NovoProduto() {
     e.preventDefault();
     
     if (!formData.codigo || !formData.descricao || !formData.valor) {
-      alert('Por favor, preencha todos os campos obrigatórios (código, descrição e valor)');
+      notifyError('Por favor, preencha todos os campos obrigatórios (código, descrição e valor)');
       return;
     }
 
@@ -72,15 +73,15 @@ export default function NovoProduto() {
       const response = await produtoService.createProduto(dataToSend);
       
       if (response.success) {
-        alert('Produto criado com sucesso!');
+        await notifySuccess('Produto criado com sucesso!');
         navigate('/produtos');
       } else {
-        alert(response.error || 'Erro ao criar produto');
+        notifyError(response.error || 'Erro ao criar produto');
       }
     } catch (err) {
       console.error('Erro ao criar produto:', err);
       const errorMsg = 'Erro ao criar produto. Tente novamente.';
-      alert(errorMsg);
+      notifyError(errorMsg);
     } finally {
       setLoading(false);
     }

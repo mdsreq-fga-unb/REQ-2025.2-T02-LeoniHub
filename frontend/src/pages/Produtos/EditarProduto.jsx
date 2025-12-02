@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Upload, X, Image as ImageIcon } from 'lucide-react';
 import * as produtoService from '../../services/produtoService';
+import { notifySuccess, notifyError, confirmAction } from '../../utils/alerts';
 import './ProdutoForm.css';
 
 export default function EditarProduto() {
@@ -80,9 +81,16 @@ export default function EditarProduto() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const confirmado = await confirmAction(
+      'Alterar Produto?', 
+      'Essa ação não pode ser desfeita.'
+    );
+    if (!confirmado) return;
+
     
     if (!formData.codigo || !formData.descricao || !formData.valor) {
-      alert('Por favor, preencha todos os campos obrigatórios (código, descrição e valor)');
+      notifyError('Por favor, preencha todos os campos obrigatórios (código, descrição e valor)');
       return;
     }
 
@@ -107,17 +115,17 @@ export default function EditarProduto() {
       const response = await produtoService.updateProduto(id, dataToSend);
       
       if (response.success) {
-        alert('Produto atualizado com sucesso!');
+        await notifySuccess('Produto atualizado com sucesso!');
         navigate(`/produtos/${id}`);
       } else {
         setError(response.error || 'Erro ao atualizar produto');
-        alert(response.error || 'Erro ao atualizar produto');
+        notifyError(response.error || 'Erro ao atualizar produto');
       }
     } catch (err) {
       console.error('Erro ao atualizar produto:', err);
       const errorMsg = 'Erro ao atualizar produto. Tente novamente.';
       setError(errorMsg);
-      alert(errorMsg);
+      notifyError(errorMsg);
     } finally {
       setSaving(false);
     }
