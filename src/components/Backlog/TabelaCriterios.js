@@ -103,7 +103,7 @@ export const todasHistorias = [
     moscow: 'Must Have',
     mvp: '✅',
     criteriosDeAceitacao: [
-        'O cadastro só deve ser realizado quando TODOS os campos forem preenchidos',
+        'O cadastro só deve ser realizado quando os campos (nome, e-mail, telefone e CPF/CNPJ) forem preenchidos',
         'Não deve ser permitido nenhum cadastro duplicado (Mesmo cliente -> Mesmo "nome" ou "CPF/CNPJ")'
     ],
     regrasDeNegocio: [
@@ -122,7 +122,7 @@ export const todasHistorias = [
       'Todos os clientes devem ser consultados sem erros ou inconsistência (Aparecem 100% das vezes).'
     ],
     regrasDeNegocio: [
-      'Deve existir um botão e campos que aplicam filtros na consulta (nome, estado e cidade).',
+      'Deve existir um botão e campos que aplicam filtros na consulta (nome, CPF/CNPJ).',
       'Deve existir um botão ("EDITAR") para editar as informações do cliente.'
     ]
   },
@@ -136,10 +136,8 @@ export const todasHistorias = [
       'TODOS os aluguéis referentes ao produto devem aparecer na consulta 100% das vezes.'
     ],
     regrasDeNegocio: [
-      'Deve existir campos ( Código do produto ) para a busca.',
-      'Deve existir um botão ("BUSCAR") para realizar a busca.',
-      'O histórico deve ser organizado por tempo ( Mais recente mais em cima, mais antigo mais embaixo ).',
-      'Deve existir um botão ("CONSULTAR") ao lado dos pedidos/aluguéis, para acessar detalhadamente o pedido/aluguel realizado.'
+      'Deve existir campos ( Nome ou CPF do cliente ) para a busca',
+      'O histórico deve ser organizado por tempo ( Mais recente mais em cima, mais antigo mais embaixo )'
     ]
   },
 
