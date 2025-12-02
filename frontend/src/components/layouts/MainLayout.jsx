@@ -11,7 +11,6 @@ export function MainLayout() {
   const { logout } = useAuth();
 
   const navItems = [
-    { title: "Dashboard", url: "/", icon: BarChart3 },
     { title: "Clientes", url: "/clientes", icon: Users },
     { title: "Produtos", url: "/produtos", icon: Package },
     { title: "Pedidos", url: "/pedidos", icon: ShoppingCart },
