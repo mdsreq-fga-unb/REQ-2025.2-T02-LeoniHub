@@ -1,7 +1,6 @@
 import * as API from '../utils/helper';
 
-
-const BASE_URL = 'http://localhost:3001';
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';;
 
 // Listar todos os produtos
 export const getAllProdutos = () => {
