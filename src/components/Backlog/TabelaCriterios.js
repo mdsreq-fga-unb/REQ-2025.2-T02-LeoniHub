@@ -17,7 +17,7 @@ export const todasHistorias = [
       'A visualização do produto cadastrado deve estar disponível.'
     ],
     regrasDeNegocio: [
-      'O produto deve ser cadastrado apenas após o preenchimento dos campos: código, tamanho, cor e descrição.',
+      'O produto deve ser cadastrado apenas após o preenchimento dos campos: código e descrição',
       'Um produto NUNCA deve ter o mesmo código que outro.'
     ]
   },
@@ -32,7 +32,6 @@ export const todasHistorias = [
     ],
     regrasDeNegocio: [
       'O campo "código" NÃO pode ser editado em nenhuma circunstância.',
-      'O produto NÃO pode ser editado se ele não estiver no estoque da loja, estado(emprestado).'
     ]
   },
   {
@@ -45,7 +44,7 @@ export const todasHistorias = [
       'Todos os produtos devem poder ser consultados sem erros ou inconsistência (Aparecem 100% das vezes).'
     ],
     regrasDeNegocio: [
-      'Deve existir um botão e campos que aplicam filtros na consulta (código, tamanho e estado).',
+      'Deve existir um botão e campos que aplicam filtros na consulta (código, tamanho e descrição)',
       'Deve existir um botão ("EDITAR") para editar o produto.'
     ]
   },
@@ -53,19 +52,18 @@ export const todasHistorias = [
   // F02: Gestão de Pedidos
   {
     id: 'US04',
-    declaracao: 'Como administrador, eu quero criar um novo pedido com o código e nome do cliente, dados do produto, valores e datas de compromisso, para que o aluguel seja formalizado no sistema.',
+    declaracao: 'Como administrador, eu quero criar um novo pedido com o nome do cliente, código do produto, valores e datas de compromisso, para que o aluguel seja formalizado no sistema.',
     feature: 'F02',
     moscow: 'Must Have',
     mvp: '✅',
     criteriosDeAceitacao: [
       'A criação do pedido só deve ocorrer após todos os campos serem preenchidos.',
       'As informações do pedido devem ser totalmente personalizáveis.',
-      'Os dados do cliente devem ser verificados no Banco de Dados (Garantia que o cliente está cadastrado).'
+      'Os dados do cliente devem ser válidos (Garantia que o cliente está cadastrado)'
     ],
     regrasDeNegocio: [
-      'Deve ser inseridos os códigos OU os nomes do Cliente e do Produto.',
-      'Os dados do Cliente e do Produto devem ser inseridos automaticamente quando o código OU nome forem inseridos.',
-      'Os dados do Cliente e do Produto devem estar em campos de "View-Only" (Exceto o código e o nome).'
+      'O nome do Cliente deve ser inserido/escolhido para a criação do Pedido',
+      'O código do Produto deve ser inserido/escolhido para a criação do Pedido'
     ]
   },
   {
@@ -75,11 +73,10 @@ export const todasHistorias = [
     moscow: 'Must Have',
     mvp: '✅',
     criteriosDeAceitacao: [
-      'Não deve haver inconsistências na consulta de Pedidos nem no Banco de Dados após a edição.',
+      'Não deve haver inconsistências na consulta de Pedidos após a edição',
       'Devem ser mudadas as datas na Agenda Integrada referente ao pedido, garantindo consistência no fluxo e organização da loja.'
     ],
     regrasDeNegocio: [
-      'A data do pedido só pode ser alterada caso o produto alugado esteja disponível para a nova data.',
       'A edição do pedido NÃO deve ser permitida caso o cliente tenha realizado a coleta do produto.'
     ]
   },
@@ -93,7 +90,7 @@ export const todasHistorias = [
       'Todos os pedidos registrados devem aparecer sem inconsistências.'
     ],
     regrasDeNegocio: [
-      'Deve existir um botão e campos que aplicam filtros na consulta (código, cliente, produto(s), data e valor).',
+      'Deve existir um botão e campos que aplicam filtros na consulta (código, cliente e valor)',
       'Deve existir um botão ("EDITAR") para editar o pedido.'
     ]
   },
