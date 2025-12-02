@@ -119,14 +119,14 @@ export default function EditarProduto() {
         navigate(`/produtos/${id}`);
       } else {
         setError(response.error || 'Erro ao atualizar produto');
-        notifyError(response.error || 'Erro ao atualizar produto');
       }
-    } catch (err) {
+    } 
+    catch (err) {
       console.error('Erro ao atualizar produto:', err);
       const errorMsg = 'Erro ao atualizar produto. Tente novamente.';
       setError(errorMsg);
-      notifyError(errorMsg);
-    } finally {
+    } 
+    finally {
       setSaving(false);
     }
   };

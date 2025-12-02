@@ -53,7 +53,7 @@ export default function ProdutoDetalhes() {
         } 
         catch (err) {
           console.error('Erro ao excluir produto:', err);
-          notifyError(err.message || 'Erro ao excluir produto. Tente novamente.');
+          alert(err.message || 'Erro ao excluir produto. Tente novamente.');
           
           if (err.message.includes('Token')) {
             navigate('/login');
