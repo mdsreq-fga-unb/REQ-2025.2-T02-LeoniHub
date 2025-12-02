@@ -140,6 +140,20 @@ export const todasHistorias = [
       'O histórico deve ser organizado por tempo ( Mais recente mais em cima, mais antigo mais embaixo )'
     ]
   },
+  {
+    id: 'US24',
+    declaracao: 'Como funcionário, eu quero editar informações de um cliente, para que eu possa manter os dados atualizados de acordo com a necessidade do cliente.',
+    feature: 'F03',
+    moscow: 'Must Have',
+    mvp: '✅',
+    criteriosDeAceitacao: [
+      'Não deve haver inconsistências na consulta de Cliente após a edição.',
+      'Devem ser mudadas os nomes na Agenda Integrada referente ao cliente, garantindo consistência no fluxo e organização da loja.'
+    ],
+    regrasDeNegocio: [
+      'A edição do CPF/CNPJ NÃO deve ser permitida.'
+    ]
+  },
 
   // F04: Agenda Integrada e Notificações
   {
@@ -229,6 +243,36 @@ export const todasHistorias = [
     criteriosDeAceitacao: [],
     regrasDeNegocio: []
   },
+  {
+    id: 'US22',
+    declaracao: 'Como um novo Funcionário, eu quero criar uma conta no sistema Leonni Hub informando meus dados pessoais e credenciais para que eu possa ter acesso seguro ao painel administrativo e realizar o gerenciamento de ternos, acessórios e pedidos.',
+    feature: 'F06',
+    moscow: 'Must Have',
+    mvp: '✅',
+    criteriosDeAceitacao: [
+      'Campos do Formulário: Nome Completo (Texto), CPF (Numérico), E-mail, Senha e Confirmação de Senha.',
+      'Validação de Senha: O sistema deve impedir o cadastro se os campos "Senha" e "Confirmação da Senha" forem diferentes, com feedback visual.',
+      'Validação de Dados Existentes: Não deve ser permitido cadastrar um e-mail ou CPF que já existam. O sistema deve alertar o usuário.',
+      'Ação de Registrar: Ao clicar em "Registrar" com dados válidos, o usuário deve ser criado no banco (Supabase Auth + Tabela de Usuários).',
+      'Navegação para Login: Deve existir um link "Faça Login" no rodapé do formulário.'
+    ],
+    regrasDeNegocio: []
+  },
+  {
+    id: 'US23',
+    declaracao: 'Como um usuário cadastrado (que esqueceu suas credenciais), eu quero solicitar um link de redefinição de senha através do meu e-mail, para que eu possa criar uma nova senha e recuperar o acesso ao sistema Leonni Hub com segurança.',
+    feature: 'F06',
+    moscow: 'Must Have',
+    mvp: '✅',
+    criteriosDeAceitacao: [
+      'Interface Visual: Padrão "Split Screen" (Esq: Verde/Logo, Dir: Formulário "Recuperar Senha").',
+      'Campo de E-mail: Único input com validação de formato válido.',
+      'Ação de Envio: Acionar serviço Supabase e desabilitar botão ("Loading...") durante o processo.',
+      'Feedback: Exibir mensagem de sucesso ("Verifique sua caixa de entrada") ou erro se inválido. Rate Limit (aguardar 60s) se muitas tentativas.',
+      'Navegação: Link claro "Voltar para o Login".'
+    ],
+    regrasDeNegocio: []
+  }
 ];
 
 // ======================================================================
