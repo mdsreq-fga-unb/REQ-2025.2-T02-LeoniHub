@@ -28,7 +28,7 @@
 .loginLeft {
   flex: 1;
   padding: 48px;
-  background: linear-gradient(135deg, var(--primary-700), var(--primary-500));
+  background: linear-gradient(135deg, #215c64, #177b81);
   color: white;
   display: flex;
   flex-direction: column;
@@ -64,12 +64,12 @@
   font-size: 16px;
   transition: all 0.3s ease;
   background: #f8f9fa;
-  box-sizing: border-box; /* Garante que padding não afete a largura */
+  box-sizing: border-box;
 }
 
 .loginRight input:focus {
   outline: none;
-  border-color: var(--primary-500);
+  border-color: #177b81;
   background: white;
   box-shadow: 0 0 0 3px rgba(33, 92, 100, 0.1);
 }
@@ -78,7 +78,7 @@
   width: 100%;
   padding: 16px;
   border-radius: 12px;
-  background: linear-gradient(135deg, var(--primary-700), var(--primary-500));
+  background: linear-gradient(135deg, #215c64, #177b81);
   border: none;
   color: white;
   font-weight: 600;
@@ -98,6 +98,7 @@
   height: 90px;
   margin-bottom: 10px;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  border-radius: 20px;
 }
 
 /* Estilos para o título */
@@ -125,7 +126,7 @@
   margin-top: 24px;
   position: relative;
   z-index: 10;
-  color: var(--primary-700);
+  color: #215c64;
   text-decoration: none;
   font-weight: 600;
 }

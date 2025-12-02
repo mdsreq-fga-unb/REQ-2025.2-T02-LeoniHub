@@ -1,19 +1,31 @@
-import { supabaseClosetChic } from './closetChic.js';
-import { supabaseLeonni } from './leonni.js';
+import { createClient } from '@supabase/supabase-js';
 
-export const getSupabaseClient = (lojaId) => {
-  switch (lojaId) {
-    case 'ClosetChic':
-    case '1':
-      if (!supabaseClosetChic) throw new Error('ClosetChic não configurada');
-      return supabaseClosetChic;
-    case 'Leonni':
-    case '2':
-      if (!supabaseLeonni) throw new Error('Leonni não configurada. Configure SUPABASE_LEONNI_URL e SUPABASE_LEONNI_ANON_KEY no .env');
-      return supabaseLeonni;
-    default:
-      throw new Error(`Loja inválida: ${lojaId}. Use: ClosetChic ou Leonni`);
+
+// SELECIONA BANCO DO SUPABASE
+const supabaseUrl = process.env.SUPABASE_LEONNI_URL;
+const supabaseKey = process.env.SUPABASE_LEONNI_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Variáveis de ambiente da Leonni não configuradas');
+}
+
+export const supabaseLeonni = createClient(supabaseUrl, supabaseKey);
+
+export const getSupabaseClient = () => {
+  if (!supabaseLeonni) throw new Error('Leonni não configurada. Configure SUPABASE_LEONNI_URL e SUPABASE_LEONNI_ANON_KEY no .env');
+  return supabaseLeonni;
+}
+
+// ===================================================================
+
+// SCHEMA DO DB
+const serviceKey = process.env.SUPABASE_LEONNI_SERVICE_KEY; 
+
+if (!supabaseUrl || !serviceKey) {
+  throw new Error('Variáveis de ambiente do Schema/Service Key não configuradas');
+}
+export const supabaseSchema = createClient(supabaseUrl, serviceKey, {
+  db: {
+    schema: 'Leoni-Hub'
   }
-};
-
-export { supabaseClosetChic, supabaseLeonni };
+});

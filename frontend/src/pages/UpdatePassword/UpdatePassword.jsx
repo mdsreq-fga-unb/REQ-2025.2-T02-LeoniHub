@@ -1,39 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './UpdatePassword.module.css';
 import { useAuth } from '../../contexts/AuthContext';
+import leoniLogo from '../../assets/img/leonni_logo.jpeg'; 
 
 export default function UpdatePassword() {
 
-  // O 'email' não é mais necessário aqui
-  const [senha, setSenha] = useState('');
-  const [senhaConfirmacao, setSenhaConfirmacao] = useState('');
-  const [token, setToken] = useState(null); // Estado para guardar o token
+  const [newPassword, setNewPassword] = useState('');
+  const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
+  const [token, setToken] = useState(null);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   
-  const { lojaId } = useParams();  
-  const { loading, changePassword } = useAuth(); // Importe o resetPassword do seu contexto
+  const { loading, changePassword } = useAuth();
 
-  // Este hook roda assim que a página carrega
   useEffect(() => {
-
-    // 1. Pega o fragmento "hash" da URL (ex: #access_token=...&...)
+    // Lógica para pegar o token da URL (Padrão Supabase)
     const hash = window.location.hash;
-    
-    // 2. Converte os parâmetros do hash (tipo URL) para um objeto
     const params = new URLSearchParams(hash.substring(1)); // Remove o '#'
-    
-    // 3. Pega o access_token
     const accessToken = params.get('access_token');
-
-    /*Comentário do Diogo: Essa etapa é devido a como o Supabase funciona na função de troca de senha, através do link enviado no e-mail
-    um parametro no URL é o TOKEN necessário pra recuperar a senha sem a necessidade de inserir o e-mail novamente*/
+    const errorDescription = params.get('error_description');
 
     if (accessToken) {
       setToken(accessToken);
+    } else if (errorDescription) {
+       setError(decodeURIComponent(errorDescription));
     } else {
-      setError('Token de redefinição inválido ou não encontrado.');
+       // Se não tem hash, talvez o usuário acessou a rota direto sem clicar no email
+       setError('Link inválido ou expirado. Solicite uma nova redefinição.');
     }
   }, []); 
 
@@ -42,86 +36,98 @@ export default function UpdatePassword() {
     setError('');
     setSuccessMessage('');
 
-    if(!senha || !senhaConfirmacao){
-        setError('Ambos os campos têm que ser preenchidos!')
+    if(newPassword !== newPasswordConfirmation){
+        setError('As senhas digitadas não coincidem.');
         return;
     }
-    if(senha !== senhaConfirmacao){
-        setError('As senhas não conferem!')
-        return;
-    }
-    if(!token){
-        setError('Token de redefinição não encontrado. Tente novamente.')
+    
+    if (newPassword.length < 6) {
+        setError('A senha deve ter pelo menos 6 caracteres.');
         return;
     }
 
-    // Chamar função de resetPassword com o TOKEN
-    const result = await changePassword( token, senha, lojaId );
+    if(!token){
+        setError('Token de segurança não encontrado. Solicite um novo link por e-mail.');
+        return;
+    }
+
+    const result = await changePassword(token, newPassword, newPasswordConfirmation);
 
     if (result.success) {
-      setSuccessMessage(result.message || 'Senha alterada com sucesso!');
+      setSuccessMessage('Sua senha foi alterada com sucesso! Você já pode fazer login.');
+      setNewPassword('');
+      setNewPasswordConfirmation('');
     } else {
-      setError(result.error || 'Erro ao alterar a senha');
+      setError(result.error || 'Não foi possível alterar a senha. Tente novamente.');
     }
   }
 
   return (
-    <div className={styles.body}>
-        <div className={styles.header}>
-            <h1 className={styles.mainTitle}>Alterar Senha - {lojaId}</h1>
+    <div className={styles.loginWrap}>
+      <div className={styles.loginCard}>
+        
+        {/* Lado Esquerdo - Branding */}
+        <div className={styles.loginLeft}>
+          <img 
+            src={leoniLogo} 
+            alt="Logo Leoni Hub" 
+            className={styles.logoImage} 
+          />
+          <h1 className={styles.brandTitle}>Leoni Hub</h1>
+          <p className={styles.brandSubtitle}>
+            Segurança em primeiro lugar. Defina uma nova senha forte para sua conta.
+          </p>
         </div>
 
-        <div className={styles.formularioCard}>
-            <div className={styles.formulario}>
+        {/* Lado Direito - Formulário */}
+        <div className={styles.loginRight}>
+          <h2>Redefinir Senha</h2>
+          <p className={styles.description}>
+            Crie uma nova senha para acessar o painel administrativo.
+          </p>
 
-                <h2> Insira a nova senha </h2>
-
-                {error && (
-                <div style={{ 
-                    color: 'red', 
-                    backgroundColor: '#ffe6e6', 
-                    padding: '10px', 
-                    borderRadius: '5px',
-                    marginBottom: '15px'
-                    }}>
-                    {error}
-                </div>
-                )}
-
-                {successMessage && (
-                <div style={{ 
-                    color: 'green', 
-                    backgroundColor: 'rgba(197, 255, 180, 1)', 
-                    padding: '10px', 
-                    borderRadius: '5px',
-                    marginBottom: '15px'
-                    }}>
-                    {successMessage}
-                </div>
-                )}
-
-                <form onSubmit={handlePasswordReset}>
-                    <input 
-                    type="password" 
-                    placeholder="Nova senha" 
-                    value={senha}
-                    onChange={(e) => setSenha(e.target.value)}
-                    required 
-                    />
-                    <input 
-                    type="password" 
-                    placeholder="Nova senha novamente" 
-                    value={senhaConfirmacao}
-                    onChange={(e) => setSenhaConfirmacao(e.target.value)}
-                    required 
-                    />
-
-                    <button type="submit" disabled={loading}>
-                        {loading ? 'Enviando...' : 'Enviar'}
-                    </button>
-                </form>
+          {error && (
+            <div className={styles.alertError}>
+                ⚠️ {error}
             </div>
+          )}
+
+          {successMessage && (
+            <div className={styles.alertSuccess}>
+                ✅ {successMessage}
+            </div>
+          )}
+
+          <form onSubmit={handlePasswordReset} className={styles.formulario}>
+              <input 
+                type="password" 
+                placeholder="Nova senha" 
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required 
+                disabled={loading || !token}
+                autoComplete="new-password"
+              />
+              <input 
+                type="password" 
+                placeholder="Confirme a nova senha" 
+                value={newPasswordConfirmation}
+                onChange={(e) => setNewPasswordConfirmation(e.target.value)}
+                required 
+                disabled={loading || !token}
+                autoComplete="new-password"
+              />
+
+              <button type="submit" disabled={loading || !token}>
+                  {loading ? 'Salvando...' : 'Alterar Senha'}
+              </button>
+          </form>
         </div>
+      </div>
+
+      <Link to="/login" className={styles.buttonBack}>
+        ← Voltar para o Login
+      </Link>
     </div>
   )
 }
