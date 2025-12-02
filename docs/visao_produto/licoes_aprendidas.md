@@ -59,3 +59,27 @@ Durante a segunda unidade do projeto do Leoni Hub, foram identificadas algumas l
 **Desafio:** Criar Features e Histórias de Usuário (US - User Stories) a partir da lista inicial de Requisitos Funcionais (RF) e Não Funcionais (RNF).
 
 **Ação de Melhoria:** A superação veio da estruturação hierárquica (Features) e do fatiamento dos requisitos funcionais em Histórias de Usuário prontas para estimativa.
+
+## 7.3 - Unidade 3 
+
+Durante a terceira unidade do projeto do Leoni Hub, foram identificadas algumas lições importantes que foram essenciais no desenvolvimento não só nesse projeto mas em futuros outros.
+
+#### Product Backlog Building (PBB)
+**Desafio:** Dificuldade em definir a granularidade correta das Features e conectá-las às necessidades reais das Personas, garantindo que os itens do backlog (PBIs) gerassem valor de negócio.
+
+**Como foi superado:** Aplicamos as técnicas de decomposição do PBB Canvas e realizamos uma análise comparativa com os feedbacks dados pelo professor a outros grupos, ajustando nossos critérios de aceite e a escrita das Histórias de Usuário.
+
+#### User Story Mapping (USM)
+**Desafio:** Alinhar as necessidades das Personas com as atividades principais do Backbone (espinha dorsal), garantindo que o fluxo narrativo cobrisse o problema do caso sem criar etapas desnecessárias.
+
+**Como foi superado:** Realizamos o mapeamento da jornada do usuário focando estritamente no "Caminho Feliz". Isso nos permitiu filtrar quais tarefas eram críticas para a persona atingir seu objetivo e quais eram secundárias, consolidando um backbone enxuto e coerente.
+
+#### Modelagem e Especificação de Casos de Uso (Estudo de Caso)
+**Desafio:** Compreender a complexidade das relações nos diagramas (*include* e *extend*) e traduzir as regras de negócio do estudo de caso para as especificações, seguindo o modelo de forma rigorosa, representou um desafio significativo.
+
+**Como foi superado:** A modelagem visual foi utilizada para identificar lacunas no entendimento do problema. Ao escrevermos os fluxos alternativos e de exceção, conseguimos mapear todas as possibilidades de erro e comportamento do caso estudado.
+
+#### Conclusão e Entrega do Projeto Leoni Hub
+**Desafio:** Conectar as etapas de codificação com a manutenção das documentações atualizadas, garantindo que o software funcional refletisse exatamente os requisitos acordados.
+
+**Como foi superado:** A equipe atuou no desenvolvimento do código e na revisão dos artefatos. Através de entregas incrementais e reuniões de feedback, validamos a usabilidade e a performance diretamente com o cliente, resultando em um projeto homologado, documentado e com as funcionalidades aprovadas para uso.
