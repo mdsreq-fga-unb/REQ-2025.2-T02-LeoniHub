@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'http://localhost:3001';
+export const API_BASE_URL = 'https://req-2025-2-t02-leonihub-1.onrender.com';
 
 export const apiFetch = async (endpoint, options = {}) => {
 
