@@ -41,11 +41,13 @@ export default function EditarProduto() {
           cor: produto.cor || '',
           tamanho: produto.tamanho || '',
           quantidade: produto.quantidade?.toString() || '0',
-          valor: produto.valor?.toString() || ''
+          valor: produto.valor?.toString() || '',
+          foto: produto.foto
         });
 
         if (produto.foto) {
           setPreview(produto.foto);
+          setNovaImagem(null);
         }
 
       } else {
@@ -66,11 +68,6 @@ export default function EditarProduto() {
       setNovaImagem(file); // Guarda o arquivo para enviar depois
       setPreview(URL.createObjectURL(file)); // Mostra preview
     }
-  };
-
-  const removeNewImage = () => {
-    setNovaImagem(null);
-    loadProduto();
   };
   
   const handleChange = (e) => {
@@ -103,7 +100,7 @@ export default function EditarProduto() {
       dataToSend.append('quantidade', formData.quantidade);
       dataToSend.append('valor', formData.valor);
 
-      if (novaImagem) {
+      if (novaImagem && novaImagem instanceof File) {
         dataToSend.append('imagem', novaImagem);
       }
 
@@ -222,6 +219,7 @@ export default function EditarProduto() {
                 <input
                   type="text"
                   name="codigo"
+                  readOnly={true}
                   value={formData.codigo}
                   onChange={handleChange}
                   placeholder="Ex: PROD001"

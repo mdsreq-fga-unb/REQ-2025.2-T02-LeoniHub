@@ -186,6 +186,7 @@ export default function ClienteDetalhes() {
         </div>
 
         {/* Cards de Estatísticas */}
+            {/*
         <div className="stats-cards">
           <div className="stat-card">
             <div className="stat-icon pedidos-ativos">
@@ -215,8 +216,10 @@ export default function ClienteDetalhes() {
               <span className="stat-value">R$ {(cliente.totalGasto || 0).toFixed(2).replace('.', ',')}</span>
               <span className="stat-label">Total Gasto</span>
             </div>
+            
           </div>
         </div>
+        */}
       </div>
 
       {/* Histórico de Pedidos */}

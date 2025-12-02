@@ -11,7 +11,7 @@ export default function HomePage() {
         <div className={styles.body}>
             {/* Header */}
             <div className={styles.header}>
-                <h1 className={styles.mainTitle}>Leoni Hub</h1>
+                <h1 className={styles.mainTitle}>Leonni Hub</h1>
                 <p className={styles.subtitle}>Portal Administrativo</p>
                 <p className={styles.description}>Acesse os sistemas de gestão das lojas</p>
             </div>

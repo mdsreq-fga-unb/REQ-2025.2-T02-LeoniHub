@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
 import { getClienteById } from '../../services/clienteService';
+import { getProdutoById } from '../../services/produtoService';
 import { atualizarPedido, getPedidoById } from '../../services/pedidoService'; 
 import './PedidoForm.css';
 
@@ -26,6 +27,7 @@ export default function EditarPedido() {
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+  const [produtoNome, setProdutoNome] = useState('');
 
   useEffect(() => {
     loadPedidoData();
@@ -57,6 +59,9 @@ export default function EditarPedido() {
         status: data.status,
         descricao: data.descricao,
       });
+
+      const produto = await getProdutoById(data.produto_id);
+      setProdutoNome((produto.data).codigo);
 
     } catch (error) {
       console.error('Erro ao carregar pedido:', error);
@@ -123,6 +128,10 @@ export default function EditarPedido() {
         setLoading(true);
         setErrorMessage('');
         
+        if(formData.status === 'DEVOLUCAO'){
+          throw new Error('O pedido não pode ser alterado pois o cliente está com o produto.');
+        }
+
         const payload = {
             ...formData,
             id: id,
@@ -177,53 +186,28 @@ export default function EditarPedido() {
                 type="text"
                 id="cliente_cpf_cnpj"
                 name="cliente_cpf_cnpj"
+                readOnly = {true}
                 value={formData.cliente_cpf_cnpj}
                 onChange={handleChange}
                 placeholder="000.000.000-00"
               />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="cliente_id">Cód. Cliente (Opcional)</label>
-              <input
-                type="text"
-                id="cliente_id"
-                name="cliente_id"
-                value={formData.cliente_id}
-                onChange={handleChange}
-              />
-            </div>
-
             {/* Dados do Produto e Valor */}
             <div className="form-group">
               <label htmlFor="produto_id">
-                ID do Produto <span className="required">*</span>
+                Código do Produto <span className="required">*</span>
               </label>
               <input
                 type="text"
                 id="produto_id"
                 name="produto_id"
-                value={formData.produto_id}
+                readOnly = {true}
+                value={produtoNome}
                 onChange={handleChange}
                 className={errors.produto_id ? 'error' : ''}
               />
               {errors.produto_id && <span className="error-message">{errors.produto_id}</span>}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="valor">
-                Valor Total (R$) <span className="required">*</span>
-              </label>
-              <input
-                type="number"
-                step="0.01"
-                id="valor"
-                name="valor"
-                value={formData.valor}
-                onChange={handleChange}
-                className={errors.valor ? 'error' : ''}
-              />
-              {errors.valor && <span className="error-message">{errors.valor}</span>}
             </div>
 
             {/* Datas */}
@@ -255,6 +239,22 @@ export default function EditarPedido() {
                 className={errors.data_devolucao ? 'error' : ''}
               />
               {errors.data_devolucao && <span className="error-message">{errors.data_devolucao}</span>}
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="valor">
+                Valor Total (R$) <span className="required">*</span>
+              </label>
+              <input
+                type="number"
+                step="0.01"
+                id="valor"
+                name="valor"
+                value={formData.valor}
+                onChange={handleChange}
+                className={errors.valor ? 'error' : ''}
+              />
+              {errors.valor && <span className="error-message">{errors.valor}</span>}
             </div>
 
             {/* Status */}

@@ -115,15 +115,12 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       
       // CHAMA SERVICE
-      const response = await authService.forgotPassword(email ); 
+      const response = await authService.forgotPassword(email); 
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Erro ao enviar email de recuperação');
+      if (response.success) {
+        return { success: true, message: response.message || response.data?.message };
       }
 
-      return { success: data.success, message: data.data.message };
     } 
     catch (error) {
       console.error(`Erro na recuperação de senha:${error}`);

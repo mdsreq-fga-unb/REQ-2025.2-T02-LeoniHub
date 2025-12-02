@@ -129,7 +129,7 @@ export const updateProduto = async (id, produtoData) => {
       tamanho: tamanho || null,
       quantidade: quantidade || 0,
       valor: parseFloat(valor),
-      foto: foto || null
+      foto: foto
     })
     .eq('id', id)
     .select()

@@ -205,11 +205,11 @@
 }
 
 .status-cancelado {
-  background-color: #dc3545; /* Vermelho */
+  background-color: #248fb9; /* Vermelho */
 }
 
 .status-default {
-  background-color: #6c757d; /* Cinza */
+  background-color: #db3232; /* Cinza */
 }
 
 /* --- Informações Adicionais e Stats --- */

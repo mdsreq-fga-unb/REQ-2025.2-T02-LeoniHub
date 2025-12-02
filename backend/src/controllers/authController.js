@@ -97,13 +97,11 @@ export const forgotPassword = async (req, res) => {
   const { email } = req.body;
   
   try {
-    
 
     if (!email) {
       return res.status(400).json({ success: false, error: 'O campo de e-mail é obrigatório.' });
     }
 
-    await authService.forgotPassword(email)
     await authService.forgotPassword(email)
 
     return res.status(200).json({ 
@@ -128,7 +126,6 @@ export const changePassword = async (req, res) => {
     }
 
     // CHAMA SERVICE
-    await authService.changePassword(token, newPassword, newPasswordConfirmation) ;
     await authService.changePassword(token, newPassword, newPasswordConfirmation) ;
 
     return res.status(200).json({ success: true, message: 'Senha atualizada com sucesso!' });

@@ -150,7 +150,6 @@ export const forgotPassword = async (email) => {
   if(error){
     throw new Error(`Ocorreu um erro interno na recuperação de senha: ${error.message}`)
   }
-
 }
 
 export const changePassword = async (token, newPassword, newPasswordConfirmation) => {

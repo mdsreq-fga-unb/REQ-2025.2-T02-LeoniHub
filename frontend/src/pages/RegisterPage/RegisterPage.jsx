@@ -54,7 +54,7 @@ function RegisterPage() {
             alt="Logo Leoni Hub" 
             className={styles.logoImage} 
           />
-          <h1 className={styles.brandTitle}>Leoni Hub</h1>
+          <h1 className={styles.brandTitle}>Leonni Hub</h1>
           <p className={styles.brandSubtitle}>
             Painel administrativo para gerenciamento de ternos e acessórios masculinos
           </p>

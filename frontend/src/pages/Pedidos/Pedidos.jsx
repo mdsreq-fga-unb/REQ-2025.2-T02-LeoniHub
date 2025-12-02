@@ -12,11 +12,11 @@ const formatarMoeda = (valor) => {
 
 const getStatusBadge = (status) => {
     switch (status) {
-        case 'AGUARDANDO_ASSINATURA':
+        case 'RETIRADA':
             return 'status-pendente';
         case 'CONCLUIDO':
             return 'status-concluido';
-        case 'CANCELADO':
+        case 'DEVOLUCAO':
             return 'status-cancelado';
         default:
             return 'status-default';
@@ -89,7 +89,9 @@ export default function Pedidos() {
 
     const statusMatch = pedido.status && pedido.status.toLowerCase().includes(term);
 
-    return idMatch || valorMatch || statusMatch;
+    const clienteMatch = pedido.cliente_cpf_cnpj && pedido.cliente_cpf_cnpj.toLowerCase().includes(term);
+        
+    return idMatch || valorMatch || statusMatch || clienteMatch;
   });
 
   return (

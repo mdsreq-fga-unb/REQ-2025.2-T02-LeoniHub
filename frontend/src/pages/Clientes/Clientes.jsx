@@ -37,8 +37,7 @@ export default function Clientes() {
 
   const filteredClientes = clientes.filter(cliente =>
     cliente.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    cliente.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    cliente.telefone.includes(searchTerm)
+    cliente.cpf_cnpj.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -62,16 +61,18 @@ export default function Clientes() {
           <Search className="search-icon" />
           <input
             type="text"
-            placeholder="Buscar clientes..."
+            placeholder="Buscar clientes (Nome ou CPF/CNPJ)"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
+        {/*
         <button className="btn-filter">
           <Filter className="icon" />
           Filtros
         </button>
-      </div>
+          */}
+        </div>
 
       <div className="clientes-card">
         <div className="card-header">
@@ -125,10 +126,12 @@ export default function Clientes() {
                 </div>
                 
                   <div className="cliente-stats">
+                    {/*
                   <div className="stat">
                     <span className="stat-value">{cliente.pedidosAtivos || 0} pedidos ativos</span>
                     <span className="stat-label">Total: R$ {(cliente.totalGasto || 0).toFixed(2).replace('.', ',')}</span>
                   </div>
+                    */}
                 </div>
               </div>
             ))
