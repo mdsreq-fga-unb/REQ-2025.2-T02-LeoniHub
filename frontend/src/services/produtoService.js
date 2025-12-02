@@ -13,7 +13,7 @@ export const getAllProdutos = () => {
 export const getProdutoById = (id) => {
   return API.apiFetch(`produto/${id}`, {
     method: 'GET',
-  });
+  }); 
 };
 
 

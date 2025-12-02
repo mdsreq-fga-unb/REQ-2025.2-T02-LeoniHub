@@ -1,4 +1,5 @@
 import {supabaseSchema , getSupabaseClient } from '../config/db.js'
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';;
 
 const supabase = getSupabaseClient();
 
@@ -140,7 +141,7 @@ export const signup = async (nome, cpf, email, password) => {
 
 export const forgotPassword = async (email) => {
  
-  const redirectUrl = `http://localhost:3000/changePassword`;
+  const redirectUrl = `${BASE_URL}/changePassword`;
   
   // Chama o método de recuperação de senha do Supabase
   const { data, error } = await supabaseSchema.auth.resetPasswordForEmail(email, {

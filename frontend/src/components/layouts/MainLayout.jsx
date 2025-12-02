@@ -38,7 +38,7 @@ export function MainLayout() {
               <img src={leoniLogo} alt="Leoni Hub Logo" />
             </div>
             <div className="logo-text">
-              <h1>Leoni Hub</h1>
+              <h1>Leonni Hub</h1>
               <p>Gestão de Aluguéis</p>
             </div>
           </div>

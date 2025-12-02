@@ -61,7 +61,7 @@ function RegisterPage() {
         </div>
 
         <div className={styles.loginRight}>
-          <h2>Registar</h2>
+          <h2>Registrar</h2>
           
           {error && (
             <div style={{ 
